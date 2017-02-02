@@ -1,30 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+ï»¿<!DOCTYPE html>
+<html lang="en">
 <head>
-<!--<meta http-equiv="Content-Type" content="text/html; charset=windows-874" />-->
-<!-- Required meta tags -->
-    <meta charset="windows-874">
+
+	<!-- Required meta tags -->
+    <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
 	<title>iProjectOrder</title>
 
-<!-- CSS -->
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css');?>" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<!-- END CSS -->
+	<!-- CSS -->
+	<link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!--<link href="<?php echo base_url('assets/css/jumbotron-narrow.css'); ?>" rel="stylesheet">-->
+
+    
+	<!-- END CSS -->
+    
 
 </head>
-
 <body>
 <!-- Body -->
-	<h3>Hello</h3>
-    <h4>ÊÇÑÊ´Õ</h4>
-<!-- / Body -->
+<!-- /////////////////////////////////////////////////////////////////////////////////////////// -->
 
-<!-- SCRIPT -->
-	<script src="<?php echo base_url('assets/js/jquery-3.1.1.slim.min.js') ;?>" crossorigin="anonymous"></script>
-    <script src="<?php echo base_url('assets/js/tether.min.js'); ?>" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="<?php echo base_url('assets/js/bootstrap.min.js') ;?>" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<!-- END SCRIPT -->
-
-</body>
-</html>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">iProject</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+            	<a href="<?php echo site_url('Home/index'); ?>">Home</a>
+            </li>
+            <li>
+            	<a href="<?php echo site_url('Items/index'); ?>">Items</a>
+            </li>
+            <li>
+            	<a href="#contact">Order</a>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>   
