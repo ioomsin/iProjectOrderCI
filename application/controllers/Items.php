@@ -8,16 +8,20 @@ class Items extends CI_Controller {
 		
 		$this->load->model("Items/Model_Item");
 		
-		$this->load->view('Home/Header');
-		$this->load->view('Home/Footer');
-		
 	}
 	
 	public function index()
 	{
 		$this->db->order_by("ItemCode", "ASC");
 		$data["rs"] = $this->Model_Item->select();
-		$this->load->view('Items/ItemHome', $data);
+		
+		$this->theme->loadtheme('Items/ItemHome', $data);
+	}
+	
+	public function ItemForm()
+	{
+		$data["proc"] = $this->uri->segment(3);
+		$this->theme->loadtheme('Items/ItemForm', $data);
 	}
 	
 }	// ### END Class

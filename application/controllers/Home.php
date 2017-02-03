@@ -10,8 +10,9 @@ class Home extends CI_Controller {
 	
 	public function index()
 	{
-		$this->load->view('Home/Header');
-		$this->load->view('Home/Footer');
+		// Load Theme From Libraries
+		$this->theme->loadtheme('Home/Body'); 
+
 	}
 	
 }	// ### END Class
