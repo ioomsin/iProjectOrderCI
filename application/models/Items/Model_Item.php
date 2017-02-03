@@ -14,16 +14,16 @@ class Model_Item extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($id)
 	{
-		$query = $this->db->get_where("plants", array("plant_id" => $id));
+		$query = $this->db->get_where("Items", array("ItemCode" => $id));
 		$row = $query->row_array();
 		//print_r($row); exit;
 		return $row;
 	}	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function add($data)
+	public function add_data($table, $data)
 	{
 		//print_r($data);
-		$this->db->insert("plants", $data);
+		$this->db->insert($table, $data);
 		return $this->db->insert_id();
 	}
 	/////////////////////////////////------------------------------------------------------

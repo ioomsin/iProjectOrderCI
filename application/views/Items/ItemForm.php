@@ -1,17 +1,25 @@
 ﻿
 
-  <?php echo form_open("Items/AddItem");?>
+  <?php 
+  
+  	$proc = $this->uri->segment(3);
+	
+  	echo form_open_multipart("Items/AddItem");
+	echo form_hidden("proc", $proc);
+	
+  ?>
   
       <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
                 <?php 
+					
                     echo form_label( "รหัสสินค้า", "ItemCode" );
-                    echo form_input( "รหัสสินค้า", "", 
+                    echo form_input( "ItemCode", !empty($ItemCode)?$ItemCode:"Auto", 
 										array(
-											'class' => 'form-control',
-											'name' => 'ItemCode',
-											'id' => 'ItemCode'
+											'class' => 'form-control readonly',
+											'id' => 'ItemCode',
+											'readonly' => 'readonly'
 										)
 									); 
                 ?>
@@ -25,10 +33,9 @@
             <div class="form-group">
                 <?php 
                     echo form_label( "ชื่อสินค้า", "ItemName" );
-                    echo form_input( "ชื่อสินค้า", "", 
+                    echo form_input( "ItemName", !empty($ItemName)?$ItemName:"", 
 										array(
 											'class' => 'form-control',
-											'name' => 'ItemName',
 											'id' => 'ItemName'
 										)
 									); 
@@ -43,10 +50,9 @@
             <div class="form-group">
                 <?php 
                     echo form_label( "จำนวน", "ItemQty" );
-                    echo form_input( "จำนวน", "", 
+                    echo form_input( "ItemQty", !empty($ItemQty)?$ItemQty:"", 
 										array(
 											'class' => 'form-control',
-											'name' => 'ItemQty',
 											'id' => 'ItemQty'
 										)
 									); 
@@ -61,10 +67,9 @@
             <div class="form-group">
                 <?php 
                     echo form_label( "ราคาต่อหน่วย", "ItemPrice" );
-                    echo form_input( "ราคาต่อหน่วย", "", 
+                    echo form_input( "ItemPrice", !empty($ItemPrice)?$ItemPrice:"", 
 										array(
 											'class' => 'form-control',
-											'name' => 'ItemPrice',
 											'id' => 'ItemPrice'
 										)
 									); 
@@ -79,10 +84,9 @@
             <div class="form-group">
                 <?php 
                     echo form_label( "รูปสินค้า", "ItemImage" );
-                    echo form_upload( "รูปสินค้า", "", 
+                    echo form_upload( "ItemImage", "", 
 										array(
 											'class' => 'form-control-file',
-											'name' => 'ItemImage',
 											'id' => 'ItemImage',
 											'aria-describedby' => 'fileHelp'
 										)
@@ -96,9 +100,7 @@
         <div class="row text-center">
             <div class="col-lg-12">
                 <?php
-                    echo form_button("btn_save","บันทึกข้อมูล", array('class' => 'btn btn-info') );
-                    //echo form_button("btn_back","กลับหน้าหลัก", array('class' => 'btn btn-secondary') );
-            
+                    echo form_submit("btn_save","บันทึกข้อมูล", array('class' => 'btn btn-info') );            
                 ?>
             	<a href="<?php echo site_url('Items/index'); ?>" class="btn btn-secondary">กลับหน้าหลัก</a>
             </div>

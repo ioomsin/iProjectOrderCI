@@ -10,9 +10,9 @@
                 <thead>
                     <tr>
                         <th width="5%">
-                            <a href="<?php echo site_url('Items/ItemForm/Add'); ?>" class="btn btn-secondary btn-sm">เพิ่ม</a>
+                            <a href="<?php echo site_url('Items/ItemForm/Add'); ?>" class="btn btn-outline-primary btn-sm">เพิ่ม</a>
                         </th>
-                        <th width="25%">รหัสสินค้า</th>
+                        <th width="20%">รหัสสินค้า</th>
                         <th>ชื่อสินค้า</th>
                         <th width="7%"></th>
                     </tr>
@@ -32,7 +32,7 @@
                         <td>
                             <!-- Example single danger button -->
                             <div class="btn-group">
-                              <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <button type="button" class="btn btn-outline-primary dropdown-toggle btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Action
                               </button>
                               <div class="dropdown-menu">
