@@ -4,7 +4,7 @@
   
   	$proc = $this->uri->segment(3);
   	$hidden = array('proc' => $proc);
-  	echo form_open_multipart('Items/ManageDataItem', array('id' => 'frm_item'), $hidden);
+  	echo form_open_multipart('Orders/ManageDataOrder', array('id' => 'frm_order'), $hidden);
 	//echo form_hidden("proc", $proc, array('id' => 'proc'));
 	
   ?>

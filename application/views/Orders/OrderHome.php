@@ -5,15 +5,17 @@
             <font color="#FFFFFF">รายการสินค้า</font>
         </div>-->
         <!--<div class="card-block">-->
-        	<h4 class="card-title"># รายการสินค้า</h4>
+        	<h4 class="card-title"># รายการสั่งซื้อสินค้า</h4>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th width="5%">
-                            <a href="<?php echo site_url('Items/ItemForm/Add'); ?>" class="btn btn-outline-primary btn-sm">เพิ่ม</a>
+                            <a href="<?php echo site_url('Orders/OrderForm/Add'); ?>" class="btn btn-outline-primary btn-sm">เพิ่ม</a>
                         </th>
-                        <th width="20%">รหัสสินค้า</th>
-                        <th>ชื่อสินค้า</th>
+                        <th width="20%">เลขที่ใบสั่งซื้อ</th>
+                        <th width="15%">วันที่สั่งซื้อ</th>
+                        <th width="20%">รหัสลูกค้า</th>
+                        <th>ชื่อลูกค้า</th>
                         <th width="7%"></th>
                     </tr>
                 </thead>
@@ -27,8 +29,10 @@
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $i;?></td>
-                        <td><?php echo $rs["ItemCode"];?></td>
-                        <td><?php echo $rs["ItemName"];?></td>
+                        <td><?php echo $rs["OrderNumber"];?></td>
+                        <td><?php echo $rs["OrderDate"];?></td>
+                        <td><?php echo $rs["VendorCode"];?></td>
+                        <td><?php echo $rs["VendorName"];?></td>
                         <td>
                             <!-- Example single danger button -->
                             <div class="btn-group">
@@ -36,8 +40,8 @@
                                 Action
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?php echo site_url('Items/ItemForm/Edit/'.$rs["ItemCode"]); ?>">แก้ไข</a>
-                                <a class="dropdown-item" href="<?php echo site_url('Items/DeleteItem/Delete/'.$rs["ItemCode"]); ?>">ลบ</a>
+                                <a class="dropdown-item" href="<?php echo site_url('Orders/OrderForm/Edit/'.$rs["OrderNumber"]); ?>">แก้ไข</a>
+                                <a class="dropdown-item" href="<?php echo site_url('Orders/DeleteOrder/Delete/'.$rs["OrderNumber"]); ?>">ลบ</a>
                               </div>
                             </div>
                         </td>

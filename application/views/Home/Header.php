@@ -13,9 +13,33 @@
 
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url('assets/css/narrow-jumbotron.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/jquery-ui-1.12.1.min.css'); ?>" rel="stylesheet">
     
 	<!-- END CSS -->
-    
+
+	<!-- SCRIPT -->
+	<script src="<?php echo base_url('assets/js/jquery-3.1.1.min.js') ;?>"></script>
+	<script src="<?php echo base_url('assets/js/jquery-ui-1.12.1.min.js') ;?>"></script> 
+    <script src="<?php echo base_url('assets/js/tether.min.js') ;?>"></script>
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js') ;?>"></script>
+	<!-- END SCRIPT -->    
+
+	<script>
+	
+		$(function(){
+		
+			/*$('a.nav-link').click(function(){
+				var url = window.location.href;
+				console.log(url);
+			    $('a.nav-link').removeClass("active");
+			    $(this).addClass("active");
+			    //$("a[href='"+url+"']").parent().addClass("active");
+			    
+			});*/
+			
+		}) //end $(function()
+	
+	</script>
 
 </head>
 <body>
@@ -33,10 +57,10 @@
               <a class="nav-link active" href="<?php echo site_url('Home/index'); ?>">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="<?php echo site_url('Items/index'); ?>">Item</a>
+              <a id="navitem" class="nav-link" href="<?php echo site_url('Items/index'); ?>">Item</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Order</a>
+              <a class="nav-link" href="<?php echo site_url('Orders/index'); ?>">Order</a>
             </li>
           </ul>
         </nav>

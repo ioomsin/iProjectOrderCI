@@ -1,5 +1,5 @@
 <?php 
-class Model_Item extends CI_Model {
+class Model_Order extends CI_Model {
 	function __construct(){
 		parent::__construct();
 		
@@ -7,7 +7,7 @@ class Model_Item extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select()
 	{
-		$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));	
+		$query = $this->db->get_where("Orders", array("ActiveStatus" => "1"));	
 		$result = $query->result_array();
 		
 		return $result;
@@ -15,9 +15,9 @@ class Model_Item extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($id)
 	{
-		$query = $this->db->get_where("Items", array("ItemCode" => $id));
+		$query = $this->db->get_where(Orders, array("OrderNumber" => $id));
 		$row = $query->row_array();
-		
+		//print_r($row); exit;
 		return $row;
 	}	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------

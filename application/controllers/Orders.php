@@ -1,21 +1,21 @@
 ﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Items extends CI_Controller {
+class Orders extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model("Items/Model_Item");
+		$this->load->model("Orders/Model_Order");
 		
 	}
 	
 	public function index()
 	{
-		$this->db->order_by("ItemCode", "ASC");
-		$data["result"] = $this->Model_Item->select();
+		$this->db->order_by("OrderNumber", "ASC");
+		$data["result"] = $this->Model_Order->select();
 		
-		$this->theme->loadtheme('Items/ItemHome', $data);
+		$this->theme->loadtheme('Orders/OrderHome', $data);
 		//$this->load->view('Items/ItemHome', $data);
 	}
 	
@@ -65,12 +65,8 @@ class Items extends CI_Controller {
 		$data['ItemName'] 	=  $this->input->post('ItemName');
 		$data['ItemQty'] 	=  $this->input->post('ItemQty'); 
 		$data['ItemPrice'] 	=  $this->input->post('ItemPrice'); 
+		$data['ItemImage'] 	=  $upload_data['file_name'];
 		
-		$ItemImage = $this->input->post('ItemImage');
-		if(!empty($ItemImage)){
-			$data['ItemImage'] 	=  $upload_data['file_name'];
-		}
-
 		//$data=$this->input->post();
 		
 		if($proc == "Add")

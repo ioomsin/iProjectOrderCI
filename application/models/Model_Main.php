@@ -1,57 +1,57 @@
 <?php 
-class Model_Item extends CI_Model {
+class Model_Main extends CI_Model {
 	function __construct(){
 		parent::__construct();
 		
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select()
+	public function select($tbl)
 	{
-		$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));	
+		$query = $this->db->get_where($tbl, array("ActiveStatus" => "1"));	
 		$result = $query->result_array();
 		
 		return $result;
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select_id($id)
+	public function select_id($tbl, $filed, $id)
 	{
-		$query = $this->db->get_where("Items", array("ItemCode" => $id));
+		$query = $this->db->get_where($tbl, array($filed => $id));
 		$row = $query->row_array();
 		
 		return $row;
 	}	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function add_data($table, $data)
+	public function add_data($tbl, $data)
 	{
-		//print_r($data);
-		$this->db->insert($table, $data);
-		return $this->db->insert_id();
+		$this->db->insert($tbl, $data);
+		$id = $this->db->insert_id();
+		
+		return $id;
 	}
 	/////////////////////////////////------------------------------------------------------
 	
-	public function update_data($table, $id, $data)
+	public function update_data($tbl, $filed, $id, $data)
 	{
-		//$this->db->select("*")->from("plants")->where("plant_id",$id)->where("active_status",'1');
 		//$row = $this->db->get()->row_array();
-		$query = $this->db->get_where($table, array("ItemCode" => $id));
-		$row = $query->row_array();
-			if($row['ItemCode']!="")
-			{
-				$this->db->where("ItemCode", $id);
-				$this->db->update($table, $data);
-			}else{
-				echo "ERROR !!! No ID";
-			}
-	}
-	/////////////////////////////////------------------------------------------------------
-	function delete_data($id)
-	{
-		//$this->db->select("*")->from($table)->where($filed, $id)->where("active_status",'1');
-		//$row = $this->db->get()->row_array();
-		$query = $this->db->get_where("Items", array("ItemCode" => $id, "ActiveStatus" => "1"));
+		$query = $this->db->get_where($tbl, array( $filed => $id ));
 		$row = $query->row_array();
 		
-		if($row['ItemCode']!="")
+		if($row[$filed]!="")
+		{
+			$this->db->where($filed, $id);
+			$this->db->update($tbl, $data);
+			
+		}else{
+			echo "ERROR !!! No ID";
+		}
+	}
+	/////////////////////////////////------------------------------------------------------
+	function delete_data($tbl, $filed, $id)
+	{
+		$query = $this->db->get_where($tbl, array( $filed => $id, "ActiveStatus" => "1"));
+		$row = $query->row_array();
+		
+		if($row[$filed]!="")
 		{
 			//ลบออกจากตาราง
 			//$this->db->where('animal_id', $id);
@@ -59,8 +59,8 @@ class Model_Item extends CI_Model {
 			
 			//Update สถานะ เป็น ไม่ใช้งาน
 			$data['ActiveStatus'] = '0';
-			$this->db->where("ItemCode", $row['ItemCode']);
-		   	$this->db->update("Items", $data);
+			$this->db->where($filed, $row[$filed]);
+		   	$this->db->update($tbl, $data);
 		}
 		else
 		{
@@ -68,11 +68,12 @@ class Model_Item extends CI_Model {
 		}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function getCode($table, $filed)
+	function getCode($tbl, $filed)
 	{
 		$this->db->select_max($filed);
-		$query = $this->db->get($table);
-		return $query->row_array();
+		$query = $this->db->get($tbl);
+		$row = $query->row_array();
+		return row;
 	}
 	/////////////////////////////////------------------------------------------------------
 	

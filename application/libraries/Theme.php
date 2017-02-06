@@ -12,4 +12,10 @@ class Theme {
 		$ci->load->view('Home/Footer');
 	}
 	
+	public function LoadView($view,$data=null)
+	{
+		$ci =& get_instance();
+		$ci->load->view($view, $data);
+	}
+	
 }	// ### END Class
