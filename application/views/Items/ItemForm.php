@@ -15,14 +15,12 @@
                 <?php 
 					
                     echo form_label( 'รหัสสินค้า', 'ItemCode' );
-                    echo form_input( 'ItemCode', !empty($ItemCode)?$ItemCode:
-                    	'Auto', 
-										array(
-											'class' => 'form-control readonly',
-											'id' => 'ItemCode',
-											'readonly' => 'readonly'
-										)
-									); 
+                    echo form_input( array(	'name' 		=> 'ItemCode',
+											'id' 		=> 'ItemCode',
+                    						'class' 	=> 'form-control readonly',
+											'readonly' 	=> 'readonly'
+									), !empty($ItemCode)?$ItemCode:'Auto'
+					); 
                 ?>
                 
             </div>        
@@ -34,12 +32,11 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'ชื่อสินค้า', 'ItemName' );
-                    echo form_input( 'ItemName', !empty($ItemName)?$ItemName:'', 
-										array(
-											'class' => 'form-control',
-											'id' => 'ItemName'
-										)
-									); 
+                    echo form_input( array(	'name'	=> 'ItemName',
+											'id'	=> 'ItemName',
+											'class'	=> 'form-control'
+									), !empty($ItemName)?$ItemName:''
+					); 
                 ?>
                 
             </div>        
@@ -51,12 +48,11 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'จำนวน', 'ItemQty' );
-                    echo form_input( 'ItemQty', !empty($ItemQty)?number_format($ItemQty,2):'', 
-										array(
-											'class' => 'form-control text-right',
-											'id' => 'ItemQty'
-										)
-									); 
+                    echo form_input( array(	'name'	=> 'ItemQty',
+                    						'id'	=> 'ItemQty',
+                    						'class'	=> 'form-control text-right'
+									), !empty($ItemQty)?number_format($ItemQty,2):''
+					); 
                 ?>
                 
             </div>        
@@ -68,12 +64,11 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'ราคาต่อหน่วย', 'ItemPrice' );
-                    echo form_input( 'ItemPrice', !empty($ItemPrice)?number_format($ItemPrice,2):'', 
-										array(
-											'class' => 'form-control text-right',
-											'id' => 'ItemPrice'
-										)
-									); 
+                    echo form_input( array( 'name'	=> 'ItemPrice',
+											'id'	=> 'ItemPrice',
+                    						'class' => 'form-control text-right'
+									), !empty($ItemPrice)?number_format($ItemPrice,2):''
+					); 
                 ?>
                 
             </div>        
@@ -85,14 +80,12 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'รูปสินค้า', 'ItemImage' );
-                    echo form_upload( 'ItemImage', '', 
-										array(
-											'class' => 'form-control-file',
-											'id' => 'ItemImage',
-											'aria-describedby' => 'fileHelp',
-											'value' => !empty($ItemImage)?$ItemImage:''
-										)
-									); 
+                    echo form_upload( array( 'name'				=> 'ItemImage',
+                    						 'id' 				=> 'ItemImage',
+                    						 'class' 			=> 'form-control-file',
+                    						 'aria-describedby' => 'fileHelp'
+									), !empty($ItemImage)?$ItemImage:''
+					); 
                 ?>
             </div>        
         </div>
@@ -101,7 +94,11 @@
         <div class="row text-center">
             <div class="col-lg-12">
                 <?php
-                    echo form_submit('btn_save','บันทึกข้อมูล', array('class' => 'btn btn-primary'));   
+                	echo form_submit( array('name'	=> 'btn_save',
+				                		'id'	=> 'btn_save',
+				                		'class' => 'btn btn-primary'
+				                ), 'บันทึกข้อมูล'
+                	);
                     echo anchor('Items/index', 'กลับหน้าหลัก', array('class' => 'btn btn-secondary'));
                 ?>          	
             </div>

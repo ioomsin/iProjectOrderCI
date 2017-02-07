@@ -13,50 +13,66 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <?php 
-					
-                    echo form_label( 'รหัสสินค้า', 'ItemCode' );
-                    echo form_input( 'ItemCode', !empty($ItemCode)?$ItemCode:
-                    	'Auto', 
-										array(
-											'class' => 'form-control readonly',
-											'id' => 'ItemCode',
-											'readonly' => 'readonly'
-										)
-									); 
+                    echo form_label( 'เลขที่ใบสั่งซื้อ', 'OrderNumber' );
+                    echo form_input( array(	'name'		=> 'OrderNumber',
+											'id'		=> 'OrderNumber',
+											'class'		=> 'form-control readonly',
+											'readonly' 	=> 'readonly'
+                    				), !empty($OrderNumber)?$OrderNumber:'Auto'
+					); 
                 ?>
-                
             </div>        
         </div>
-      </div>
-      
-      <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
                 <?php 
-                    echo form_label( 'ชื่อสินค้า', 'ItemName' );
-                    echo form_input( 'ItemName', !empty($ItemName)?$ItemName:'', 
-										array(
-											'class' => 'form-control',
-											'id' => 'ItemName'
-										)
-									); 
+                    echo form_label( 'วันที่สั่งซื้อ', 'OrderDate' );
+                    echo form_input( array(	'name'	=> 'OrderDate',
+											'id'	=> 'OrderDate',
+											'class'	=> 'form-control'
+									), !empty($OrderDate)?$OrderDate:''
+					); 
                 ?>
-                
             </div>        
         </div>
       </div>
 
       <div class="row">
+        <!-- <div class="col-lg-6">
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'วันที่ส่งสินค้า', 'DeliveryDate' );
+                    echo form_input( array(	'name' 	=> 'DeliveryDate',											
+											'id' 	=> 'DeliveryDate',
+                    						'class'	=> 'form-control text-right'
+									), !empty($DeliveryDate)?number_format($DeliveryDate,2):''
+					); 
+                ?>
+                
+            </div>        
+        </div>  -->
         <div class="col-lg-6">
             <div class="form-group">
                 <?php 
-                    echo form_label( 'จำนวน', 'ItemQty' );
-                    echo form_input( 'ItemQty', !empty($ItemQty)?number_format($ItemQty,2):'', 
-										array(
-											'class' => 'form-control text-right',
-											'id' => 'ItemQty'
-										)
-									); 
+                    echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
+                    echo form_input( array(	'name'	=> 'CustomerCode',
+											'id' 	=> 'CustomerCode',
+											'class'	=> 'form-control text-right'
+									), !empty($CustomerCode)?$CustomerCode:''
+					); 
+                ?>
+                
+            </div>        
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
+                    echo form_input( array(	'name'	=> 'CustomerName',
+											'id'	=> 'CustomerName',
+											'class' => 'form-control text-right'
+									), !empty($CustomerName)?$CustomerName:''
+					); 
                 ?>
                 
             </div>        
@@ -64,48 +80,114 @@
       </div>
       
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <div class="form-group">
                 <?php 
-                    echo form_label( 'ราคาต่อหน่วย', 'ItemPrice' );
-                    echo form_input( 'ItemPrice', !empty($ItemPrice)?number_format($ItemPrice,2):'', 
-										array(
-											'class' => 'form-control text-right',
-											'id' => 'ItemPrice'
-										)
-									); 
+                    echo form_label( 'ที่อยู่ลูกค้า', 'CustomerAddress' );
+                    echo form_textarea( array(	'name' 	=> 'CustomerAddress',
+												'id' 	=> 'CustomerAddress',
+												'class' => 'form-control text-right',
+												'rows' 	=> '2'
+                    					), !empty($CustomerAddress)?$CustomerAddress:''
+                    ); 
                 ?>
-                
             </div>        
         </div>
       </div>
       
       <div class="row">
-        <div class="col-lg-6">
-            <div class="form-group">
-                <?php 
-                    echo form_label( 'รูปสินค้า', 'ItemImage' );
-                    echo form_upload( 'ItemImage', '', 
-										array(
-											'class' => 'form-control-file',
-											'id' => 'ItemImage',
-											'aria-describedby' => 'fileHelp',
-											'value' => !empty($ItemImage)?$ItemImage:''
-										)
-									); 
-                ?>
-            </div>        
+        <div class="col-lg-12">
+        	<table class="table">
+        		<thead>
+        			<tr>
+        				<th>
+        					<a href="<?php echo site_url('Orders/AddRow'); ?>" class="btn btn-outline-primary btn-sm">เพิ่ม</a>
+        				</th>
+        				<th>รหัสสินค้า</th>
+        				<th>ชื่อสินค้า</th>
+        				<th>จำนวน</th>
+        				<th>หน่วยนับ</th>
+        				<th>ราคาต่อหน่วย</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td>
+        					<a href="<?php echo site_url('Orders/DelRow'); ?>" class="btn btn-outline-danger btn-sm">ลบ</a>
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'	=> 'ItemCode',
+        												'id'	=> 'ItemCode',
+        												'class' => 'form-control'
+        										), !empty($ItemCode)?$ItemCode:''
+        						);
+        					?>
+        				</td>
+        				<td>
+         					<?php 
+        						echo form_input( array(	'name'	=> 'ItemName',
+        												'id'	=> 'ItemName',
+        												'class' => 'form-control'
+        										), !empty($ItemName)?$ItemName:''
+        						);
+        					?>       				
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'	=> 'OrderQty',
+        												'id'	=> 'OrderQty',
+        												'class' => 'form-control'
+        										), !empty($OrderQty)?$OrderQty:''
+        						);
+        					?>        				
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'	=> 'OrderUnit',
+        												'id'	=> 'OrderUnit',
+        												'class' => 'form-control'
+        										), !empty($OrderUnit)?$OrderUnit:''
+        						);
+        					?>        				
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'	=> 'OrderPrice',
+        												'id'	=> 'OrderPrice',
+        												'class' => 'form-control'
+        										), !empty($OrderPrice)?$OrderPrice:''
+        						);
+        					?>        				
+        				</td>
+        			</tr>
+        		</tbody>
+        		<tfoot>
+        			<tr>
+        				<td></td>
+        				<td></td>
+        				<td></td>
+        				<td></td>
+        				<td></td>
+        				<td></td>
+        			</tr>
+        		</tfoot>
+        	</table>
         </div>
       </div>
           		        
-        <div class="row text-center">
+      <div class="row text-center">
             <div class="col-lg-12">
                 <?php
-                    echo form_submit('btn_save','บันทึกข้อมูล', array('class' => 'btn btn-primary'));   
+                    echo form_submit( array('name'	=> 'btn_save', 
+                    						'id'	=> 'btn_save',
+                    						'class' => 'btn btn-primary'
+                    				), 'บันทึกข้อมูล'
+                    );   
                     echo anchor('Items/index', 'กลับหน้าหลัก', array('class' => 'btn btn-secondary'));
                 ?>          	
             </div>
-        </div>
+      </div>
 
   <?php echo form_close();?>
   

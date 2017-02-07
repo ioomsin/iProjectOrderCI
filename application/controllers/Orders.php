@@ -12,77 +12,80 @@ class Orders extends CI_Controller {
 	
 	public function index()
 	{
+		
 		$this->db->order_by("OrderNumber", "ASC");
-		$data["result"] = $this->Model_Order->select();
+		$data["result"] = $this->Model_Order->select("Orders");
 		
 		$this->theme->loadtheme('Orders/OrderHome', $data);
-		//$this->load->view('Items/ItemHome', $data);
+		
 	}
 	
-	public function ItemForm()
+	public function OrderForm()
 	{
 		$proc = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
 		
 		if( $proc == "Add" ){
 			
-			$this->theme->loadtheme('Items/ItemForm');
+			$this->theme->loadtheme('Orders/OrderForm');
 			
 		}else{
 			
-			$data = $this->Model_Item->select_id($id);
-			$this->theme->loadtheme('Items/ItemForm', $data);
+			$data = $this->Model_Order->select_id($id);
+			$this->theme->loadtheme('Orders/OrderForm', $data);
+			
 		}
 	}
 	
-	public function ManageDataItem()
+	public function ManageDataOrder()
 	{
 		$proc = $this->input->post('proc');
-		$id = $this->input->post('ItemCode');
-		
-		//### Upload Picture
-		$config['upload_path']		= './assets/img/items';
-		$config['allowed_types']    = 'gif|jpg|png';
-		$config['encrypt_name'] 	= TRUE;
-		$config['max_size']         = 100;
-		$config['max_width']        = 1024;
-		$config['max_height']       = 768;
-
-		
-		$this->load->library('upload', $config);
-		
-		
-		if ( ! $this->upload->do_upload('ItemImage'))
-        {
-			$error = array('error' => $this->upload->display_errors('Upload file error !! ', ''));
-			echo $error['error'];
-
-		}
-			
-		$upload_data = $this->upload->data();
-		
-		
-		$data['ItemName'] 	=  $this->input->post('ItemName');
-		$data['ItemQty'] 	=  $this->input->post('ItemQty'); 
-		$data['ItemPrice'] 	=  $this->input->post('ItemPrice'); 
-		$data['ItemImage'] 	=  $upload_data['file_name'];
-		
-		//$data=$this->input->post();
-		
+		$id = $this->input->post('OrderNumber');
+				
 		if($proc == "Add")
 		{
+			/////-----------------------------------------------------------------/////
 			
-			$data['ItemCode'] 	=  $this->GenCode("Items", "ItemCode");
-			$this->Model_Item->add_data("Items", $data);
+			$data_orders = array(
+					'OrderNumber' 	=> $this->GenCode("Orders", "OrderNumber"),
+					'OrderDate' 	=> $this->input->post('OrderDate'),
+					'DeliveryDate'  => $this->input->post('DeliveryDate'),
+					'VendorCode'  	=> $this->input->post('VendorCode'),
+					'VendorName'  	=> $this->input->post('VendorName'),
+					'VenderAddress' => $this->input->post('VenderAddress'),
+					'Remark'  		=> $this->input->post('Remark'),
+					'TotalPrice'  	=> $this->input->post('TotalPrice')
+			);
 			
-		}else if($proc == "Edit")
-		{
+			$OrderNumber = $this->Model_Order->add_data("Orders", $data_orders);
+
+			/////-----------------------------------------------------------------/////
 			
-			$this->Model_Item->update_data("Items", $id, $data);
+			for($i=0; $i < count($this->input->post('ItemCode')); $i++){
+				$data_orderdetails[$i] = array(
+						'OrderNumber' 	=> $OrderNumber,
+						'ItemCode' 		=> $this->input->post('ItemCode[]'),
+						'ItemName' 		=> $this->input->post('ItemName[]'),
+						'OrderQty' 		=> $this->input->post('OrderQty[]'),
+						'OrderUnit' 	=> $this->input->post('OrderUnit[]'),
+						'OrderPrice' 	=> $this->input->post('OrderPrice[]')
+				);
+				
+				$this->Model_Order->add_data("OrderDetails", $data_orderdetails[]);
+				
+			}
+
+			/////-----------------------------------------------------------------/////
+			
+		}else if($proc == "Edit"){
+			
+			
+			
+			$this->Model_Order->update_data("Orders", $id, $data);
 			
 		}
 		
-		redirect("Items/index");
+		redirect("Orders/index");
 			
 	}
 	
