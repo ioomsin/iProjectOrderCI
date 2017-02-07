@@ -31,7 +31,9 @@ class Orders extends CI_Controller {
 			
 		}else{
 			
-			$data = $this->Model_Order->select_id($id);
+			$data["Head"] = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
+			$data["Detail"] = $this->Model_Order->select_id("OrderDetails", "OrderNumber", $id);
+			
 			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
 		}
@@ -46,32 +48,34 @@ class Orders extends CI_Controller {
 		{
 			/////-----------------------------------------------------------------/////
 			
+			$OrderNumber = $this->GenCode("Orders", "OrderNumber");
 			$data_orders = array(
-					'OrderNumber' 	=> $this->GenCode("Orders", "OrderNumber"),
-					'OrderDate' 	=> $this->input->post('OrderDate'),
-					'DeliveryDate'  => $this->input->post('DeliveryDate'),
-					'VendorCode'  	=> $this->input->post('VendorCode'),
-					'VendorName'  	=> $this->input->post('VendorName'),
-					'VenderAddress' => $this->input->post('VenderAddress'),
-					'Remark'  		=> $this->input->post('Remark'),
-					'TotalPrice'  	=> $this->input->post('TotalPrice')
+					'OrderNumber' 		=> $OrderNumber,
+					'OrderDate' 		=> $this->chg_date($this->input->post('OrderDate')),
+					'CustomerCode'  	=> $this->input->post('CustomerCode'),
+					'CustomerName'  	=> $this->input->post('CustomerName'),
+					'CustomerAddress' 	=> $this->input->post('CustomerAddress'),
+					'Remark'  			=> $this->input->post('Remark'),
+					'TotalPrice'  		=> $this->input->post('TotalPrice')
 			);
 			
-			$OrderNumber = $this->Model_Order->add_data("Orders", $data_orders);
+			$this->Model_Order->add_data("Orders", $data_orders);
+			//echo  exit;
 
 			/////-----------------------------------------------------------------/////
 			
 			for($i=0; $i < count($this->input->post('ItemCode')); $i++){
-				$data_orderdetails[$i] = array(
+				$data_orderdetails = array(
 						'OrderNumber' 	=> $OrderNumber,
-						'ItemCode' 		=> $this->input->post('ItemCode[]'),
-						'ItemName' 		=> $this->input->post('ItemName[]'),
-						'OrderQty' 		=> $this->input->post('OrderQty[]'),
-						'OrderUnit' 	=> $this->input->post('OrderUnit[]'),
-						'OrderPrice' 	=> $this->input->post('OrderPrice[]')
+						'ItemCode' 		=> $this->input->post('ItemCode['.$i.']'),
+						'ItemName' 		=> $this->input->post('ItemName['.$i.']'),
+						'OrderQty' 		=> $this->input->post('OrderQty['.$i.']'),
+						'OrderUnit' 	=> $this->input->post('OrderUnit['.$i.']'),
+						'OrderPrice' 	=> $this->input->post('OrderPrice['.$i.']')
 				);
 				
-				$this->Model_Order->add_data("OrderDetails", $data_orderdetails[]);
+				//print_r( $this->input->post('ItemCode['.$i.']') ); exit;
+				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
 				
 			}
 
@@ -102,24 +106,33 @@ class Orders extends CI_Controller {
 	
 	public function GenCode($table, $filedCode)
 	{
-		$data = $this->Model_Item->getCode($table, $filedCode);
+		$data = $this->Model_Order->getCode($table, $filedCode);
 		$year = substr((date("Y")+543) , 2 , 2);
 		$month = date("m");
 		$prefix = "IT";
 		
-		if( empty($data["ItemCode"]) ){
+		if( empty($data[$filedCode]) ){
 			
 			$genCode = $prefix.$year.$month.sprintf("%04d", 1);
 			
 		}else{
 			
-			$subCode = ( substr( $data["ItemCode"], 6, 4) + 1 );
+			$subCode = ( substr( $data[$filedCode], 6, 4) + 1 );
 			$genCode = $prefix.$year.$month.sprintf("%04d" , $subCode);
 			//echo $subCode ." || ". $genCode ;
 			
 		}
 		//exit;
 		return $genCode;
+	}
+	
+	function chg_date ($date_input)    {
+		$arr_date = explode ("/",$date_input);
+		$date = $arr_date[0];
+		$mont = $arr_date[1];
+		$year = $arr_date[2];
+		//$year = $year_th-543;
+		return $year."-".$mont."-".$date;
 	}
 	
 }	// ### END Class

@@ -31,8 +31,8 @@
                         <td class="text-center"><?php echo $i;?></td>
                         <td><?php echo $rs["OrderNumber"];?></td>
                         <td><?php echo $rs["OrderDate"];?></td>
-                        <td><?php echo $rs["VendorCode"];?></td>
-                        <td><?php echo $rs["VendorName"];?></td>
+                        <td><?php echo $rs["CustomerCode"];?></td>
+                        <td><?php echo $rs["CustomerName"];?></td>
                         <td>
                             <!-- Example single danger button -->
                             <div class="btn-group">
