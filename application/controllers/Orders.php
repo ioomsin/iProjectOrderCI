@@ -7,6 +7,7 @@ class Orders extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->model("Orders/Model_Order");
+		$this->load->model("Units/Model_Unit");
 		
 	}
 	
@@ -27,13 +28,14 @@ class Orders extends CI_Controller {
 		
 		if( $proc == "Add" ){
 			
-			$this->theme->loadtheme('Orders/OrderForm');
+			$data["option"] = $this->Model_Unit->select();
+			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
 		}else{
 			
 			$data["Head"] = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
-			$data["Detail"] = $this->Model_Order->select_id("OrderDetails", "OrderNumber", $id);
-			
+			$data["Detail"] = $this->Model_Order->select_where("OrderDetails", "OrderNumber", $id);
+	
 			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
 		}
@@ -42,13 +44,13 @@ class Orders extends CI_Controller {
 	public function ManageDataOrder()
 	{
 		$proc = $this->input->post('proc');
-		$id = $this->input->post('OrderNumber');
 				
 		if($proc == "Add")
 		{
 			/////-----------------------------------------------------------------/////
 			
 			$OrderNumber = $this->GenCode("Orders", "OrderNumber");
+			
 			$data_orders = array(
 					'OrderNumber' 		=> $OrderNumber,
 					'OrderDate' 		=> $this->chg_date($this->input->post('OrderDate')),
@@ -56,12 +58,11 @@ class Orders extends CI_Controller {
 					'CustomerName'  	=> $this->input->post('CustomerName'),
 					'CustomerAddress' 	=> $this->input->post('CustomerAddress'),
 					'Remark'  			=> $this->input->post('Remark'),
-					'TotalPrice'  		=> $this->input->post('TotalPrice')
+					'TotalPrice'  		=> $this->input->post('TotalOrderPrice')
 			);
 			
 			$this->Model_Order->add_data("Orders", $data_orders);
-			//echo  exit;
-
+			
 			/////-----------------------------------------------------------------/////
 			
 			for($i=0; $i < count($this->input->post('ItemCode')); $i++){
@@ -71,10 +72,10 @@ class Orders extends CI_Controller {
 						'ItemName' 		=> $this->input->post('ItemName['.$i.']'),
 						'OrderQty' 		=> $this->input->post('OrderQty['.$i.']'),
 						'OrderUnit' 	=> $this->input->post('OrderUnit['.$i.']'),
-						'OrderPrice' 	=> $this->input->post('OrderPrice['.$i.']')
+						'OrderPrice' 	=> $this->input->post('OrderPrice['.$i.']'),
+						'TotalPrice' 	=> $this->input->post('TotalPrice['.$i.']')
 				);
 				
-				//print_r( $this->input->post('ItemCode['.$i.']') ); exit;
 				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
 				
 			}
@@ -83,9 +84,40 @@ class Orders extends CI_Controller {
 			
 		}else if($proc == "Edit"){
 			
+			/////-----------------------------------------------------------------/////
+			$OrderNumber = $this->input->post('OrderNumber');
 			
+			$data_orders = array(
+				//	'OrderNumber' 		=> $OrderNumber,
+					'OrderDate' 		=> chg_date($this->input->post('OrderDate')),
+					'CustomerCode'  	=> $this->input->post('CustomerCode'),
+					'CustomerName'  	=> $this->input->post('CustomerName'),
+					'CustomerAddress' 	=> $this->input->post('CustomerAddress'),
+					'Remark'  			=> $this->input->post('Remark'),
+					'TotalOrderPrice'  		=> $this->input->post('TotalOrderPrice')
+			);
+				
+			$this->Model_Order->update_data("Orders", "OrderNumber", $OrderNumber, $data_orders);
+				
+			/////-----------------------------------------------------------------/////
+				
+			for($i=0; $i < count($this->input->post('ItemCode')); $i++){
+				$OrderID = $this->input->post('OrderID['.$i.']');
+				$data_orderdetails = array(
+					//	'OrderNumber' 	=> $OrderNumber,
+						'ItemCode' 		=> $this->input->post('ItemCode['.$i.']'),
+						'ItemName' 		=> $this->input->post('ItemName['.$i.']'),
+						'OrderQty' 		=> $this->input->post('OrderQty['.$i.']'),
+						'OrderUnit' 	=> $this->input->post('OrderUnit['.$i.']'),
+						'OrderPrice' 	=> $this->input->post('OrderPrice['.$i.']'),
+						'TotalPrice' 	=> $this->input->post('TotalPrice['.$i.']')
+				);
+		
+				$this->Model_Order->update_data("OrderDetails", "OrderID", $OrderID, $data_orderdetails);
 			
-			$this->Model_Order->update_data("Orders", $id, $data);
+			}
+			
+			/////-----------------------------------------------------------------/////
 			
 		}
 		
@@ -124,15 +156,6 @@ class Orders extends CI_Controller {
 		}
 		//exit;
 		return $genCode;
-	}
-	
-	function chg_date ($date_input)    {
-		$arr_date = explode ("/",$date_input);
-		$date = $arr_date[0];
-		$mont = $arr_date[1];
-		$year = $arr_date[2];
-		//$year = $year_th-543;
-		return $year."-".$mont."-".$date;
 	}
 	
 }	// ### END Class

@@ -17,7 +17,7 @@
 											'id'		=> 'OrderNumber',
 											'class'		=> 'form-control readonly',
 											'readonly' 	=> 'readonly'
-                    				), !empty($OrderNumber)?$OrderNumber:'Auto'
+                    				), !empty($Head["OrderNumber"])?$Head["OrderNumber"]:'Auto'
 					); 
                 ?>
             </div>        
@@ -29,7 +29,7 @@
                     echo form_input( array(	'name'	=> 'OrderDate',
 											'id'	=> 'OrderDate',
 											'class'	=> 'form-control date'
-									), !empty($OrderDate)?$OrderDate:''
+									), !empty($Head["OrderDate"])?chg_date_th($Head["OrderDate"]):''
 					); 
                 ?>
             </div>        
@@ -44,7 +44,7 @@
                     echo form_input( array(	'name'	=> 'CustomerCode',
 											'id' 	=> 'CustomerCode',
 											'class'	=> 'form-control'
-									), !empty($CustomerCode)?$CustomerCode:''
+									), !empty($Head["CustomerCode"])?$Head["CustomerCode"]:''
 					); 
                 ?>
                 
@@ -57,7 +57,7 @@
                     echo form_input( array(	'name'	=> 'CustomerName',
 											'id'	=> 'CustomerName',
 											'class' => 'form-control'
-									), !empty($CustomerName)?$CustomerName:''
+									), !empty($Head["CustomerName"])?$Head["CustomerName"]:''
 					); 
                 ?>
                 
@@ -74,7 +74,7 @@
 												'id' 	=> 'CustomerAddress',
 												'class' => 'form-control',
 												'rows' 	=> '2'
-                    					), !empty($CustomerAddress)?$CustomerAddress:''
+                    					), !empty($Head["CustomerAddress"])?$Head["CustomerAddress"]:''
                     ); 
                 ?>
             </div>        
@@ -94,13 +94,15 @@
         				<th>จำนวน</th>
         				<th>หน่วยนับ</th>
         				<th>ราคาต่อหน่วย</th>
+        				<th>ราคารวม</th>
         			</tr>
         		</thead>
         		<tbody>
 	        		<?php 
+	        		//echo print_r($Detail);
 	        			if($proc=="Edit"){
 			        		$i=1;
-			        		foreach ( $result as $rs )
+			        		foreach ( $Detail as $rs )
 			        		{
 	        		?>
         			<tr id="row_<?php echo $i; ?>">
@@ -115,6 +117,8 @@
         					?>
         				<td>
         					<?php 
+        						
+        						echo form_hidden("OrderID[]", !empty($rs['OrderID'])?$rs['OrderID']:'');
         						echo form_input( array(	'name'	=> 'ItemCode[]',
         												'id'	=> 'ItemCode'.$i,
         												'class' => 'form-control'
@@ -135,8 +139,9 @@
         					<?php 
         						echo form_input( array(	'name'	=> 'OrderQty[]',
         												'id'	=> 'OrderQty'.$i,
-        												'class' => 'form-control'
-        										), !empty($rs['OrderQty'])?$rs['OrderQty']:''
+        												'class' => 'form-control text-right qty',
+        												"onKeyup"	=> "fnc_CalcPrice()"
+        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
         						);
         					?>        				
         				</td>
@@ -151,10 +156,21 @@
         				</td>
         				<td>
         					<?php 
-        						echo form_input( array(	'name'	=> 'OrderPrice[]',
-        												'id'	=> 'OrderPrice'.$i,
-        												'class' => 'form-control'
-        										), !empty($rs['OrderPrice'])?$rs['OrderPrice']:''
+        						echo form_input( array(	'name'		=> 'OrderPrice[]',
+        												'id'		=> 'OrderPrice'.$i,
+        												'class' 	=> 'form-control text-right price',
+        												"onKeyup"	=> "fnc_CalcPrice()"
+        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):''
+        						);
+        					?>        				
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'		=> 'TotalPrice[]',
+        												'id'		=> 'TotalPrice'.$i,
+        												'class' 	=> 'form-control text-right readonly total-price',
+        												'readonly'	=> 'readonly'
+        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):''
         						);
         					?>        				
         				</td>
@@ -162,7 +178,7 @@
         			<?php 
         						$i++;
 			        		}
-	        			}
+	        			}else{
         			?>
         			<tr id="row_1">
         				<td>
@@ -177,6 +193,10 @@
         				</td>
         				<td>
         					<?php 
+        						echo form_hidden( array( 'name'		=> 'OrderID[]',
+						        						 'id'		=> 'OrderID1'
+        										), !empty($rs['OrderID'])?$rs['OrderID']:''
+        						);
         						echo form_input( array(	'name'	=> 'ItemCode[]',
         												'id'	=> 'ItemCode1',
         												'class' => 'form-control'
@@ -195,15 +215,28 @@
         				</td>
         				<td>
         					<?php 
-        						echo form_input( array(	'name'	=> 'OrderQty[]',
-        												'id'	=> 'OrderQty1',
-        												'class' => 'form-control'
-        										), !empty($rs['OrderQty'])?$rs['OrderQty']:''
+        						echo form_input( array(	'name'		=> 'OrderQty[]',
+        												'id'		=> 'OrderQty1',
+        												'class' 	=> 'form-control text-right qty',
+        												"onKeyup"	=> "fnc_CalcPrice()"
+        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
         						);
         					?>        				
         				</td>
         				<td>
         					<?php 
+	        					/*$options = array(
+	        							'small'  	=> 'Small Shirt',
+	        							'med'    	=> 'Medium Shirt',
+	        							'large'   	=> 'Large Shirt',
+	        							'xlarge' 	=> 'Extra Large Shirt',
+	        					);*/
+        					 	/*$js = array(
+        					 			'class'	=> 'form-control'
+        					 	);*/
+        					 	//print_r($option["UnitCode"]);
+        						//echo form_dropdown('OrderUnit[]', $options, '', $js);
+        						
         						echo form_input( array(	'name'	=> 'OrderUnit[]',
         												'id'	=> 'OrderUnit1',
         												'class' => 'form-control'
@@ -213,15 +246,28 @@
         				</td>
         				<td>
         					<?php 
-        						echo form_input( array(	'name'	=> 'OrderPrice[]',
-        												'id'	=> 'OrderPrice1',
-        												'class' => 'form-control'
-        										), !empty($rs['OrderPrice'])?$rs['OrderPrice']:''
+        						echo form_input( array(	'name'		=> 'OrderPrice[]',
+        												'id'		=> 'OrderPrice1',
+        												'class' 	=> 'form-control text-right price',
+        												"onKeyup"	=> "fnc_CalcPrice()"
+        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):''
+        						);
+        					?>        				
+        				</td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'		=> 'TotalPrice[]',
+        												'id'		=> 'TotalPrice1',
+        												'class' 	=> 'form-control text-right readonly total-price',
+        												'readonly'	=> 'readonly'
+        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):''
         						);
         					?>        				
         				</td>
         			</tr>
-    
+    				<?php 
+	        			}
+    				?>
         		</tbody>
         		<tfoot>
         			<tr>
@@ -231,6 +277,16 @@
         				<td></td>
         				<td></td>
         				<td></td>
+        				<td>
+        					<?php 
+        						echo form_input( array(	'name'		=> 'TotalOrderPrice',
+        												'id'		=> 'TotalOrderPrice',
+        												'class' 	=> 'form-control text-right readonly',
+        												'readonly'	=> 'readonly'
+        										), !empty($Head['TotalOrderPrice'])?number_format($Head['TotalOrderPrice'],2):''
+        						);
+        					?>
+        				</td>
         			</tr>
         		</tfoot>
         	</table>
@@ -245,7 +301,7 @@
                     						'class' => 'btn btn-primary'
                     				), 'บันทึกข้อมูล'
                     );   
-                    echo anchor('Items/index', 'กลับหน้าหลัก', array('class' => 'btn btn-secondary'));
+                    echo anchor('Orders/index', 'กลับหน้าหลัก', array('class' => 'btn btn-secondary'));
                 ?>          	
             </div>
       </div>
@@ -259,27 +315,25 @@ $(function(){
 
 	$( ".date" ).datepicker();
 
+	//### Modify Row
 	fnc_ModifyRow();
+	//### Calc Price
+	fnc_CalcPrice();
 
 	$("#btn_add").click(function(){
 		fnc_AddRow("#tbl_order")
 	});
-
-	/*$(".btn_del").click(function(){		
-		//fnc_DelRow("#tbl_order")
-	});*/
-	/*$(".btn_del").each(function(){
-		
-	});*/
 	
 }); //end $(function()
 
 function fnc_AddRow(tbl){
 	
 	var tableBody = $(tbl).find("tbody");
+	
 		trLast = tableBody.find("tr:last");
 		trNew = trLast.clone();
-	
+		
+		trNew.find("input").val('');
 		trLast.after(trNew);
 		
 		fnc_ModifyRow();
@@ -305,6 +359,7 @@ function fnc_DelRow(tbl, row){
 }
 
 function fnc_ModifyRow(){
+	
 	var tableBody = $('#tbl_order').find("tbody");
 	var i=0;
 	//console.log(tableBody.find("tr").length);
@@ -312,7 +367,7 @@ function fnc_ModifyRow(){
 		i++;
 		$(this).attr("id","row_"+i);
 		$(this).find("button.btn_del").attr("id","btn_del"+i).attr("data-row",i);
-		$(this).find("input").each(function() 
+		$(this).find("input,select").each(function() 
 		{
 			name = $(this).attr("name");					
 			if (name != undefined)
@@ -324,6 +379,29 @@ function fnc_ModifyRow(){
 		});
 	});
 	
+}
+
+function fnc_CalcPrice(){
+	var tableBody = $('#tbl_order').find("tbody");
+	var i=0;
+	var totalQty = 0;
+	var totalPriceAll = 0.00;
+
+	tableBody.find("tr").each(function(){
+
+		//Use parseFloat() or parseInt()
+		Qty = $(this).find("input.qty").val();
+		Price = $(this).find("input.price").val();
+		
+		totalPrice = Qty*Price;
+		totalPriceAll += totalPrice;
+
+		$(this).find("input.total-price").val(totalPrice);
+		//console.log(totalPrice);
+		
+	});
+
+	$("#TotalOrderPrice").val(totalPriceAll);
 }
 	
 </script>

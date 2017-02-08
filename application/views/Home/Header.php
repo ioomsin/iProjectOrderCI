@@ -23,19 +23,18 @@
     <script src="<?php echo base_url('assets/js/tether.min.js') ;?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js') ;?>"></script>
 	<!-- END SCRIPT -->    
-
 	<script>
 	
 		$(function(){
 		
-			/*$('a.nav-link').click(function(){
+		/*	$('a.nav-link').click(function(){
 				var url = window.location.href;
-				console.log(url);
+				//console.log(url);
 			    $('a.nav-link').removeClass("active");
 			    $(this).addClass("active");
 			    //$("a[href='"+url+"']").parent().addClass("active");
 			    
-			});*/
+			});	*/
 			
 		}) //end $(function()
 	
@@ -53,16 +52,21 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="<?php echo site_url('Home/index'); ?>">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a id="navitem" class="nav-link" href="<?php echo site_url('Items/index'); ?>">Item</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?php echo site_url('Orders/index'); ?>">Order</a>
-            </li>
+            <!-- <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url('Home/index'); ?>">Home <span class="sr-only">(current)</span></a>
+            </li> -->
+            <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
+			    <div class="dropdown-menu">
+			      	<a class="dropdown-item" href="<?php echo site_url('Customers/index'); ?>">Customer</a>
+			      	<a class="dropdown-item" href="<?php echo site_url('Orders/index'); ?>">Order</a>
+			      	<a class="dropdown-item" href="<?php echo site_url('Items/index'); ?>">Item</a>
+			      	<a class="dropdown-item" href="<?php echo site_url('Units/index'); ?>">Unit</a>
+			    </div>
+			</li>
           </ul>
         </nav>
-        <h3 class="text-muted">iProject</h3>
+        <a href="<?php echo site_url('Home/index'); ?>" style="text-decoration:none">
+        	<h3 class="text-muted">iProject</h3>
+        </a>
       </div>	<!-- /header -->

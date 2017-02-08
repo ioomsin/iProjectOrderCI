@@ -1,75 +1,62 @@
 <?php 
-class Model_Order extends CI_Model {
+class Model_Customer extends CI_Model {
 	function __construct(){
 		parent::__construct();
 		
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select($tbl)
+	public function select()
 	{
-		$query = $this->db->get_where($tbl, array("ActiveStatus" => "1"));	
+		$query = $this->db->get_where("Customers", array("ActiveStatus" => "1"));	
 		$result = $query->result_array();
 		
 		return $result;
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select_where($tbl, $field, $id)
+	public function select_id($id)
 	{
-		$query = $this->db->get_where($tbl, array( $field => $id, "ActiveStatus" => "1" ));
-		$result = $query->result_array();
-	
-		return $result;
-	}
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select_id($tbl, $field, $id)
-	{
-		$query = $this->db->get_where($tbl, array($field => $id));
+		$query = $this->db->get_where( "Customers", array("CustomerCode" => $id) );
 		$row = $query->row_array();
-		//print_r($query); exit;
+		
 		return $row;
 	}	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function add_data($tbl, $data)
 	{
 		$this->db->insert($tbl, $data);
-		$insert_id = $this->db->insert_id();
-		
-		return $insert_id;
+		return $this->db->insert_id();
 	}
 	/////////////////////////////////------------------------------------------------------
 	
-	public function update_data($tbl, $field, $id, $data)
+	public function update_data($tbl, $id, $data)
 	{
-		$query = $this->db->get_where($tbl, array($field => $id));
+		$query = $this->db->get_where($tbl, array("CustomerCode" => $id));
 		$row = $query->row_array();
-
-		if($row[$field]!="")
-		{
-			$this->db->where($field, $id);
-			$this->db->update($tbl, $data);
-			
-		}else{
-			echo "ERROR !!! No ID";
-		}
-		
+			if($row['CustomerCode']!="")
+			{
+				$this->db->where("CustomerCode", $id);
+				$this->db->update($tbl, $data);
+			}else{
+				echo "ERROR !!! No ID";
+			}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function delete_data($tbl, $field, $id)
+	function delete_data($id)
 	{
-		$query = $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
+		$query = $this->db->get_where("Customers", array("CustomerCode" => $id, "ActiveStatus" => "1"));
 		$row = $query->row_array();
 		
-		if($row[$field]!="")
+		if($row['CustomerCode']!="")
 		{
 			//ลบออกจากตาราง
-			//$this->db->where($field, $id);
-			//$this->db->delete($tbl);
+			//$this->db->where('UnitID', $id);
+			//$this->db->delete('Units');
 			
 			//Update สถานะ เป็น ไม่ใช้งาน
 			$data['ActiveStatus'] = '0';
 			
-			$this->db->where($field, $row[$field]);
-		   	$this->db->update($tbl, $data);
+			$this->db->where( "CustomerCode", $id );
+		   	$this->db->update( "Customers", $data );
 		}
 		else
 		{
@@ -77,9 +64,9 @@ class Model_Order extends CI_Model {
 		}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function getCode($tbl, $field)
+	function getCode($tbl, $filed)
 	{
-		$this->db->select_max($field);
+		$this->db->select_max($filed);
 		$query = $this->db->get($tbl);
 		$row = $query->row_array();
 		
