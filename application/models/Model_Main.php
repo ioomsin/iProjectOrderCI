@@ -46,7 +46,7 @@ class Model_Main extends CI_Model {
 		}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function delete_data($tbl, $filed, $id)
+	public function delete_data($tbl, $filed, $id)
 	{
 		$query = $this->db->get_where($tbl, array( $filed => $id, "ActiveStatus" => "1"));
 		$row = $query->row_array();
@@ -68,13 +68,56 @@ class Model_Main extends CI_Model {
 		}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function getCode($tbl, $filed)
+	public function getCode($tbl, $filed)
 	{
 		$this->db->select_max($filed);
 		$query = $this->db->get($tbl);
 		$row = $query->row_array();
-		return row;
+		
+		return $row;
 	}
 	/////////////////////////////////------------------------------------------------------
+	public function dropdown($tbl, $fieldValue, $fieldName, $filedWhere, $WhereID)
+	{
+		$query	=	$this->db->select("*")->where($filedWhere, $WhereID)->get($tbl);
+		$result	=	$query->result_array();
+
+		foreach ($result as $rs){
+			$x[$rs[$fieldValue]] = $rs[$fieldName];
+		};
+		
+		return $x;
+	}
+	/////////////////////////////////------------------------------------------------------
+	public function autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
+	{
+		$query	=	$this->db->select("*")->where($filedWhere, $WhereID)->get($tbl);
+		$result	=	$query->result_array();
+		
+		$x=array();
+		foreach ($result as $rs){
+			$x[] = $rs[$fieldName];
+		};
+		
+		return json_encode($x);
+	}
+	/////////////////////////////////------------------------------------------------------
+	public function autocomplete_obj($tbl, $fieldName, $filedWhere, $WhereID)
+	{
+		$query	=	$this->db->select("*")->where($filedWhere, $WhereID)->get($tbl);
+		$result	=	$query->result_array();
+	
+		$x=array();
+		foreach ($result as $rs){
+			//var availableTags = [{label:"John", value:"Doe"}];
+			$new_xxx['label']=$rs["CustomerCode"];
+			$new_xxx['value']=$rs["CustomerName"];
+			$new_xxx['other']=$rs["CustomerAddress"];
+			$x[] = $new_xxx; // an array	
+		};
+		
+		//echo json_encode($x); exit;
+		return json_encode($x);
+	}
 	
 }	// End Class

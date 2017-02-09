@@ -7,7 +7,7 @@ class Orders extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->model("Orders/Model_Order");
-		$this->load->model("Units/Model_Unit");
+		$this->load->model("Model_Main");
 		
 	}
 	
@@ -26,9 +26,16 @@ class Orders extends CI_Controller {
 		$proc = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
 		
+		//dropdown($tbl, $fieldValue, $fieldName, $filedWhere, $WhereID)
+		$data["dropdown"] = $this->Model_Main->dropdown("Units", "UnitCode", "UnitName", "ActiveStatus", 1);
+		
+		//autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
+		//$data["autocomplete"] = $this->Model_Main->autocomplete("Customers", "CustomerCode", "ActiveStatus", 1);
+		
+		$data["autocomplete"] = $this->Model_Main->autocomplete_obj("Customers", "CustomerCode", "ActiveStatus", 1);
+		
 		if( $proc == "Add" ){
 			
-			$data["option"] = $this->Model_Unit->select();
 			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
 		}else{
@@ -53,12 +60,12 @@ class Orders extends CI_Controller {
 			
 			$data_orders = array(
 					'OrderNumber' 		=> $OrderNumber,
-					'OrderDate' 		=> $this->chg_date($this->input->post('OrderDate')),
+					'OrderDate' 		=> chg_date($this->input->post('OrderDate')),
 					'CustomerCode'  	=> $this->input->post('CustomerCode'),
 					'CustomerName'  	=> $this->input->post('CustomerName'),
 					'CustomerAddress' 	=> $this->input->post('CustomerAddress'),
 					'Remark'  			=> $this->input->post('Remark'),
-					'TotalPrice'  		=> $this->input->post('TotalOrderPrice')
+					'TotalOrderPrice'  	=> $this->input->post('TotalOrderPrice')
 			);
 			
 			$this->Model_Order->add_data("Orders", $data_orders);
@@ -94,7 +101,7 @@ class Orders extends CI_Controller {
 					'CustomerName'  	=> $this->input->post('CustomerName'),
 					'CustomerAddress' 	=> $this->input->post('CustomerAddress'),
 					'Remark'  			=> $this->input->post('Remark'),
-					'TotalOrderPrice'  		=> $this->input->post('TotalOrderPrice')
+					'TotalOrderPrice'  	=> $this->input->post('TotalOrderPrice')
 			);
 				
 			$this->Model_Order->update_data("Orders", "OrderNumber", $OrderNumber, $data_orders);
@@ -136,9 +143,9 @@ class Orders extends CI_Controller {
 		redirect("Items/index");
 	}
 	
-	public function GenCode($table, $filedCode)
+	public function GenCode($tbl, $filedCode)
 	{
-		$data = $this->Model_Order->getCode($table, $filedCode);
+		$data = $this->Model_Order->getCode($tbl, $filedCode);
 		$year = substr((date("Y")+543) , 2 , 2);
 		$month = date("m");
 		$prefix = "IT";
@@ -156,6 +163,17 @@ class Orders extends CI_Controller {
 		}
 		//exit;
 		return $genCode;
+	}
+	
+	public function get_autocompletes_obj()
+	{
+		$fKey =  $this->input->get('fKey');
+		$fShow =  $this->input->get('fShow');
+		$term = $this->input->get('term');
+		if (isset($term)){
+			$q = strtolower($term); //strtolower($term);
+			$this->Model_Main->autocomplete_obj($q,$fKey,$fShow);
+		}
 	}
 	
 }	// ### END Class
