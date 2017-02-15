@@ -7,7 +7,7 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select($tbl)
 	{
-		$query = $this->db->get_where($tbl, array("ActiveStatus" => "1"));	
+		$query 	= $this->db->get_where($tbl, array("ActiveStatus" => "1"));	
 		$result = $query->result_array();
 		
 		return $result;
@@ -15,7 +15,7 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_where($tbl, $field, $id)
 	{
-		$query = $this->db->get_where($tbl, array( $field => $id, "ActiveStatus" => "1" ));
+		$query 	= $this->db->get_where($tbl, array( $field => $id, "ActiveStatus" => "1" ));
 		$result = $query->result_array();
 	
 		return $result;
@@ -23,8 +23,8 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($tbl, $field, $id)
 	{
-		$query = $this->db->get_where($tbl, array($field => $id));
-		$row = $query->row_array();
+		$query 	= $this->db->get_where($tbl, array($field => $id));
+		$row 	= $query->row_array();
 		//print_r($query); exit;
 		return $row;
 	}	
@@ -40,8 +40,8 @@ class Model_Order extends CI_Model {
 	
 	public function update_data($tbl, $field, $id, $data)
 	{
-		$query = $this->db->get_where($tbl, array($field => $id));
-		$row = $query->row_array();
+		$query 	= $this->db->get_where($tbl, array($field => $id));
+		$row 	= $query->row_array();
 
 		if($row[$field]!="")
 		{
@@ -56,8 +56,8 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////------------------------------------------------------
 	function delete_data($tbl, $field, $id)
 	{
-		$query = $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
-		$row = $query->row_array();
+		$query 	= $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
+		$row 	= $query->row_array();
 		
 		if($row[$field]!="")
 		{
@@ -80,8 +80,8 @@ class Model_Order extends CI_Model {
 	function getCode($tbl, $field)
 	{
 		$this->db->select_max($field);
-		$query = $this->db->get($tbl);
-		$row = $query->row_array();
+		$query	= $this->db->get($tbl);
+		$row	= $query->row_array();
 		
 		return $row;
 	}

@@ -8,6 +8,7 @@ class Orders extends CI_Controller {
 		
 		$this->load->model("Orders/Model_Order");
 		$this->load->model("Model_Main");
+		$this->load->model("Autocomplete/Model_Autocomplete");
 		
 	}
 	
@@ -31,8 +32,6 @@ class Orders extends CI_Controller {
 		
 		//autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
 		//$data["autocomplete"] = $this->Model_Main->autocomplete("Customers", "CustomerCode", "ActiveStatus", 1);
-		
-		$data["autocomplete"] = $this->Model_Main->autocomplete_obj("Customers", "CustomerCode", "ActiveStatus", 1);
 		
 		if( $proc == "Add" ){
 			
@@ -158,22 +157,26 @@ class Orders extends CI_Controller {
 			
 			$subCode = ( substr( $data[$filedCode], 6, 4) + 1 );
 			$genCode = $prefix.$year.$month.sprintf("%04d" , $subCode);
-			//echo $subCode ." || ". $genCode ;
 			
 		}
-		//exit;
 		return $genCode;
 	}
 	
-	public function get_autocompletes_obj()
+	public function get_autocomplete_customer()
 	{
-		$fKey =  $this->input->get('fKey');
-		$fShow =  $this->input->get('fShow');
+		
+		$fieldKeyUp	=  $this->input->get('fieldKeyUp');
+		$fieldShow 	=  $this->input->get('fieldShow');
+		
 		$term = $this->input->get('term');
 		if (isset($term)){
-			$q = strtolower($term); //strtolower($term);
-			$this->Model_Main->autocomplete_obj($q,$fKey,$fShow);
+			
+			$q = strtolower($term);
+			$source = $this->Model_Autocomplete->get_autocomplete( "Customers", $q, $fieldKeyUp, $fieldShow );
+	
 		}
+		return $source;
+		
 	}
 	
 }	// ### END Class

@@ -317,33 +317,13 @@ $(function(){
 		fnc_AddRow("#tbl_order")
 	});
 
-	// var availableTags = [ "ActionScript", "AppleScript", "Asp"];
-	/* ----------------------------------------------------------------------------
-	$( "#CustomerCode" ).autocomplete({
-		source: <?php echo $autocomplete; ?>,
-		select: function( event, ui ) {
-	        //log( "Selected: " + ui.item.value + " aka " + ui.item.id );
-	        //ui.item.label
-			$("#CustomerName").val( ui.item.label +" "+ ui.item.value );
-		}
-	}); ---------------------------------------------------------------------------- */
-
-
-	// Autocomplete Return Multi Values 
-	var objAutoComplete=  {
-							elementKeyUp : {"elementId" : "province_name3","fieldName" : "province_name"},
-							
-							elementOther : [
-														{"showDetail":false,"elementId":"province_id3","fieldName":"province_id"},
-														{"showDetail":true,"elementId":"province_code3","fieldName":"province_code"},
-														{"showDetail":false,"elementId":"geo_id","fieldName":"geo_id"},
-													] };
-	AutoCompleteAjax("<?php echo site_url("Orders/autocompletes_obj");?>",objAutoComplete);
-
+	AutocompleteReturn2Values("<?php echo site_url('Orders/get_autocomplete_customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName");
+	
 	
 	//var availableTags = [{label:"John", value:"Doe"}];
+	/*
 	$( "#CustomerCode" ).autocomplete({
-		source: <?php echo $autocomplete; ?>,
+		source: '<?php echo $autocomplete; ?>',
 		select: function( event, ui ) {
 	        //console.log( ui.item.label + "/" + ui.item.value + "/" + ui.item.id );			
 			//$( "#"+idKeyUp ).val( ui.item.label );
@@ -361,7 +341,7 @@ $(function(){
     			$( "#CustomerName" ).val("");
 			}
 		}
-	});		
+	});	*/
 	
 }); //end $(function()
 
@@ -443,51 +423,95 @@ function fnc_CalcPrice(){
 	$("#TotalOrderPrice").val(totalPriceAll);
 }
 
+/*function __AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
+	if(url.indexOf(".php?")==-1){
+		url += "?fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
+	}else{
+		url += "&fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
+	}
+	
+	$( "#"+idKeyUp ).autocomplete({
+		//source: url,
+		search:function(e,u){
+			
+			$( "#"+idKeyUp ).autocomplete({ 		
+				source: url
+			});
+			
+		},
+		select: function( event, ui ) {
+
+        	$( "#"+idKeyUp ).val( ui.item.label );
+        	$( "#"+idKeyShow ).val( ui.item.value );
+        				
+        	return false;
+		},
+		change: function( event, ui ) {
+			if(!ui.item){
+				$( "#"+idKeyUp ).val("");
+    			$( "#"+idKeyShow ).val("");
+			}
+		}
+	});
+
+	$( "#"+idKeyUp ).click(function(){ 
+		$( "#"+idKeyUp ).autocomplete('search'); 
+	});
+	
+}*/
 
 function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
-	
 	
 	if(url.indexOf(".php?")==-1){
 		url += "?fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
 	}else{
 		url += "&fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
 	}
+	
 	$( "#"+idKeyUp ).autocomplete({
-  	minLength:0,
-	delay:0,
-	search:function(e,u){
 		
-		$( "#"+idKeyUp ).autocomplete({ 		
-			source: url
-		});
-	},
-  	select: function( event, ui ) {
-    	$( "#"+idKeyUp ).val( ui.item.label );
-    	$( "#"+idKeyShow ).val( ui.item.value );
+		minLength:0,
+		delay:0,
+		search:function(e,u){
 		
-    	return false;
-  	},
-  	change : function(event,ui){
+			$( "#"+idKeyUp ).autocomplete({ 
+				//source: [{label:"John", value:"Doe"}]	// ก้อนข้อมูล		
+				source: url	// ก้อนข้อมูล
+			});
+		
+		},
+  		select: function( event, ui ) {
+
+    		$( "#"+idKeyUp ).val( ui.item.label );
+    		$( "#"+idKeyShow ).val( ui.item.value );
+		
+    		return false;
+  		},
+  		change : function(event,ui){
 			if(!ui.item){
 				$( "#"+idKeyUp ).val("");
     			$( "#"+idKeyShow ).val("");
 
 			}
-	}
-})
-.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
-   {
-	if(idShowStatus == true){
-					return $( "<li>" )
-					.append( "<div>" + item.label + " :: " + item.value + "</div>" )
-					.appendTo( ul );
-				}else{
-					 return $( "<li>" )
-					.append( "<div>" + item.label + "</div>" )
-					.appendTo( ul );
-			}
-   };
- $( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
+		}
+	})
+	.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
+	{
+		if(idShowStatus == true){
+			return $( "<li>" )
+			.append( "<div>" + item.label + " :: " + item.value + "</div>" )
+			.appendTo( ul );
+		}else{
+			 return $( "<li>" )
+			.append( "<div>" + item.label + "</div>" )
+			.appendTo( ul );
+		}
+	};
+   
+ 	$( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
+ 
 
 }// END AutocompleteReturn2Values
+
+
 </script>

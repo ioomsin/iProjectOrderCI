@@ -89,7 +89,7 @@ class Model_Main extends CI_Model {
 		return $x;
 	}
 	/////////////////////////////////------------------------------------------------------
-	public function autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
+	/*public function autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
 	{
 		$query	=	$this->db->select("*")->where($filedWhere, $WhereID)->get($tbl);
 		$result	=	$query->result_array();
@@ -100,9 +100,9 @@ class Model_Main extends CI_Model {
 		};
 		
 		return json_encode($x);
-	}
+	}*/
 	/////////////////////////////////------------------------------------------------------
-	public function autocomplete_obj($tbl, $fieldName, $filedWhere, $WhereID)
+	/*public function autocomplete_obj($tbl, $fieldName, $filedWhere, $WhereID)
 	{
 		$query	=	$this->db->select("*")->where($filedWhere, $WhereID)->get($tbl);
 		$result	=	$query->result_array();
@@ -118,6 +118,6 @@ class Model_Main extends CI_Model {
 		
 		//echo json_encode($x); exit;
 		return json_encode($x);
-	}
+	} */
 	
 }	// End Class
