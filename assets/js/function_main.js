@@ -75,22 +75,6 @@ function loadview(url){
 
 //*********************************************************************************************************************************//
 
-function block(id,msg){
-	msg = (msg !=undefined) ? msg : 'Loading...';
-	var z_index99='z_index99';
-	if(id=='body' || id=='' || id==undefined){ //�������������� ID ����ʴ� block �������˹��  
-		id='body';
-		z_index99='';
-	}
-	$(id).children('#div_loading').remove();
-	$(id).prepend('<div id="div_loading" class="preload '+z_index99+' "><div align="center"> <div class="loader"></div> <div class="loader_msg">'+msg+'</div>  </div></div>');	
-}
-function unblock(id){
-	if(id=='body' || id=='' || id==undefined){
-		id='body';
-	}
-	$(id).children('#div_loading').remove();	
-}
 
 //*********************************************************************************************************************************//
 /*
@@ -135,53 +119,54 @@ window.confirm = function (message, callback) {
 */
 
 //*********************************************************************************************************************************//
-function _AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
-		//console.log(idKeyUp);
+function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
 		if(url.indexOf(".php?")==-1){
 			url += "?fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
 		}else{
 			url += "&fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
 		}
 		$( "#"+idKeyUp ).autocomplete({
-	  	minLength:0,
-		delay:0,
-		search:function(e,u){
 			
-			$( "#"+idKeyUp ).autocomplete({ 		
-				source: url
-			});
-			
-		},
-      	select: function( event, ui ) {
-      		//console.log(ui.item.label);
-        	$( "#"+idKeyUp ).val( ui.item.label );
-        	$( "#"+idKeyShow ).val( ui.item.value );
-			
-        	return false;
-      	},
-	  	change : function(event,ui){
-				if(!ui.item){
-					$( "#"+idKeyUp ).val("");
-        			$( "#"+idKeyShow ).val("");
-
-				}
-		}
-    })
+			minLength:0,
+			delay:0,
+			search:function(e,u){
+				//var x = [{"label":"CT60020001", "value":"นายออมสิน"},{"label":"CT60020002", "value":"นายหอยเม่น"}];
+				$( "#"+idKeyUp ).autocomplete({ 
+					source: url
+				});
+				
+			}
+	      	,select: function( event, ui ) {
+	      		
+	        	$( "#"+idKeyUp ).val( ui.item.label );
+	        	$( "#"+idKeyShow ).val( ui.item.value );
+				
+	        	return false;
+	      	},
+		  	change : function(event,ui){
+					if(!ui.item){
+						$( "#"+idKeyUp ).val("");
+	        			$( "#"+idKeyShow ).val("");
+	
+					}
+			}
+	})
 	.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
-       {
-		if(idShowStatus == true){
-						return $( "<li>" )
-						.append( "<div>" + item.label + " :: " + item.value + "</div>" )
-						.appendTo( ul );
-					}else{
-						 return $( "<li>" )
-						.append( "<div>" + item.label + "</div>" )
-						.appendTo( ul );
-				}
-       };
-	 $( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
+    {
+			console.log(idShowStatus);
+			if(idShowStatus == true){
+				return $( "<li>" )
+				.append( "<div>" + item.label + " :: " + item.value + "</div>" )
+				.appendTo( ul );
+			}else{
+				 return $( "<li>" )
+				.append( "<div>" + item.label + "</div>" )
+				.appendTo( ul );
+			}
+    };
+	$( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
 
-	}// END AutocompleteReturn2Values
+}	// END AutocompleteReturn2Values
 	
 //*********************************************************************************************************************************//	
 function AutoCompleteAjax(url,objAuto){

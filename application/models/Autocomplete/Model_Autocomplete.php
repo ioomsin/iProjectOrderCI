@@ -6,24 +6,25 @@ class Model_Autocomplete extends CI_Model {
   /////////////////////////////////---------------------------------------------------------------------------------------------------------------------------------------
 	function get_autocomplete($tbl, $q="",$fieldKeyUp="",$fieldShow=""){
 		
-		//$query = $this->db->select($fieldKeyUp.",".$fieldShow);
 		$this->db->limit(10);
-		$this->db->select("*");
-		if($q){
-			$this->db->like($fieldKeyUp, $q);
-		}
-		$query = $this->db->get($tbl);
-		$result	= $query->result_array();
+		$this->db->select("*");	// $this->db->select($fieldKeyUp.",".$fieldShow);
+		$this->db->like($fieldKeyUp, $q);
 		
-		$row_set=array();
-		foreach ( $result as $row){
-					// htmlspecialchars(stripslashes($row[$fieldShow]))
-					$new_row['label'] = htmlspecialchars(stripslashes($row[$fieldKeyUp]));
-					$new_row['value'] = htmlspecialchars(stripslashes($row[$fieldShow]));
-					$row_set[] = $new_row; // an array
+		$query = $this->db->get($tbl);
+		$result = $query->result_array();
+		$num_rows = $query->num_rows();
+		
+		$row_set = array();
+		if( $num_rows > 0 ){
+			foreach ( $result as $row ){
+			
+				$new_row['label'] = htmlspecialchars(stripslashes($row[$fieldKeyUp]));
+				$new_row['value'] = htmlspecialchars(stripslashes($row[$fieldShow]));
+				$row_set[] = $new_row; 
+			}
+			//echo json_encode($row_set); //format the array into json data
+			return json_encode($row_set);
 		}
-		echo json_encode($row_set); //format the array into json data
-		//return json_encode($row_set);
 		
   } //END function  get_autocomplete
   

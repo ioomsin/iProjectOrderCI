@@ -20,8 +20,8 @@
 	<!-- SCRIPT -->
 	<script src="<?php echo base_url('assets/js/jquery-3.1.1.min.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/jquery-ui-1.12.1.min.js'); ?>"></script> 
-    <script src="<?php echo base_url('assets/js/tether.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/tether.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/function_main.js'); ?>"></script>
 	<!-- END SCRIPT -->    
 	<script>
@@ -56,7 +56,19 @@
             <!-- <li class="nav-item">
               <a class="nav-link" href="<?php echo site_url('Home/index'); ?>">Home <span class="sr-only">(current)</span></a>
             </li> -->
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url('Orders/index'); ?>">Order</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url('Items/index'); ?>">Item</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url('Units/index'); ?>">Unit</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo site_url('Customers/index'); ?>">Customer</a>
+            </li>
+            <!-- <li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu</a>
 			    <div class="dropdown-menu">
 			      	<a class="dropdown-item" href="<?php echo site_url('Customers/index'); ?>">Customer</a>
@@ -64,7 +76,7 @@
 			      	<a class="dropdown-item" href="<?php echo site_url('Items/index'); ?>">Item</a>
 			      	<a class="dropdown-item" href="<?php echo site_url('Units/index'); ?>">Unit</a>
 			    </div>
-			</li>
+			</li> -->
           </ul>
         </nav>
         <a href="<?php echo site_url('Home/index'); ?>" style="text-decoration:none">

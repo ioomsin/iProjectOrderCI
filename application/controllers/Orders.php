@@ -164,18 +164,16 @@ class Orders extends CI_Controller {
 	
 	public function get_autocomplete_customer()
 	{
-		
 		$fieldKeyUp	=  $this->input->get('fieldKeyUp');
 		$fieldShow 	=  $this->input->get('fieldShow');
 		
 		$term = $this->input->get('term');
-		if (isset($term)){
-			
+		if (isset($term)){	//if (isset($_GET['term'])){
 			$q = strtolower($term);
+			//$source = $this->Model_Autocomplete->get_autocomplete( "Customers", "", "CustomerCode", "CustomerName" );
 			$source = $this->Model_Autocomplete->get_autocomplete( "Customers", $q, $fieldKeyUp, $fieldShow );
-	
+			echo $source;
 		}
-		return $source;
 		
 	}
 	

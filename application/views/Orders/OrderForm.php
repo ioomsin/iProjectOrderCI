@@ -47,7 +47,6 @@
 									), !empty($Head["CustomerCode"])?$Head["CustomerCode"]:''
 					); 
                 ?>
-                
             </div>        
         </div>
         <div class="col-lg-6">
@@ -317,31 +316,8 @@ $(function(){
 		fnc_AddRow("#tbl_order")
 	});
 
-	AutocompleteReturn2Values("<?php echo site_url('Orders/get_autocomplete_customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName");
-	
-	
-	//var availableTags = [{label:"John", value:"Doe"}];
-	/*
-	$( "#CustomerCode" ).autocomplete({
-		source: '<?php echo $autocomplete; ?>',
-		select: function( event, ui ) {
-	        //console.log( ui.item.label + "/" + ui.item.value + "/" + ui.item.id );			
-			//$( "#"+idKeyUp ).val( ui.item.label );
-        	//$( "#"+idKeyShow ).val( ui.item.value );
-
-        	$( "#CustomerCode" ).val( ui.item.label );
-        	$( "#CustomerName" ).val( ui.item.value );
-        	$( "#CustomerAddress" ).val( ui.item.other );
-        				
-        	return false;
-		},
-		change: function( event, ui ) {
-			if(!ui.item){
-				$( "#CustomerCode" ).val("");
-    			$( "#CustomerName" ).val("");
-			}
-		}
-	});	*/
+	///// Autocomplete /////
+	AutocompleteReturn2Values("<?php echo site_url('Orders/get_autocomplete_customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName",false);
 	
 }); //end $(function()
 
@@ -459,59 +435,6 @@ function fnc_CalcPrice(){
 	});
 	
 }*/
-
-function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
-	
-	if(url.indexOf(".php?")==-1){
-		url += "?fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
-	}else{
-		url += "&fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
-	}
-	
-	$( "#"+idKeyUp ).autocomplete({
-		
-		minLength:0,
-		delay:0,
-		search:function(e,u){
-		
-			$( "#"+idKeyUp ).autocomplete({ 
-				//source: [{label:"John", value:"Doe"}]	// ก้อนข้อมูล		
-				source: url	// ก้อนข้อมูล
-			});
-		
-		},
-  		select: function( event, ui ) {
-
-    		$( "#"+idKeyUp ).val( ui.item.label );
-    		$( "#"+idKeyShow ).val( ui.item.value );
-		
-    		return false;
-  		},
-  		change : function(event,ui){
-			if(!ui.item){
-				$( "#"+idKeyUp ).val("");
-    			$( "#"+idKeyShow ).val("");
-
-			}
-		}
-	})
-	.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
-	{
-		if(idShowStatus == true){
-			return $( "<li>" )
-			.append( "<div>" + item.label + " :: " + item.value + "</div>" )
-			.appendTo( ul );
-		}else{
-			 return $( "<li>" )
-			.append( "<div>" + item.label + "</div>" )
-			.appendTo( ul );
-		}
-	};
-   
- 	$( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
- 
-
-}// END AutocompleteReturn2Values
 
 
 </script>
