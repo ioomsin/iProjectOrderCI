@@ -317,9 +317,59 @@ $(function(){
 	});
 
 	///// Autocomplete /////
-	AutocompleteReturn2Values("<?php echo site_url('Orders/get_autocomplete_customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName",false);
+	_AutocompleteReturn2Values("<?php echo site_url('Orders/get_autocomplete_customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName",false);
 	
 }); //end $(function()
+
+function _AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
+	if(url.indexOf(".php?")==-1){
+		url += "?fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
+	}else{
+		url += "&fieldKeyUp="+fieldKeyUp+"&fieldShow="+fieldShow
+	}
+	$( "#"+idKeyUp ).autocomplete({
+		source: url,
+		minLength:0,
+		delay:0,
+		search:function(e,u){
+			//var x = [{"label":"CT60020001", "value":"นายออมสิน"},{"label":"CT60020002", "value":"นายหอยเม่น"}];
+			$( "#"+idKeyUp ).autocomplete({ 
+				source: url
+			});
+			
+		}
+      	,select: function( event, ui ) {
+      		
+        	$( "#"+idKeyUp ).val( ui.item.label );
+        	$( "#"+idKeyShow ).val( ui.item.value );
+			
+        	return false;
+      	},
+	  	change : function(event,ui){
+				if(!ui.item){
+					$( "#"+idKeyUp ).val("");
+        			$( "#"+idKeyShow ).val("");
+
+				}
+		}
+	})
+	.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
+	{
+			console.log(idShowStatus);
+			if(idShowStatus == true){
+				return $( "<li>" )
+				.append( "<div>" + item.label + " :: " + item.value + "</div>" )
+				.appendTo( ul );
+			}else{
+				 return $( "<li>" )
+				.append( "<div>" + item.label + "</div>" )
+				.appendTo( ul );
+			}
+	};
+
+	$( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
+
+}	// END AutocompleteReturn2Values
 
 function fnc_AddRow(tbl){
 	

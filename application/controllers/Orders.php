@@ -31,8 +31,8 @@ class Orders extends CI_Controller {
 		$data["dropdown"] = $this->Model_Main->dropdown("Units", "UnitCode", "UnitName", "ActiveStatus", 1);
 		
 		//autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
-		//$data["autocomplete"] = $this->Model_Main->autocomplete("Customers", "CustomerCode", "ActiveStatus", 1);
-		
+		//$data["autocomplete"] = $this->get_autocomplete_customer();
+	
 		if( $proc == "Add" ){
 			
 			$this->theme->loadtheme('Orders/OrderForm', $data);
@@ -164,8 +164,8 @@ class Orders extends CI_Controller {
 	
 	public function get_autocomplete_customer()
 	{
-		$fieldKeyUp	=  $this->input->get('fieldKeyUp');
-		$fieldShow 	=  $this->input->get('fieldShow');
+		$fieldKeyUp	=  "CustomerCode";	//$this->input->get('fieldKeyUp');
+		$fieldShow 	=  "CustomerName";	//$this->input->get('fieldShow');
 		
 		$term = $this->input->get('term');
 		if (isset($term)){	//if (isset($_GET['term'])){
