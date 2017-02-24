@@ -1,4 +1,6 @@
-﻿    
+﻿<div class="container">
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+    
     
     <!--<div class="card card-outline-primary mb-3">-->
         <!--<div class="card-header card-primary">
@@ -49,12 +51,14 @@
             </table>
         <!--</div>-->
     <!--</div>-->
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+</div>  <!-- END Container -->
  
- <script>
+<script>
 
-	$(function(){
-		//console.log("xxx");
-	
-	}) //end $(function()
+$(function(){
+	//console.log("xxx");
+
+}) //end $(function()
 
 </script>   

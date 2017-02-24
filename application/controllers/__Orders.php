@@ -12,7 +12,6 @@ class Orders extends CI_Controller {
 		
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function index()
 	{
 		
@@ -23,14 +22,13 @@ class Orders extends CI_Controller {
 		
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function OrderForm()
 	{
 		$proc = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
 		
 		$data["dropdown"] = $this->Model_Main->dropdown("Units", "UnitCode", "UnitName", "ActiveStatus", 1);
-
+	
 		if( $proc == "Add" ){
 			
 			$this->theme->loadtheme('Orders/OrderForm', $data);
@@ -43,10 +41,8 @@ class Orders extends CI_Controller {
 			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
 		}
-		
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function ManageDataOrder()
 	{
 		$proc = $this->input->post('proc');
@@ -131,7 +127,6 @@ class Orders extends CI_Controller {
 			
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function DeleteItem()
 	{
 		$id = $this->uri->segment(4);
@@ -143,7 +138,6 @@ class Orders extends CI_Controller {
 		redirect("Items/index");
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function GenCode($tbl, $filedCode)
 	{
 		$data = $this->Model_Main->getCode($tbl, $filedCode);
@@ -164,7 +158,6 @@ class Orders extends CI_Controller {
 		return $genCode;
 	}
 	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function GetAutocomplete_Customer()
 	{
 		
@@ -185,26 +178,6 @@ class Orders extends CI_Controller {
 			
 		}
 		
-	}
-	
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function GetAutocompleteObj_Customer(){
-		
-		$fKey 	= $this->input->get('fKey');
-		$fShow 	= $this->input->get('fShow');
-		$term 	= $this->input->get('term');
-		
-		if (isset($term)){
-			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete_obj("Customers", $q, $fKey, $fShow);
-			
-			print_r($source);
-			
-		}else{
-			
-			exit;
-			
-		}
 	}
 	
 }	// ### END Class

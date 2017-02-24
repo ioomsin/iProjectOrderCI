@@ -4,6 +4,7 @@ class Model_Main extends CI_Model {
 		parent::__construct();
 		
 	}
+	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select($tbl)
 	{
@@ -12,6 +13,7 @@ class Model_Main extends CI_Model {
 		
 		return $result;
 	}
+	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($tbl, $filed, $id)
 	{
@@ -20,6 +22,7 @@ class Model_Main extends CI_Model {
 		
 		return $row;
 	}	
+	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function add_data($tbl, $data)
 	{
@@ -28,8 +31,8 @@ class Model_Main extends CI_Model {
 		
 		return $id;
 	}
-	/////////////////////////////////------------------------------------------------------
 	
+	/////////////////////////////////------------------------------------------------------	
 	public function update_data($tbl, $filed, $id, $data)
 	{
 		//$row = $this->db->get()->row_array();
@@ -45,6 +48,7 @@ class Model_Main extends CI_Model {
 			echo "ERROR !!! No ID";
 		}
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	public function delete_data($tbl, $filed, $id)
 	{
@@ -59,14 +63,14 @@ class Model_Main extends CI_Model {
 			
 			//Update สถานะ เป็น ไม่ใช้งาน
 			$data['ActiveStatus'] = '0';
-			$this->db->where($filed, $row[$filed]);
-		   	$this->db->update($tbl, $data);
+			$this->db->where($filed, $row[$filed])->update($tbl, $data);
 		}
 		else
 		{
 			echo "ERROR !!! No ID";
 		}
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	public function getCode($tbl, $filed)
 	{
@@ -76,6 +80,7 @@ class Model_Main extends CI_Model {
 		
 		return $row;
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	public function dropdown($tbl, $fieldValue, $fieldName, $filedWhere, $WhereID)
 	{
@@ -88,6 +93,7 @@ class Model_Main extends CI_Model {
 		
 		return $x;
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	/*public function autocomplete($tbl, $fieldName, $filedWhere, $WhereID)
 	{

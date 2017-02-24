@@ -54,7 +54,7 @@ class Model_Order extends CI_Model {
 		
 	}
 	/////////////////////////////////------------------------------------------------------
-	function delete_data($tbl, $field, $id)
+	public function delete_data($tbl, $field, $id)
 	{
 		$query 	= $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
 		$row 	= $query->row_array();
@@ -77,14 +77,15 @@ class Model_Order extends CI_Model {
 		}
 	}
 	/////////////////////////////////------------------------------------------------------
-	function getCode($tbl, $field)
+	/*public function getCode($tbl, $field)
 	{
 		$this->db->select_max($field);
 		$query	= $this->db->get($tbl);
 		$row	= $query->row_array();
 		
 		return $row;
-	}
-	/////////////////////////////////------------------------------------------------------
+	}*/
+	
+	/////////////////////////////////---------------------------------------------------------------------------------------------------------------------------------------
 	
 }	// End Class

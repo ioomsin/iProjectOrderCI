@@ -183,9 +183,9 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 |
 */
 $config['enable_query_strings'] = FALSE;
-$config['controller_trigger'] = 'c';
-$config['function_trigger'] = 'm';
-$config['directory_trigger'] = 'd';
+$config['controller_trigger'] 	= 'c';
+$config['function_trigger'] 	= 'm';
+$config['directory_trigger'] 	= 'd';
 
 /*
 |--------------------------------------------------------------------------
@@ -452,7 +452,7 @@ $config['csrf_protection'] = FALSE;
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
-$config['csrf_regenerate'] = TRUE;
+$config['csrf_regenerate'] = FALSE; // TRUE;
 $config['csrf_exclude_uris'] = array();
 
 /*

@@ -1,5 +1,5 @@
-﻿<div class="container">
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+﻿
+
   <?php 
   
   	$proc = $this->uri->segment(3);
@@ -42,7 +42,7 @@
             	<div class="ui-widget">
                 <?php 
                     echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
-                    echo form_input( array(	'name'	=> 'CustomerCode',
+                    echo form_input( array(	//'name'	=> 'CustomerCode',
 											'id' 	=> 'CustomerCode',
 											'class'	=> 'form-control'
 									), !empty($Head["CustomerCode"])?$Head["CustomerCode"]:""
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
-                    echo form_input( array(	'name'	=> 'CustomerName',
+                    echo form_input( array(	//'name'	=> 'CustomerName',
 											'id'	=> 'CustomerName',
 											'class' => 'form-control'
 									), !empty($Head["CustomerName"])?$Head["CustomerName"]:""
@@ -147,8 +147,14 @@
         					?>        				
         				</td>
         				<td>
-        					<?php
+        					<?php 
+        						//$js = array("class"	=> "form-control");
         						echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'', array("class"	=> "form-control"));
+        						/*echo form_input( array(	'name'	=> 'OrderUnit[]',
+        												'id'	=> 'OrderUnit'.$i,
+        												'class' => 'form-control'
+        										), !empty($rs['OrderUnit'])?$rs['OrderUnit']:''
+        						);*/
         					?>        				
         				</td>
         				<td>
@@ -222,7 +228,14 @@
         				</td>
         				<td>
         					<?php 
-	        					echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'' , array("class"	=> "form-control"));
+	        					
+        					 	//$js = array("class"	=> "form-control");
+        						echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'' , array("class"	=> "form-control"));
+        						/*echo form_input( array(	"name"	=> "OrderUnit[]",
+        												"id"	=> "OrderUnit1",
+        												"class" => "form-control"
+        										), !empty($rs['OrderUnit'])?$rs['OrderUnit']:''
+        						);*/
         					?>        				
         				</td>
         				<td>
@@ -288,9 +301,7 @@
       </div>
 
   <?php echo form_close(); ?>
-
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-</div>  <!-- END Container -->
+  
 
 <script>
 
