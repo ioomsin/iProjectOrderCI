@@ -1,11 +1,10 @@
-	
-		<br>
-		
-		<div class="container">
+
+		<!-- <div class="container">
 			<footer class="footer text-center">
 				<p> &copy; Company 2017 </p>
 			</footer>
-		</div>	<!-- END Container -->	
+		</div>	 -->
+		<!-- END Container -->	
 	
 	
 	<!--////////////////////////////////////////////////////////////////////////////////////////////-->	

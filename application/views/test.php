@@ -22,6 +22,36 @@
   	
 </head>
 <body>
+<div class="container">
+<!--////////////////////////////////////////////////////////////////////////////////////////////-->
+	
+	<div class="header clearfix">
+		<nav>
+			<ul class="nav nav-pills float-right">
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo site_url('Orders/index'); ?>">Order</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo site_url('Items/index'); ?>">Item</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo site_url('Units/index'); ?>">Unit</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo site_url('Customers/index'); ?>">Customer</a>
+				</li>
+			</ul>
+		</nav>
+		
+		<a href="<?php echo site_url('Home/index'); ?>" style="text-decoration:none;">
+			<span class="text-muted">iProject</span>
+		</a>
+		
+	</div>
+	
+<!--////////////////////////////////////////////////////////////////////////////////////////////-->
+</div> <!-- End container -->
+
 <div class="container"> 
 
 	<label for="CustomerCode">Customer : </label>
@@ -50,12 +80,6 @@
 	  		<textarea id="Address" rows="2" class="form-control"></textarea>
 	  	</div>
 	</div>
-	
-	<br>
-	  
-	<footer class="footer">
-		<p>&copy; Company 2017</p>
-	</footer>
 
 </div>
 
@@ -86,6 +110,17 @@
   
 </script>
   	 
-</body>
+	
+		<br>
+		
+		<div class="container">
+			<footer class="footer text-center">
+				<p> &copy; Company 2017 </p>
+			</footer>
+		</div>	<!-- END Container -->	
+	
+	
+	<!--////////////////////////////////////////////////////////////////////////////////////////////-->	
+	</body>
 
 </html>

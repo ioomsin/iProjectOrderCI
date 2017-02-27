@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Orders extends CI_Controller {
@@ -37,7 +37,7 @@ class Orders extends CI_Controller {
 			
 		}else{
 			
-			$data["Head"] = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
+			$data["Head"] 	= $this->Model_Order->select_id("Orders", "OrderNumber", $id);
 			$data["Detail"] = $this->Model_Order->select_where("OrderDetails", "OrderNumber", $id);
 	
 			$this->theme->loadtheme('Orders/OrderForm', $data);

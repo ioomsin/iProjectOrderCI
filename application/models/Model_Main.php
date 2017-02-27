@@ -6,34 +6,34 @@ class Model_Main extends CI_Model {
 	}
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select($tbl)
+	/*public function select($tbl)
 	{
 		$query = $this->db->get_where($tbl, array("ActiveStatus" => "1"));	
 		$result = $query->result_array();
 		
 		return $result;
-	}
+	}*/
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select_id($tbl, $filed, $id)
+	/*public function select_id($tbl, $filed, $id)
 	{
 		$query = $this->db->get_where($tbl, array($filed => $id));
 		$row = $query->row_array();
 		
 		return $row;
-	}	
+	}*/
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function add_data($tbl, $data)
+	/*public function add_data($tbl, $data)
 	{
 		$this->db->insert($tbl, $data);
 		$id = $this->db->insert_id();
 		
 		return $id;
-	}
+	}*/
 	
 	/////////////////////////////////------------------------------------------------------	
-	public function update_data($tbl, $filed, $id, $data)
+	/*public function update_data($tbl, $filed, $id, $data)
 	{
 		//$row = $this->db->get()->row_array();
 		$query = $this->db->get_where($tbl, array( $filed => $id ));
@@ -47,21 +47,21 @@ class Model_Main extends CI_Model {
 		}else{
 			echo "ERROR !!! No ID";
 		}
-	}
+	}*/
 	
 	/////////////////////////////////------------------------------------------------------
-	public function delete_data($tbl, $filed, $id)
+	/*public function delete_data($tbl, $filed, $id)
 	{
 		$query = $this->db->get_where($tbl, array( $filed => $id, "ActiveStatus" => "1"));
 		$row = $query->row_array();
 		
 		if($row[$filed]!="")
 		{
-			//ÅºÍÍ¡¨Ò¡µÒÃÒ§
+			//Åºï¿½Í¡ï¿½Ò¡ï¿½ï¿½ï¿½Ò§
 			//$this->db->where('animal_id', $id);
 			//$this->db->delete('animals');
 			
-			//Update Ê¶Ò¹Ð à»ç¹ äÁèãªé§Ò¹
+			//Update Ê¶Ò¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¹
 			$data['ActiveStatus'] = '0';
 			$this->db->where($filed, $row[$filed])->update($tbl, $data);
 		}
@@ -69,7 +69,7 @@ class Model_Main extends CI_Model {
 		{
 			echo "ERROR !!! No ID";
 		}
-	}
+	}*/
 	
 	/////////////////////////////////------------------------------------------------------
 	public function getCode($tbl, $filed)

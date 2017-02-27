@@ -1,4 +1,4 @@
-﻿<div class="container">
+<div class="container">
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
   <?php 
   
@@ -295,8 +295,9 @@
 <script>
 
 	$(function(){
-	
-		//$( ".date" ).datepicker();
+
+		//### Datepicker ###//
+		$( ".date" ).datepicker();
 	
 		//### Modify Row ###//
 		fnc_ModifyRow();
@@ -309,15 +310,14 @@
 		});
 		
 		///// Autocomplete /////
-		AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName", false);
-		AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerName", "CustomerCode", "CustomerName", "CustomerCode", false);
+		// AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName", false);
+		// AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerName", "CustomerCode", "CustomerName", "CustomerCode", false);
 	
 		///// Autocomplete Multi /////
-		/*
 		var objAutoComplete = {
 				
 				elementKeyUp : 	{"elementId" : "CustomerCode","fieldName" : "CustomerCode"},
-	
+
 				elementOther :	[
 											{"showDetail":false,"elementId":"CustomerCode","fieldName":"CustomerCode"},
 											{"showDetail":true,"elementId":"CustomerName","fieldName":"CustomerName"},
@@ -326,10 +326,11 @@
 		};
 		
 		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Customer');?>", objAutoComplete);
-		*/
+	    
 		
 	}); //end $(function()
-
+	
+	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_AddRow(tbl){
 		
 		var tableBody = $(tbl).find("tbody");
@@ -343,6 +344,7 @@
 			fnc_ModifyRow();
 	}
 	
+	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_DelRow(tbl, row){
 		
 		var tableBody = $(tbl).find("tbody");
@@ -361,7 +363,8 @@
 		
 		fnc_ModifyRow();
 	}
-	
+
+	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_ModifyRow(){
 		
 		var tableBody = $('#tbl_order').find("tbody");
@@ -384,7 +387,8 @@
 		});
 		
 	}
-	
+
+	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_CalcPrice(){
 		var tableBody = $('#tbl_order').find("tbody");
 		var i=0;
