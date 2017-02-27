@@ -29,7 +29,7 @@
                     echo form_input( array(	'name'	=> 'OrderDate',
 											'id'	=> 'OrderDate',
 											'class'	=> 'form-control date'
-									), !empty($Head["OrderDate"])?chg_date_th($Head["OrderDate"]):""
+									), !empty($Head["OrderDate"])?chg_date_en($Head["OrderDate"]):""
 					); 
                 ?>
             </div>        
