@@ -297,7 +297,7 @@
 	$(function(){
 
 		//### Datepicker ###//
-		$( ".date" ).datepicker();
+		$( ".date" ).datepicker({ dateFormat: 'dd/mm/yy' });
 	
 		//### Modify Row ###//
 		fnc_ModifyRow();
@@ -319,9 +319,10 @@
 				elementKeyUp : 	{"elementId" : "CustomerCode","fieldName" : "CustomerCode"},
 
 				elementOther :	[
-											{"showDetail":false,"elementId":"CustomerCode","fieldName":"CustomerCode"},
+											
 											{"showDetail":true,"elementId":"CustomerName","fieldName":"CustomerName"},
 											{"showDetail":false,"elementId":"CustomerAddress","fieldName":"CustomerAddress"},
+											
 								] 
 		};
 		

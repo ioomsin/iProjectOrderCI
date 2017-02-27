@@ -32,21 +32,13 @@ class Model_Autocomplete extends CI_Model {
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function get_autocomplete_obj($tbl, $q="",$fKey="",$fShow=""){
-		$wh = "";
-		if($q){ $wh = "AND ".$fKey." LIKE '%".$q."%'"; }
 	
-		$all_f_name = "";
-		if(count($fShow)>0){
-			foreach($fShow as $f_name){
-				$all_f_name .= ",".$f_name;
-			}
-		}
-	
-		$sql = "SELECT ".$fKey.$all_f_name." FROM ".$tbl." WHERE 1=1 ".$wh;
-	
-		$query = $this->db->query($sql);
-		$rows = $query->num_rows();
+		$this->db->select("*")->like($fKey, $q)->or_like($fShow[0], $q)->limit(10);
+		$query 	= $this->db->get($tbl);
+		
+		$rows 	= $query->num_rows();
 		$row_set=array();
+		
 		$j=0;
 		$json="[" ;
 		foreach ($query->result_array() as $row){

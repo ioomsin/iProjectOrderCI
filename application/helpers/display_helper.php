@@ -10,7 +10,19 @@ function chg_date ($date_input)    {
 	//$year = $year_th-543;
 	return $year."-".$mont."-".$date;
 }	
-	
+
+function chg_date_en($date_input){
+	if($date_input){
+		$date = substr($date_input,8,2);
+		$mont= substr($date_input,5,2);
+		$year_en = substr($date_input,0,4);
+		$year=$year_en; //$year_en+543;
+		return $date."/".$mont."/".$year;
+	}else{
+		return "";
+	}
+}
+
 function chg_date_th($date_input){
 	if($date_input){
 		$date = substr($date_input,8,2);

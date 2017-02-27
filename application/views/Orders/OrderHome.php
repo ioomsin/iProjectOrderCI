@@ -31,7 +31,7 @@
                     <tr>
                         <td class="text-center"><?php echo $i;?></td>
                         <td><?php echo $rs["OrderNumber"];?></td>
-                        <td><?php echo chg_date_th($rs["OrderDate"]);?></td>
+                        <td><?php echo chg_date_en($rs["OrderDate"]);?></td>
                         <td><?php echo $rs["CustomerCode"];?></td>
                         <td><?php echo $rs["CustomerName"];?></td>
                         <td>
