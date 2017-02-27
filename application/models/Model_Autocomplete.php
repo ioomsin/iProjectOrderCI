@@ -36,12 +36,13 @@ class Model_Autocomplete extends CI_Model {
 		$this->db->select("*")->like($fKey, $q)->or_like($fShow[0], $q)->limit(10);
 		$query 	= $this->db->get($tbl);
 		
+		$result	= $query->result_array();
 		$rows 	= $query->num_rows();
 		$row_set=array();
 		
 		$j=0;
 		$json="[" ;
-		foreach ($query->result_array() as $row){
+		foreach ( $result as $row){
 			$json_all_show="";
 			if(count($fShow)>0){
 				$json_all_show .= ',"fShow":[';

@@ -206,5 +206,24 @@ class Orders extends CI_Controller {
 			
 		}
 	}
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function GetAutocompleteObj_Item(){
+	
+		$fKey 	= $this->input->get('fKey');
+		$fShow 	= $this->input->get('fShow');
+		$term 	= $this->input->get('term');
+	
+		if (isset($term)){
+			$q = strtolower($term);
+			$source = $this->Model_Autocomplete->get_autocomplete_obj("Items", $q, $fKey, $fShow);
+				
+			print_r($source);
+				
+		}else{
+				
+			exit;
+				
+		}
+	}
 	
 }	// ### END Class

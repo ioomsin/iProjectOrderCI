@@ -1,9 +1,9 @@
-
-		<!-- <div class="container">
+		
+		<div class="container" style="margin-top: 30px;">
 			<footer class="footer text-center">
-				<p> &copy; Company 2017 </p>
+				<p> &copy; PNS Cluster 2017 </p>
 			</footer>
-		</div>	 -->
+		</div>	 
 		<!-- END Container -->	
 	
 	

@@ -113,16 +113,17 @@
 														"data-row" 	=> $i,
 														"content" 	=> "ลบ",
 														"class" 	=> "btn btn-outline-danger btn-sm btn_del",
-														"onClick" 	=> "fnc_DelRow('#tbl_order', $(this).attr('data-row'))"
+														"onClick" 	=> "fnc_DelRow('tbl_order', $(this).attr('data-row'))"
 								));
         					?>
         				<td>
         					<?php 
         						
         						echo form_hidden("OrderID[]", !empty($rs['OrderID'])?$rs['OrderID']:'');
-        						echo form_input( array(	'name'	=> 'ItemCode[]',
-        												'id'	=> 'ItemCode'.$i,
-        												'class' => 'form-control'
+        						echo form_input( array(	'name'		=> 'ItemCode[]',
+        												'id'		=> 'ItemCode'.$i,
+        												'class' 	=> 'form-control',
+        												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
         						);
         					?>
@@ -138,9 +139,9 @@
         				</td>
         				<td>
         					<?php 
-        						echo form_input( array(	'name'	=> 'OrderQty[]',
-        												'id'	=> 'OrderQty'.$i,
-        												'class' => 'form-control text-right qty',
+        						echo form_input( array(	'name'		=> 'OrderQty[]',
+        												'id'		=> 'OrderQty'.$i,
+        												'class' 	=> 'form-control text-right qty',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
         						);
@@ -149,7 +150,7 @@
         				<td>
         					<?php
         						echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'', array("class"	=> "form-control"));
-        					?>        				
+        					?>     				
         				</td>
         				<td>
         					<?php 
@@ -184,19 +185,21 @@
         												"data-row" 	=> "1", 
         												"content" 	=> "ลบ", 
         												"class" 	=> "btn btn-outline-danger btn-sm btn_del",
-        												"onClick" 	=> "fnc_DelRow('#tbl_order', $(this).attr('data-row'))"
+        												"onClick" 	=> "fnc_DelRow('tbl_order', $(this).attr('data-row'))"
                     							)); 
         					?>
         				</td>
         				<td>
         					<?php 
         						echo form_hidden( array( 'name'		=> 'OrderID[]',
-						        						 'id'		=> 'OrderID1'
+						        						 'id'		=> 'OrderID1',
+        												 'class'	=> 'row-no',
         										), !empty($rs['OrderID'])?$rs['OrderID']:''
         						);
-        						echo form_input( array(	'name'	=> 'ItemCode[]',
-        												'id'	=> 'ItemCode1',
-        												'class' => 'form-control'
+        						echo form_input( array(	'name'		=> 'ItemCode[]',
+        												'id'		=> 'ItemCode1',
+        												'class' 	=> 'form-control row-no',
+        												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
         						);
         					?>
@@ -205,7 +208,7 @@
          					<?php 
         						echo form_input( array(	'name'	=> 'ItemName[]',
         												'id'	=> 'ItemName1',
-        												'class' => 'form-control'
+        												'class' => 'form-control row-no'
         										), !empty($rs['ItemName'])?$rs['ItemName']:''
         						);
         					?>       				
@@ -214,7 +217,7 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderQty[]',
         												'id'		=> 'OrderQty1',
-        												'class' 	=> 'form-control text-right qty',
+        												'class' 	=> 'form-control text-right qty row-no',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
         						);
@@ -222,14 +225,14 @@
         				</td>
         				<td>
         					<?php 
-	        					echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'' , array("class"	=> "form-control"));
+	        					echo form_dropdown("OrderUnit[]", $dropdown, !empty($rs['OrderUnit'])?$rs['OrderUnit']:'' , array("class"	=> "form-control row-no"));
         					?>        				
         				</td>
         				<td>
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderPrice[]',
         												'id'		=> 'OrderPrice1',
-        												'class' 	=> 'form-control text-right price',
+        												'class' 	=> 'form-control text-right price row-no',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):''
         						);
@@ -239,7 +242,7 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'TotalPrice[]',
         												'id'		=> 'TotalPrice1',
-        												'class' 	=> 'form-control text-right readonly total-price',
+        												'class' 	=> 'form-control text-right readonly total-price row-no',
         												'readonly'	=> 'readonly'
         										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):''
         						);
@@ -306,7 +309,7 @@
 		fnc_CalcPrice();
 	
 		$("#btn_add").click(function(){
-			fnc_AddRow("#tbl_order")
+			fnc_AddRow("tbl_order")
 		});
 		
 		///// Autocomplete /////
@@ -327,14 +330,33 @@
 		};
 		
 		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Customer');?>", objAutoComplete);
-	    
 		
 	}); //end $(function()
+
+	//////////-------------------------------------------------------------------------------------------//////////
+	function fnc_GetItem(id){
+		
+		///// Autocomplete Multi /////
+		var objAutoCompleteItem = {
+				
+				elementKeyUp : 	{"elementId" : "ItemCode"+id,"fieldName" : "ItemCode"},
+
+				elementOther :	[
+											
+											{"showDetail":true,"elementId":"ItemName"+id,"fieldName":"ItemName"},
+											{"showDetail":false,"elementId":"OrderQty"+id,"fieldName":"ItemQty"},
+											{"showDetail":false,"elementId":"OrderPrice"+id,"fieldName":"ItemPrice"},
+											
+								] 
+		};
+		
+		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Item');?>", objAutoCompleteItem);
+	}
 	
 	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_AddRow(tbl){
 		
-		var tableBody = $(tbl).find("tbody");
+		var tableBody = $("#"+tbl).find("tbody");
 		
 			trLast = tableBody.find("tr:last");
 			trNew = trLast.clone();
@@ -348,7 +370,7 @@
 	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_DelRow(tbl, row){
 		
-		var tableBody = $(tbl).find("tbody");
+		var tableBody = $("#"+tbl).find("tbody");
 		var countRow = tableBody.find("tr").length;
 		
 		if( countRow <= 1 ){
@@ -358,7 +380,7 @@
 			
 		}else{
 	
-			$(tbl+" tbody #row_"+row).remove();
+			$("#"+tbl+" tbody #row_"+row).remove();
 			
 		}
 		
@@ -405,12 +427,12 @@
 			totalPrice = Qty*Price;
 			totalPriceAll += totalPrice;
 	
-			$(this).find("input.total-price").val(totalPrice);
+			$(this).find("input.total-price").val(totalPrice.toFixed(2));
 			//console.log(totalPrice);
 			
 		});
 	
-		$("#TotalOrderPrice").val(totalPriceAll);
+		$("#TotalOrderPrice").val(totalPriceAll.toFixed(2));
 	}
 
 

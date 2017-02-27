@@ -43,7 +43,7 @@
 			//console.log("ui-autocomplete");
 			if(idShowStatus == true){
 				return $( "<li>" )
-				.append( "<div>" + item.label + " :: " + item.value + "</div>" )
+				.append( "<div>" + item.label + " : " + item.value + "</div>" )
 				.appendTo( ul );
 			}else{
 				return $( "<li>" )
@@ -99,7 +99,7 @@
 						var fShow = "";
 						$.each(objAuto.elementOther,function(i){
 							if(this.showDetail==true){
-								fShow += " :: "+item.fShow[i];
+								fShow += " : "+item.fShow[i];
 							}
 						});
 						
