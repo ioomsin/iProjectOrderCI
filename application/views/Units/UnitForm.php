@@ -1,14 +1,12 @@
-﻿<div class="container">
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-
-  <?php 
+﻿
+<?php 
   
   	$proc = $this->uri->segment(3);
   	$hidden = array('proc' => $proc);
   	echo form_open_multipart('Units/ManageDataUnit', array('id' => 'frm_unit'), $hidden);
 	//echo form_hidden("proc", $proc, array('id' => 'proc'));
 	
-  ?>
+?>
   
       <div class="row">
         <div class="col-lg-6">
@@ -57,8 +55,6 @@
 
   <?php echo form_close();?>
   
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-</div>  <!-- END Container -->	
 
 <script>
 

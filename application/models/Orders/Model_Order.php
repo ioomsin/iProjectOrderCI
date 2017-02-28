@@ -54,27 +54,72 @@ class Model_Order extends CI_Model {
 		
 	}
 	/////////////////////////////////------------------------------------------------------
-	public function delete_data($tbl, $field, $id)
+	public function update_order_status($id)
 	{
-		$query 	= $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
-		$row 	= $query->row_array();
 		
-		if($row[$field]!="")
+		$this->db->select("*")
+					->from("Orders")
+					->join("OrderDetails","Orders.OrderNumber = OrderDetails.OrderNumber", "LEFT")
+					->where("Orders.OrderNumber", $id)
+					->where("Orders.ActiveStatus", 1);
+		
+		$query 		= $this->db->get();
+		$result 	= $query->result_array();
+		$num_rows	= $query->num_rows();
+		
+		//echo $num_rows; exit;
+		if( $num_rows != 0 )
 		{
-			//ลบออกจากตาราง
-			//$this->db->where($field, $id);
-			//$this->db->delete($tbl);
 			
-			//Update สถานะ เป็น ไม่ใช้งาน
-			$data['ActiveStatus'] = '0';
+			//$data['ActiveStatus'] = '0';
+				
+			$this->db->where("OrderNumber", $id);
+			$this->db->update("Orders", array("Orders.ActiveStatus" => "0"));
+			// $this->db->delete("Orders");
 			
-			$this->db->where($field, $row[$field]);
-		   	$this->db->update($tbl, $data);
+			$this->db->where("OrderNumber", $id);
+			$this->db->update("OrderDetails", array("OrderDetails.ActiveStatus" => "0"));
+			// $this->db->delete("OrederDetails");
+			
+			//return $result;
+		}else{
+			
+			return false;
+			
 		}
-		else
+		
+	}
+	/////////////////////////////////------------------------------------------------------
+	public function delete_order($id)
+	{
+	
+		$this->db->select("*")
+					->from("Orders")
+					->join("OrderDetails","Orders.OrderNumber = OrderDetails.OrderNumber", "LEFT")
+					->where("Orders.OrderNumber", $id)
+					->where("Orders.ActiveStatus", 1);
+	
+		$query 		= $this->db->get();
+		$result 	= $query->result_array();
+		$num_rows	= $query->num_rows();
+	
+		//echo $num_rows; exit;
+		if( $num_rows != 0 )
 		{
-			echo "ERROR !!! No ID";
+			
+			$this->db->where("OrderNumber", $id);
+			$this->db->delete("Orders");
+				
+			$this->db->where("OrderNumber", $id);
+			$this->db->delete("OrederDetails");
+				
+			//return $result;
+		}else{
+				
+			return false;
+				
 		}
+	
 	}
 	/////////////////////////////////------------------------------------------------------
 	/*public function getCode($tbl, $field)

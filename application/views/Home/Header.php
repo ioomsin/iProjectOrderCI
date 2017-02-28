@@ -12,6 +12,7 @@
 <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/css/jquery-ui-1.12.1.min.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/css/narrow-jumbotron.css'); ?>" rel="stylesheet">
+<link href="<?php echo base_url('assets/css/sweetalert.css'); ?>" rel="stylesheet">
 
 <!-- SCRIPT -->
 <script src="<?php echo base_url('assets/js/jquery-1.12.4.min.js'); ?>"></script>
@@ -19,6 +20,8 @@
 <script src="<?php echo base_url('assets/js/tether.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/function_main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/bootbox.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/sweetalert.js'); ?>"></script>
 
 </head>
 
@@ -51,7 +54,11 @@
 		
 	</div>
 	
-<!--////////////////////////////////////////////////////////////////////////////////////////////-->
-</div> <!-- End container -->
+	<div id="show_Detail">
+	<!--////////////////////////////////////////////////////////////////////////////////////////////-->
+	
+	
+
+
 
 

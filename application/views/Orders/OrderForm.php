@@ -1,12 +1,10 @@
-<div class="container">
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-  <?php 
+<?php 
   
   	$proc = $this->uri->segment(3);
   	$hidden = array('proc' => $proc);
   	echo form_open_multipart('Orders/ManageDataOrder', array('id' => 'frm_order'), $hidden);
 	
-  ?>
+?>
   
       <div class="row">
         <div class="col">
@@ -279,25 +277,25 @@
           		        
       <div class="row text-center">
             <div class="col">
+            	<!-- <button type="button" id="btn_save" name="btn_save" class="btn btn-primary">บันทึกข้อมูล</button> -->
                 <?php
                     echo form_submit( array('name'	=> 'btn_save', 
                     						'id'	=> 'btn_save',
                     						'class' => 'btn btn-primary'
                     				), 'บันทึกข้อมูล'
-                    );   
+                    );
                     echo anchor('Orders/index', 'กลับหน้าหลัก', array('class' => 'btn btn-secondary'));
                 ?>          	
             </div>
       </div>
 
-  <?php echo form_close(); ?>
+<?php echo form_close(); ?>
 
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-</div>  <!-- END Container -->
 
 <script>
 
 	$(function(){
+		
 
 		//### Datepicker ###//
 		$( ".date" ).datepicker({ dateFormat: 'dd/mm/yy' });
@@ -330,9 +328,53 @@
 		};
 		
 		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Customer');?>", objAutoComplete);
-		
-	}); //end $(function()
 
+		/*$("#btn_save").click(function(){
+			fnc_submit();
+		});*/
+
+		
+		$("#frm_order").submit(function( event ){
+			confirm("กรุณายืนยันการบันทึกข้อมูล");
+			/*$.ajax({
+				type: "POST",
+		        dataType:'html',
+		        cache:false,
+		        beforeSend:function(){
+			        confirm("กรุณายืนยันการบันทึกข้อมูล");
+			        // return false;
+		        }
+		        ,success: function(data){
+			        alert("บันทึกข้อมูลเรียบร้อย");
+			        window.location.href = "<?php echo site_url("Orders/index"); ?>";
+		        }
+			});*/
+		});
+
+	}); //end $(function()
+	//////////-------------------------------------------------------------------------------------------//////////
+	
+	/*
+	function fnc_submit(){
+		$.ajax({
+			type: "POST",
+			data: $("#frm_order").serializeArray(),
+	        dataType:'html',
+	        cache:false,
+	        beforeSend:function(){
+		        confirm("กรุณายืนยันการบันทึกข้อมูล");
+		        // return false;
+	        },
+	        success: function(data){
+		        //console.log(data);
+		       
+		        alert("บันทึกข้อมูลเรียบร้อย");
+		        window.location.href = "<?php echo site_url("Orders/index"); ?>";
+	        }
+		});
+	}
+	*/
+	
 	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_GetItem(id){
 		
@@ -350,7 +392,7 @@
 								] 
 		};
 		
-		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Item');?>", objAutoCompleteItem);
+		_AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Item');?>", objAutoCompleteItem);
 	}
 	
 	//////////-------------------------------------------------------------------------------------------//////////
@@ -427,13 +469,81 @@
 			totalPrice = Qty*Price;
 			totalPriceAll += totalPrice;
 	
-			$(this).find("input.total-price").val(totalPrice.toFixed(2));
-			//console.log(totalPrice);
+			//$(this).find("input.total-price").val(totalPrice.toFixed(2));
+			$(this).find("input.total-price").val(Number(totalPrice).toLocaleString('en'));
 			
 		});
 	
-		$("#TotalOrderPrice").val(totalPriceAll.toFixed(2));
+		//$("#TotalOrderPrice").val(totalPriceAll.toFixed(2));
+		$("#TotalOrderPrice").val(Number(totalPriceAll).toLocaleString('en'));
+		
 	}
-
-
+	
+	//////////-------------------------------------------------------------------------------------------//////////
+	function _AutoCompleteAjax(url,objAuto){ 
+		var fieldShow = ""
+		if(objAuto.elementOther.length>0){
+			$.each(objAuto.elementOther,function(){
+				fieldShow += "&fShow[]="+this.fieldName;
+			});
+		}
+		if(url.indexOf(".php?")==-1){
+			url += "?fKey="+objAuto.elementKeyUp.fieldName+fieldShow
+		}else{
+			url += "&fKey="+objAuto.elementKeyUp.fieldName+fieldShow
+		}
+		$( "#"+objAuto.elementKeyUp.elementId).autocomplete({
+				minLength:0,
+				delay:0,
+				search:function(e,u){
+					$('#'+objAuto.elementKeyUp.elementId).autocomplete({ 		
+						source: url
+					});
+				},
+				select: function( event, ui ) {
+									if(objAuto.elementOther.length>0){
+										$.each(objAuto.elementOther,function(i){
+											$("#"+this.elementId).val($.trim(html_entity_decode(ui.item.fShow[i])));
+										});
+									}
+				},
+				change : function(event,ui){
+								if(!ui.item){
+										$(this).val("");
+										if(objAuto.elementOther.length>0){
+											$.each(objAuto.elementOther,function(i){
+												$("#"+this.elementId).val("");
+											});
+										}
+								}
+				},
+				close: function( event, ui ) {
+					fnc_CalcPrice();
+				}
+			}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+					if(objAuto.elementOther.length>0){
+						var fShow = "";
+						$.each(objAuto.elementOther,function(i){
+							if(this.showDetail==true){
+								fShow += " : "+item.fShow[i];
+							}
+						});
+						
+						return $( "<li>" )
+						.append( "<div>" + item.fKey + fShow + "</div>" )
+						.appendTo( ul );
+						
+					}else{
+						
+						return $( "<li>" )
+						.append( "<div>" + item.fieldKeyUp + "</div>" )
+						.appendTo( ul );
+						
+					}
+			};	
+			
+			$("#"+objAuto.elementKeyUp.elementId).click(function(){ $("#"+objAuto.elementKeyUp.elementId).autocomplete('search'); });
+	
+	}	// END AutoCompleteAjax
+	
 </script>

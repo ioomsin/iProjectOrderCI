@@ -132,15 +132,16 @@ class Orders extends CI_Controller {
 	}
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function DeleteItem()
+	public function DeleteOrder()
 	{
 		$id = $this->uri->segment(4);
-		$data = $this->Model_Item->select_id($id);
+		$data = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
 
-		if($data['ItemCode'] != "" ){
-			$this->Model_Item->delete_data($id);
+		if($data['OrderNumber'] != "" ){
+			$this->Model_Order->update_order_status($id);
 		}
-		redirect("Items/index");
+		
+		redirect("Orders/index");
 	}
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
