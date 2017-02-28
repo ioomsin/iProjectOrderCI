@@ -335,12 +335,13 @@
 
 		
 		$("#frm_order").submit(function( event ){
-			//confirm("กรุณายืนยันการบันทึกข้อมูล");
-			event.preventDefault();
+			confirm("กรุณายืนยันการบันทึกข้อมูล");
+			/*event.preventDefault();
 			$.ajax({
 				type: "POST",
+				data: $("#frm_order").serializeArray(),
 		        dataType:'html',
-		        cache:false,
+		        cache: true,
 		        beforeSend:function(){
 			        confirm("กรุณายืนยันการบันทึกข้อมูล");
 			        // return false;
@@ -349,7 +350,7 @@
 			        alert("บันทึกข้อมูลเรียบร้อย");
 			        window.location.href = "<?php echo site_url("Orders/index"); ?>";
 		        }
-			});
+			});*/
 		});
 
 	}); //end $(function()

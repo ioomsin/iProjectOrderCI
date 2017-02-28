@@ -85,7 +85,7 @@ class Orders extends CI_Controller {
 				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
 				
 			}
-
+			
 			/////-----------------------------------------------------------------/////
 			
 		}else if($proc == "Edit"){
@@ -126,6 +126,8 @@ class Orders extends CI_Controller {
 			/////-----------------------------------------------------------------/////
 			
 		}
+		
+		//return TRUE;
 		
 		redirect("Orders/index");
 			
