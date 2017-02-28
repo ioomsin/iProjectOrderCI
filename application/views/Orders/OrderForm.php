@@ -335,8 +335,9 @@
 
 		
 		$("#frm_order").submit(function( event ){
-			confirm("กรุณายืนยันการบันทึกข้อมูล");
-			/*$.ajax({
+			//confirm("กรุณายืนยันการบันทึกข้อมูล");
+			event.preventDefault();
+			$.ajax({
 				type: "POST",
 		        dataType:'html',
 		        cache:false,
@@ -348,7 +349,7 @@
 			        alert("บันทึกข้อมูลเรียบร้อย");
 			        window.location.href = "<?php echo site_url("Orders/index"); ?>";
 		        }
-			});*/
+			});
 		});
 
 	}); //end $(function()
