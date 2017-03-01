@@ -2,92 +2,55 @@
 /*
  * 	JavaScript Document for CI THEME
  */
-
 /*
-window.alert = function(message,alert_type){
-	console.log( $('.sweet-alert').hasClass('showSweetAlert') +": sweet-alert ");
-	
-	alert_type = (alert_type !=undefined) ? alert_type : 'warning';		
-	if($('.sweet-alert').hasClass('showSweetAlert')==true){ //ถ้า SweetAlert เปิดอยู่ ให้ Delay 
-		setTimeout(function(){
+	window.alert = function(message, alert_type){
+		console.log( $('.sweet-alert').hasClass('showSweetAlert') +": sweet-alert ");
+		
+		alert_type = (alert_type !=undefined) ? alert_type : 'warning';		
+		if($('.sweet-alert').hasClass('showSweetAlert')==true){ //ถ้า SweetAlert เปิดอยู่ ให้ Delay 
+			setTimeout(function(){
+				swal({
+				  title: 'แจ้งเตือน',
+				  text: message,
+				  type: alert_type,
+				  showCancelButton: false,
+				  confirmButtonText: "ตกลง",
+				  //confirmButtonClass: "btn-primary",
+				  closeOnConfirm: false
+				});
+			},150);
+		}else{	
 			swal({
-			  title: 'แจ้งเตือน',
-			  text: message,
-			  type: alert_type,
-			  showCancelButton: false,
-			  confirmButtonText: "ตกลง",
-			  closeOnConfirm: false
+				  title: 'แจ้งเตือน',
+				  text: message,
+				  type: alert_type,
+				  showCancelButton: false,
+				  confirmButtonText: "ตกลง",
+				  //confirmButtonClass: "btn-primary",
+				  closeOnConfirm: false
 			});
-		},150);
-	}else{	
+		}
+	}
+	*/
+	
+	/*
+	window.confirm = function ( message, callback ) {
+		console.log(callback);
 		swal({
-			  title: 'แจ้งเตือน',
-			  text: message,
-			  type: alert_type,
-			  showCancelButton: false,
-			  confirmButtonText: "ตกลง",
-			  closeOnConfirm: false
-		});
-	}
-}
-
-window.confirm = function (message, callback) {
-	swal({
-			  title: "ยืนยัน",
-			  text: message, // "กรุณายืนยันอีกครั้ง",
-			  type: "warning", 
-			  confirmButtonText: 'ยืนยัน',
-			  cancelButtonText: 'ยกเลิก',
-			  showCancelButton: true,
-			  showLoaderOnConfirm: true
-		 }, function (isConfirm) {		 	  
-			  callback(isConfirm);
-		 });
-}
-*/
-	//////////////////////------------------------------------------------------------------------------------------------------
-	function loadview(url){
-			$.ajax({
-				  type: "GET",
-				  url: url,
-				  cache:false,
-				  data: {}, // serializes the form's elements.
-				  beforeSend: function(data){	
-						//createCookie('notheme','1', 1); //สั่งห้ามแสดง Theme (เพราะโหลด Ajax มาแสดงใน #show_detail)
-						//block(); // #show_detail
-				  },
-				  success: function(data){
-						//deleteCookie('notheme'); //ยกเลิกคำสั่งห้ามแสดง Theme
-					 	//unblock();
-					  $("#show_Datail").html(data);
-					 //console.clear();
-				  },
-				  error: function(data, errorThrown){
-					  //deleteCookie('notheme'); 
-					  //unblock();
-					/*console.log(data);
-					 if(data.status=="404")
-					 {
-						 console.log("Error !!! 404 555555555");
-					}*/
-					   //Print Error Codeigniter 
-					   	var x=data.responseText.toString();
-					   	var l=x.length;
-					   	var y=x.indexOf('<body>');
-					   	var s=x.slice(y,l);
-					   	var error_msg='<h1><strong class="text-danger">Error : '+data.status+' '+data.statusText+'</strong></h1>'+s;
-					   	$('#show_Datail').html(error_msg);
-						$("html,body").animate({ scrollTop: 0 }, 100);
-				  },
-				  statusCode: {
-						0: function() {
-							//deleteCookie('notheme'); 
-					  		//unblock();
-							alert("Error กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ต "); 
-						}
-					}			  
-			});
-	}
+				  title: "ยืนยัน",
+				  text: message, // "กรุณายืนยันอีกครั้ง",
+				  type: "warning", 
+				  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
+				  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
+				  showCancelButton: true,
+				  showLoaderOnConfirm: true
+		}).then(
+			callback
+		)
+			
+			 
+	}	//-- window.confirm
+	*/
 	//////////////////////------------------------------------------------------------------------------------------------------
 	function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
 		

@@ -55,7 +55,7 @@ class Units extends CI_Controller {
 			
 		}
 		
-		redirect("Units/index");
+		//redirect("Units/index");
 			
 	}
 	

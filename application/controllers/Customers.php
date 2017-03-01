@@ -54,7 +54,7 @@ class Customers extends CI_Controller {
 			
 		}
 		
-		redirect("Customers/index");
+		//redirect("Customers/index");
 			
 	}
 	

@@ -1,9 +1,4 @@
-﻿    
-    <!--<div class="card card-outline-primary mb-3">-->
-        <!--<div class="card-header card-primary">
-            <font color="#FFFFFF">รายการสินค้า</font>
-        </div>-->
-        <!--<div class="card-block">-->
+
         	<h4 class="card-title"># รายการสินค้า</h4>
             <table class="table table-striped">
                 <thead>
@@ -35,8 +30,8 @@
                                 Action
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?php echo site_url('Items/ItemForm/Edit/'.$rs["ItemCode"]); ?>">แก้ไข</a>
-                                <a class="dropdown-item" href="<?php echo site_url('Items/DeleteItem/Delete/'.$rs["ItemCode"]); ?>">ลบ</a>
+                                <a class="dropdown-item item-edit" href="<?php echo site_url('Items/ItemForm/Edit/'.$rs["ItemCode"]); ?>">แก้ไข</a>
+                                <a class="dropdown-item item-delete" href="<?php echo site_url('Items/DeleteItem/Delete/'.$rs["ItemCode"]); ?>">ลบ</a>
                               </div>
                             </div>
                         </td>
@@ -46,15 +41,39 @@
                 ?>
                 </tbody>
             </table>
-        <!--</div>-->
-    <!--</div>-->
+
 
  
 <script>
 
-	$(function(){
-		//console.log("xxx");
+$(function(){
+
+	$('.item-delete').on('click', function( event ){
+		event.preventDefault();
+		// var href = $(this).attr('href');
+		confirm('ยืนยันการบันทึกข้อมูล ?', function( result ){
+			if( result ){
+				var url = $(this).attr('href');	// "<?php echo site_url("Items/DeleteItem"); ?>";
+				$.ajax({
+					type: "POST",
+					url: url,
+					//data: $(this).serialize(),
+			        dataType:'html',
+			        cache: false,
+			        success: function(data){
+			        	alert("บันทึกข้อมูลเรียบร้อย","success");
+				        window.location.href = "<?php echo site_url("Items/index"); ?>";
+			        },
+		        	error: function(data, errorThrown){
+		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+		        		return false;
+		        	}
+				});	//-- Ajax.
+			}	//-- If result.
+		});	//-- Confirm.
+		
+	});
 	
-	}) //end $(function()
+}) //end $(function()
 
 </script>   

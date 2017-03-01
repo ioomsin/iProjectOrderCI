@@ -50,7 +50,7 @@ class Orders extends CI_Controller {
 	public function ManageDataOrder()
 	{
 		$proc = $this->input->post('proc');
-		//print_r($this->input->post()); //exit;
+				
 		if($proc == "Add")
 		{
 			/////-----------------------------------------------------------------/////
@@ -129,7 +129,7 @@ class Orders extends CI_Controller {
 		
 		//return TRUE;
 		
-		//redirect("Orders/index");
+		redirect("Orders/index");
 			
 	}
 	

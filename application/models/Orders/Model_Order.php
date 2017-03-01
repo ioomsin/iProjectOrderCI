@@ -31,6 +31,7 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function add_data($tbl, $data)
 	{
+		//print_r($data);
 		$this->db->insert($tbl, $data);
 		$insert_id = $this->db->insert_id();
 		

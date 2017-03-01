@@ -117,10 +117,15 @@
         				<td>
         					<?php 
         						
-        						echo form_hidden("OrderID[]", !empty($rs['OrderID'])?$rs['OrderID']:'');
+        						echo form_input( array(	'name'		=> 'OrderID[]',
+				        								'id'		=> 'OrderID'.$i,
+				        								'class' 	=> 'form-control row-no',
+				        								'type' 	=> 'hidden'
+				        						), !empty($rs['OrderID'])?$rs['OrderID']:''
+        						);
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode'.$i,
-        												'class' 	=> 'form-control',
+        												'class' 	=> 'form-control row-no',
         												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
         						);
@@ -130,7 +135,7 @@
          					<?php 
         						echo form_input( array(	'name'	=> 'ItemName[]',
         												'id'	=> 'ItemName'.$i,
-        												'class' => 'form-control'
+        												'class' => 'form-control row-no'
         										), !empty($rs['ItemName'])?$rs['ItemName']:''
         						);
         					?>       				
@@ -139,9 +144,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderQty[]',
         												'id'		=> 'OrderQty'.$i,
-        												'class' 	=> 'form-control text-right qty',
+        												'class' 	=> 'form-control text-right qty row-no number',
         												"onKeyup"	=> "fnc_CalcPrice()"
-        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
+        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):0
         						);
         					?>        				
         				</td>
@@ -154,9 +159,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderPrice[]',
         												'id'		=> 'OrderPrice'.$i,
-        												'class' 	=> 'form-control text-right price',
+        												'class' 	=> 'form-control text-right price row-no number',
         												"onKeyup"	=> "fnc_CalcPrice()"
-        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):''
+        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):0
         						);
         					?>        				
         				</td>
@@ -164,9 +169,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'TotalPrice[]',
         												'id'		=> 'TotalPrice'.$i,
-        												'class' 	=> 'form-control text-right readonly total-price',
+        												'class' 	=> 'form-control text-right readonly total-price row-no number',
         												'readonly'	=> 'readonly'
-        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):''
+        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):0
         						);
         					?>        				
         				</td>
@@ -189,10 +194,16 @@
         				</td>
         				<td>
         					<?php 
-        						echo form_hidden( array( 'name'		=> 'OrderID[]',
+        						/*echo form_hidden( array( 'name'		=> 'OrderID[]',
 						        						 'id'		=> 'OrderID1',
         												 'class'	=> 'row-no',
         										), !empty($rs['OrderID'])?$rs['OrderID']:''
+        						);*/
+        						echo form_input( array(	'name'		=> 'OrderID[]',
+				        								'id'		=> 'OrderID1',
+				        								'class' 	=> 'form-control row-no',
+				        								'type' 		=> 'hidden'
+				        						), !empty($rs['OrderID'])?$rs['OrderID']:''
         						);
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode1',
@@ -215,9 +226,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderQty[]',
         												'id'		=> 'OrderQty1',
-        												'class' 	=> 'form-control text-right qty row-no',
+        												'class' 	=> 'form-control text-right qty row-no number',
         												"onKeyup"	=> "fnc_CalcPrice()"
-        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):''
+        										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):0
         						);
         					?>        				
         				</td>
@@ -230,9 +241,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'OrderPrice[]',
         												'id'		=> 'OrderPrice1',
-        												'class' 	=> 'form-control text-right price row-no',
+        												'class' 	=> 'form-control text-right price row-no number',
         												"onKeyup"	=> "fnc_CalcPrice()"
-        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):''
+        										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):0
         						);
         					?>        				
         				</td>
@@ -240,9 +251,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'TotalPrice[]',
         												'id'		=> 'TotalPrice1',
-        												'class' 	=> 'form-control text-right readonly total-price row-no',
+        												'class' 	=> 'form-control text-right readonly total-price row-no number',
         												'readonly'	=> 'readonly'
-        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):''
+        										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):0
         						);
         					?>        				
         				</td>
@@ -263,9 +274,9 @@
         					<?php 
         						echo form_input( array(	'name'		=> 'TotalOrderPrice',
         												'id'		=> 'TotalOrderPrice',
-        												'class' 	=> 'form-control text-right readonly',
+        												'class' 	=> 'form-control text-right readonly number',
         												'readonly'	=> 'readonly'
-        										), !empty($Head['TotalOrderPrice'])?number_format($Head['TotalOrderPrice'],2):''
+        										), !empty($Head['TotalOrderPrice'])?number_format($Head['TotalOrderPrice'],2):0
         						);
         					?>
         				</td>
@@ -305,16 +316,17 @@
 		
 		//### Calc Price ###//
 		fnc_CalcPrice();
-	
+
+		//### Add Row ###//
 		$("#btn_add").click(function(){
 			fnc_AddRow("tbl_order")
 		});
 		
-		///// Autocomplete /////
+		//### Autocomplete Return 2 Value ###//
 		// AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerCode", "CustomerName", "CustomerCode", "CustomerName", false);
 		// AutocompleteReturn2Values("<?php echo site_url('Orders/GetAutocomplete_Customer'); ?>", "CustomerName", "CustomerCode", "CustomerName", "CustomerCode", false);
 	
-		///// Autocomplete Multi /////
+		//### Autocomplete Multi ###//
 		var objAutoComplete = {
 				
 				elementKeyUp : 	{"elementId" : "CustomerCode","fieldName" : "CustomerCode"},
@@ -329,53 +341,32 @@
 		
 		AutoCompleteAjax("<?php echo site_url('Orders/GetAutocompleteObj_Customer');?>", objAutoComplete);
 
-		/*$("#btn_save").click(function(){
-			fnc_submit();
-		});*/
-
-		
-		$("#frm_order").submit(function( event ){
-			confirm("กรุณายืนยันการบันทึกข้อมูล");
-			/*event.preventDefault();
-			$.ajax({
-				type: "POST",
-				data: $("#frm_order").serializeArray(),
-		        dataType:'html',
-		        cache: true,
-		        beforeSend:function(){
-			        confirm("กรุณายืนยันการบันทึกข้อมูล");
-			        // return false;
-		        }
-		        ,success: function(data){
-			        alert("บันทึกข้อมูลเรียบร้อย");
-			        window.location.href = "<?php echo site_url("Orders/index"); ?>";
-		        }
-			});*/
-		});
+		//### Submit Form ###//
+		$('#frm_order').on('submit', function( event ){
+			event.preventDefault();
+			confirm('ยืนยันการบันทึกข้อมูล ?', function( result ){
+				if( result ){
+					var url = "<?php echo site_url("Orders/ManageDataOrder"); ?>";
+					$.ajax({
+						type: "POST",
+						url: url,
+						data: $(this).serialize(),
+				        dataType:'html',
+				        cache: false,
+				        success: function(data){
+				        	alert("บันทึกข้อมูลเรียบร้อย","success");
+					        window.location.href = "<?php echo site_url("Orders/index"); ?>";
+				        },
+						error: function(data, errorThrown){
+			        		alert("ไม่สามารถบันทึกข้อมูลได้","danger");
+			        		return false;
+			        	}
+					});	//-- Ajax.
+				}	//-- If result.
+			});	//-- Confirm.
+		});	//-- Submit Form.
 
 	}); //end $(function()
-	//////////-------------------------------------------------------------------------------------------//////////
-	
-	/*
-	function fnc_submit(){
-		$.ajax({
-			type: "POST",
-			data: $("#frm_order").serializeArray(),
-	        dataType:'html',
-	        cache:false,
-	        beforeSend:function(){
-		        confirm("กรุณายืนยันการบันทึกข้อมูล");
-		        // return false;
-	        },
-	        success: function(data){
-		        //console.log(data);
-		       
-		        alert("บันทึกข้อมูลเรียบร้อย");
-		        window.location.href = "<?php echo site_url("Orders/index"); ?>";
-	        }
-		});
-	}
-	*/
 	
 	//////////-------------------------------------------------------------------------------------------//////////
 	function fnc_GetItem(id){
@@ -406,6 +397,7 @@
 			trNew = trLast.clone();
 			
 			trNew.find("input").val('');
+			trNew.find("input.number").val(0);
 			trLast.after(trNew);
 			
 			fnc_ModifyRow();

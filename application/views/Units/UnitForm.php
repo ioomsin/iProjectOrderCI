@@ -66,35 +66,30 @@ $(function(){
 		$("#UnitCode").addClass("readonly").attr("readonly",true);
 	}
 	
-	/*
-	$("#frm_item).ajaxForm({
-			type:'POST',
-			dataType:'html',
-			cache:false,
-			beforeSend:function(){
-			blockUI();
-		},
-			success:function(data){
-				if(data){
-					alert(data,'error');
-					return false;
-				}
-				alert('บันทึกเรียบร้อย','success');
-				//unblockUI();
-				loadview('<?php echo site_url('Items/index');?>');
-			}//end success
-	})//end submit ajaxForm
-	*/
-
-	/*
-	$( '#frm_item' ).submit( function(){
-        if( confirm('ยืนยันการบันทึกข้อมูล') ){
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    });
-    */
+	//### Submit Form ###//
+	$('#frm_unit').on('submit', function( event ){
+		event.preventDefault();
+		confirm('ยืนยันการบันทึกข้อมูล ?', function( result ){
+			if( result ){
+				var url = "<?php echo site_url("Units/ManageDataUnit"); ?>";
+				$.ajax({
+					type: "POST",
+					url: url,
+					data: $(this).serialize(),
+			        dataType:'html',
+			        cache: false,
+			        success: function(data){
+			        	alert("บันทึกข้อมูลเรียบร้อย","success");
+				        window.location.href = "<?php echo site_url("Units/index"); ?>";
+			        },
+					error: function(data, errorThrown){
+		        		alert("ไม่สามารถบันทึกข้อมูลได้","danger");
+		        		return false;
+		        	}
+				});	//-- Ajax.
+			}	//-- If result.
+		});	//-- Confirm.
+	});	//-- Submit Form.
 	
 })//end $(function()
 	

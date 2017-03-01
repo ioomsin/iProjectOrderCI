@@ -1,4 +1,4 @@
-﻿
+
 <?php 
   
   	$proc = $this->uri->segment(3);
@@ -78,7 +78,7 @@
         <div class="col-lg-6">
             <div class="form-group">
                 <?php 
-                    echo form_label( 'รูปสินค้า', 'ItemImage' );
+                    echo form_label( 'รูปภาพ', 'ItemImage' );
                     echo form_upload( array( 'name'				=> 'ItemImage',
                     						 'id' 				=> 'ItemImage',
                     						 'class' 			=> 'form-control-file',
@@ -110,36 +110,80 @@
 
 $(function(){
 
-	/*
-	$("#frm_item).ajaxForm({
-			type:'POST',
-			dataType:'html',
-			cache:false,
-			beforeSend:function(){
-			blockUI();
-		},
-			success:function(data){
-				if(data){
-					alert(data,'error');
-					return false;
-				}
-				alert('บันทึกเรียบร้อย','success');
-				//unblockUI();
-				loadview('<?php echo site_url('Items/index');?>');
-			}//end success
-	})//end submit ajaxForm
-	*/
+	//### Submit Form ###//
+	$('#frm_item').on('submit', function ( event ) {
+		event.preventDefault();
+		swal({
+			  title: "ยืนยัน",
+			  text: "ยืนยันการบันทึกข้อมูล ?",
+			  type: "warning", 
+			  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
+			  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
+			  showCancelButton: true,
+			  showLoaderOnConfirm: true
+		}).then( function (isConfirm) {
+			if (!isConfirm) return;
+			
+			var url = "<?php echo site_url('Items/ManageDataItem'); ?>";
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: $(this).serialize(),
+		        dataType:'html',
+		        cache: false,
+		        success: function(data){
+		        	alert("บันทึกข้อมูลเรียบร้อย","success");
+			        window.location.href = "<?php echo site_url('Items/index'); ?>";
+		        },
+	        	error: function(data, errorThrown){
+	        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+	        		return false;
+	        	}
+			});	//-- Ajax.
+		},function ( dismiss ) {
+			if ( dismiss === 'cancel' ) {
+			    swal(
+			      'Cancelled',
+			      'Your imaginary file is safe :)',
+			      'error'
+			    )
+			}
+		});		 
 
-	/*
-	$( '#frm_item' ).submit( function(){
-        if( confirm('ยืนยันการบันทึกข้อมูล') ){
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    });
-    */
+		/* 
+		confirm('ยืนยันการบันทึกข้อมูล ?', function( isConfirm ){
+			if (!isConfirm) return;
+			var url = "<?php echo site_url('Items/ManageDataItem'); ?>";
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: $(this).serialize(),
+		        dataType:'html',
+		        cache: false,
+		        success: function(data){
+		        	alert("บันทึกข้อมูลเรียบร้อย","success");
+			        window.location.href = "<?php echo site_url('Items/index'); ?>";
+		        },
+	        	error: function(data, errorThrown){
+	        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+	        		return false;
+	        	}
+			});	//-- Ajax.
+		},function ( dismiss ) {
+			if ( dismiss === 'cancel' ) {
+			    swal(
+			      'Cancelled',
+			      'Your imaginary file is safe :)',
+			      'error'
+			    )
+			}
+		});	//-- Confirm.
+		*/ 
+		
+	});	//-- Submit Form.
 	
-})//end $(function()
+		
+	
+});	// end $(function()
 	
 </script>

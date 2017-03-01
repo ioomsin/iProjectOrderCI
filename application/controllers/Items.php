@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Items extends CI_Controller {
@@ -86,7 +86,7 @@ class Items extends CI_Controller {
 			
 		}
 		
-		redirect("Items/index");
+		//redirect("Items/index");
 			
 	}
 	
@@ -98,7 +98,8 @@ class Items extends CI_Controller {
 		if($data['ItemCode'] != "" ){
 			$this->Model_Item->delete_data($id);
 		}
-		redirect("Items/index");
+		
+		//redirect("Items/index");
 	}
 	
 	public function GenCode($table, $filedCode)
