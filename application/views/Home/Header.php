@@ -16,12 +16,13 @@
 
 <!-- SCRIPT -->
 <script src="<?php echo base_url('assets/js/jquery/jquery-1.12.4.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/jquery/jquery-ui-1.12.1.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery/jqueryUI/jquery-ui-1.12.1.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap/tether.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap/bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/sweetalert2/sweetalert2.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/bootbox/bootbox.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/function_main.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery/jquery.validate/jquery.validate.min.js'); ?>"></script>
 
 </head>
 

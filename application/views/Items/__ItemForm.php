@@ -192,7 +192,17 @@ $(function(){
 	//### Submit Form ###//
 	$('#frm_item').on('submit', function ( event ) {
 		event.preventDefault();
-		confirm('ยืนยันการบันทึกข้อมูล ?', function(){
+		swal({
+			  title: "ยืนยัน",
+			  text: "ยืนยันการบันทึกข้อมูล ?",
+			  type: "warning", 
+			  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
+			  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
+			  showCancelButton: true,
+			  showLoaderOnConfirm: true
+		}).then( function (isConfirm) {
+			if (!isConfirm) return;
+			
 			var url = "<?php echo site_url('Items/ManageDataItem'); ?>";
 			$.ajax({
 				type: "POST",
@@ -204,15 +214,43 @@ $(function(){
 		        processData: false,
     			contentType: false,
 		        success: function(data){
-		        	alert("บันทึกข้อมูลเรียบร้อย","success", "<?php echo site_url('Items/index'); ?>");			       
+		        	//alert("บันทึกข้อมูลเรียบร้อย","success");
+		        	swal({
+		  			  title: 'แจ้งเตือน',
+		  			  text: 'บันทึกข้อมูลเรียบร้อย',
+		  			  type: 'success',
+		  			  timer: 2000,
+		  			  showCloseButton: false
+		        	}).then(function () {
+			        	//##### กลับหน้าหลัก #####//
+			        	window.location.href = "<?php echo site_url('Items/index'); ?>";
+		        	},function (dismiss) {
+		        	    if (dismiss === 'timer') {
+		        	        console.log('I was closed by the timer')
+		        	      }
+		        	})
+			       
 		        },
 	        	error: function(data, errorThrown){
-	        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+	        		//alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+	        		swal(
+		        			  'แจ้งเตือน',
+		        			  'บันทึกข้อมูลไม่สำเร็จ',
+		        			  'danger'
+			        )
 	        		return false;
 	        	}
 			});	//-- Ajax.
-		});	//-- Confirm	
-		 
+		},function ( dismiss ) {
+			if ( dismiss === 'cancel' ) {
+			    swal(
+		    		'แจ้งเตือน',
+        		    'ยกเลิกการบันทึกข้อมูล',
+        		    'error'
+			    )
+			}
+		});		 
+		
 	});	//-- Submit Form.
 	
 		

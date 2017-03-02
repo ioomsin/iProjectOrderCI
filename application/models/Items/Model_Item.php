@@ -5,6 +5,21 @@ class Model_Item extends CI_Model {
 		
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function select_item_home($id)
+	{
+		
+		$this->db->select("Items.*, Units.UnitName")
+					->from("Items")
+					->join("Units","Items.ItemUnit = Units.UnitCode", "LEFT")
+					->where("Items.ItemCode", $id)
+					->where("Items.ActiveStatus", 1);
+		
+		$query	= $this->db->get();
+		$row = $query->row_array();
+		
+		return $row;
+	}
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select()
 	{
 		$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));	
@@ -53,11 +68,11 @@ class Model_Item extends CI_Model {
 		
 		if($row['ItemCode']!="")
 		{
-			//ÅºÍÍ¡¨Ò¡µÒÃÒ§
+			//Åºï¿½Í¡ï¿½Ò¡ï¿½ï¿½ï¿½Ò§
 			//$this->db->where('animal_id', $id);
 			//$this->db->delete('animals');
 			
-			//Update Ê¶Ò¹Ğ à»ç¹ äÁèãªé§Ò¹
+			//Update Ê¶Ò¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò¹
 			$data['ActiveStatus'] = '0';
 			$this->db->where("ItemCode", $row['ItemCode']);
 		   	$this->db->update("Items", $data);

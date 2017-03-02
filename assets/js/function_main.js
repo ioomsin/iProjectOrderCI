@@ -2,11 +2,20 @@
 /*
  * 	JavaScript Document for CI THEME
  */
-/*
-	window.alert = function(message, alert_type){
-		console.log( $('.sweet-alert').hasClass('showSweetAlert') +": sweet-alert ");
+
+	/*window.alert = function(message, alert_type){
+		//console.log( $('.sweet-alert').hasClass('showSweetAlert') +": sweet-alert ");
 		
-		alert_type = (alert_type !=undefined) ? alert_type : 'warning';		
+		alert_type = (alert_type !=undefined) ? alert_type : 'warning';	
+		swal({
+			  title: 'แจ้งเตือน',
+			  text: message,
+			  type: alert_type,
+			  //timer: 2000,
+			  showCloseButton: true,
+			  closeOnConfirm: true
+		})
+		
 		if($('.sweet-alert').hasClass('showSweetAlert')==true){ //ถ้า SweetAlert เปิดอยู่ ให้ Delay 
 			setTimeout(function(){
 				swal({
@@ -15,8 +24,7 @@
 				  type: alert_type,
 				  showCancelButton: false,
 				  confirmButtonText: "ตกลง",
-				  //confirmButtonClass: "btn-primary",
-				  closeOnConfirm: false
+				  closeOnConfirm: true
 				});
 			},150);
 		}else{	
@@ -26,12 +34,60 @@
 				  type: alert_type,
 				  showCancelButton: false,
 				  confirmButtonText: "ตกลง",
-				  //confirmButtonClass: "btn-primary",
-				  closeOnConfirm: false
+				  closeOnConfirm: true
 			});
 		}
+	}*/
+
+	window.alert = function ( message, type, href ) {
+		swal({
+			  title: 'แจ้งเตือน',
+			  text: message,
+			  type: type,
+			  timer: 5000,
+			  showCloseButton: false
+      	}).then(function () {
+	        //##### กลับหน้าหลัก #####//
+      		if( !href){
+      			return false;
+      		}else{
+      			window.location.href = href;
+      		}
+	        	
+      	},function (dismiss) {
+      	    if (dismiss === 'timer') {
+      	    	if( !href){
+      	    		console.log('I was closed by the timer')
+          			return false;
+          		}else{
+          			window.location.href = href;
+          		}
+      	    	
+      	      }
+      	})
 	}
-	*/
+	
+	window.confirm = function ( message, callback ) {
+		swal({
+			  title: "ยืนยัน",
+			  text: "ยืนยันการบันทึกข้อมูล ?",
+			  type: "warning", 
+			  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
+			  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
+			  showCancelButton: true,
+			  showLoaderOnConfirm: true
+		}).then( function (isConfirm) {
+			if (!isConfirm) return;
+			//### Function Continue ###//
+			callback(isConfirm);
+			
+		},function ( dismiss ) {
+			if ( dismiss === 'cancel' ) {
+				alert( 'ยกเลิกการบันทึกข้อมูล', 'error' );
+			}
+		});		 
+	}
+	
 	
 	/*
 	window.confirm = function ( message, callback ) {

@@ -8,6 +8,9 @@
                         </th>
                         <th width="20%">รหัสสินค้า</th>
                         <th>ชื่อสินค้า</th>
+                        <th width="10%">จำนวน</th>
+                        <th width="10%">หน่วย</th>
+                        <th>รายละเอียด</th>
                         <th width="7%"></th>
                     </tr>
                 </thead>
@@ -23,6 +26,9 @@
                         <td class="text-center"><?php echo $i;?></td>
                         <td><?php echo $rs["ItemCode"];?></td>
                         <td><?php echo $rs["ItemName"];?></td>
+                        <td class="text-right"><?php echo $rs["ItemQty"];?></td>
+                        <td><?php echo $rs["ItemUnit"];?></td>
+                        <td><?php echo $rs["ItemDescription"];?></td>
                         <td>
                             <!-- Example single danger button -->
                             <div class="btn-group">
@@ -50,29 +56,29 @@ $(function(){
 
 	$('.item-delete').on('click', function( event ){
 		event.preventDefault();
-		// var href = $(this).attr('href');
-		confirm('ยืนยันการบันทึกข้อมูล ?', function( result ){
-			if( result ){
+			confirm('ยืนยันการบันทึกข้อมูล ?', function(){
 				var url = $(this).attr('href');	// "<?php echo site_url("Items/DeleteItem"); ?>";
 				$.ajax({
 					type: "POST",
 					url: url,
-					//data: $(this).serialize(),
+					//data: new FormData($("#frm_order")[0]),	// $("#frm_item").serialize(),
+					//enctype: 'multipart/form-data',
 			        dataType:'html',
 			        cache: false,
+			        processData: false,
+					contentType: false,
 			        success: function(data){
-			        	alert("บันทึกข้อมูลเรียบร้อย","success");
-				        window.location.href = "<?php echo site_url("Items/index"); ?>";
+			        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Items/index'); ?>" );
 			        },
 		        	error: function(data, errorThrown){
 		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
 		        		return false;
 		        	}
 				});	//-- Ajax.
-			}	//-- If result.
-		});	//-- Confirm.
+
+			});	//-- Confirm.
 		
-	});
+	});	//-- item-delete
 	
 }) //end $(function()
 

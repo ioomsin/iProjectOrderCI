@@ -344,26 +344,27 @@
 		//### Submit Form ###//
 		$('#frm_order').on('submit', function( event ){
 			event.preventDefault();
-			confirm('ยืนยันการบันทึกข้อมูล ?', function( result ){
-				if( result ){
-					var url = "<?php echo site_url("Orders/ManageDataOrder"); ?>";
+				confirm('ยืนยันการบันทึกข้อมูล ?', function(){
+					var url = "<?php echo site_url('Orders/ManageDataOrder'); ?>";
 					$.ajax({
 						type: "POST",
 						url: url,
-						data: $(this).serialize(),
+						data: new FormData($("#frm_order")[0]),	// $("#frm_item").serialize(),
+						//enctype: 'multipart/form-data',
 				        dataType:'html',
 				        cache: false,
+				        processData: false,
+						contentType: false,
 				        success: function(data){
-				        	alert("บันทึกข้อมูลเรียบร้อย","success");
-					        window.location.href = "<?php echo site_url("Orders/index"); ?>";
+				        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Orders/index'); ?>" );
 				        },
-						error: function(data, errorThrown){
-			        		alert("ไม่สามารถบันทึกข้อมูลได้","danger");
+			        	error: function(data, errorThrown){
+			        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
 			        		return false;
 			        	}
 					});	//-- Ajax.
-				}	//-- If result.
-			});	//-- Confirm.
+				});	//-- Confirm.
+				
 		});	//-- Submit Form.
 
 	}); //end $(function()

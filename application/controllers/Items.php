@@ -7,6 +7,7 @@ class Items extends CI_Controller {
 		parent::__construct();
 		
 		$this->load->model("Items/Model_Item");
+		$this->load->model("Model_Autocomplete");
 		
 	}
 	
@@ -30,7 +31,8 @@ class Items extends CI_Controller {
 			
 		}else{
 			
-			$data = $this->Model_Item->select_id($id);
+			$data = $this->Model_Item->select_item_home($id);
+			//print_r($data);
 			$this->theme->loadtheme('Items/ItemForm', $data);
 		}
 	}
@@ -39,15 +41,16 @@ class Items extends CI_Controller {
 	{
 		$proc = $this->input->post('proc');
 		$id = $this->input->post('ItemCode');
+		$genItemCode = $this->GenCode("Items", "ItemCode");
 		
 		//### Upload Picture
-		$config['upload_path']		= './assets/img/items';
+		$config['file_name']		= $proc=="Add" ?"IMG-".$genItemCode :"IMG-".$id;
+		$config['upload_path']		= './assets/imgs/items';
 		$config['allowed_types']    = 'gif|jpg|png';
-		$config['encrypt_name'] 	= TRUE;
+		$config['encrypt_name'] 	= FALSE;	// TRUE;
 		$config['max_size']         = 100;
 		$config['max_width']        = 1024;
 		$config['max_height']       = 768;
-
 		
 		$this->load->library('upload', $config);
 		
@@ -62,21 +65,25 @@ class Items extends CI_Controller {
 		$upload_data = $this->upload->data();
 		
 		
-		$data['ItemName'] 	=  $this->input->post('ItemName');
-		$data['ItemQty'] 	=  $this->input->post('ItemQty'); 
-		$data['ItemPrice'] 	=  $this->input->post('ItemPrice'); 
+		$data['ItemName'] 			=  $this->input->post('ItemName');
+		$data['ItemDate'] 			=  chg_date($this->input->post('ItemDate'));
+		$data['ItemQty'] 			=  $this->input->post('ItemQty'); 
+		$data['ItemUnit'] 			=  $this->input->post('ItemUnit');
+		$data['ItemPrice'] 			=  $this->input->post('ItemPrice'); 
+		$data['ItemDescription'] 	=  $this->input->post('ItemDescription');
 		
-		$ItemImage = $this->input->post('ItemImage');
-		if(!empty($ItemImage)){
+		
+		//$ItemImage = $this->input->post('ItemImage');
+		//print_r( $upload_data['file_name']." xxxx");
+		
+		if( $upload_data['file_name'] ){
 			$data['ItemImage'] 	=  $upload_data['file_name'];
 		}
-
-		//$data=$this->input->post();
 		
 		if($proc == "Add")
 		{
 			
-			$data['ItemCode'] 	=  $this->GenCode("Items", "ItemCode");
+			$data['ItemCode'] 	=  $genItemCode;	// $this->GenCode("Items", "ItemCode");
 			$this->Model_Item->add_data("Items", $data);
 			
 		}else if($proc == "Edit")
@@ -122,6 +129,28 @@ class Items extends CI_Controller {
 		}
 		//exit;
 		return $genCode;
+	}
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function GetAutocomplete_Unit()
+	{
+	
+		$fieldKeyUp	= $this->input->get('fieldKeyUp');
+		$fieldShow 	= $this->input->get('fieldShow');
+		$term 		= $this->input->get('term', true);
+	
+		if (isset($term)){	//if (isset($_GET['term'])){
+	
+			$q = strtolower($term);
+			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow );
+	
+			print_r($source);
+	
+		}else{
+	
+			exit;
+	
+		}
+	
 	}
 	
 }	// ### END Class

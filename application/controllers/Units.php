@@ -67,7 +67,8 @@ class Units extends CI_Controller {
 		if($data['UnitID'] != "" ){
 			$this->Model_Unit->delete_data($id);
 		}
-		redirect("Units/index");
+		
+		//redirect("Units/index");
 	}
 	
 	public function GenCode($table, $filedCode)
@@ -90,6 +91,29 @@ class Units extends CI_Controller {
 		}
 		//exit;
 		return $genCode;
+	}
+
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function GetAutocomplete_Unit()
+	{
+	
+		$fieldKeyUp	= $this->input->get('fieldKeyUp');
+		$fieldShow 	= $this->input->get('fieldShow');
+		$term 		= $this->input->get('term', true);
+	
+		if (isset($term)){	//if (isset($_GET['term'])){
+				
+			$q = strtolower($term);
+			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow );
+				
+			print_r($source);
+				
+		}else{
+				
+			exit;
+				
+		}
+	
 	}
 	
 }	// ### END Class

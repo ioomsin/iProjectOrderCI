@@ -6,7 +6,7 @@ class Model_Autocomplete extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function get_autocomplete($tbl, $q="",$fieldKeyUp="",$fieldShow=""){
 		
-		$this->db->select("*")->like($fieldKeyUp, $q)->limit(10);
+		$this->db->select("*")->like($fieldKeyUp, $q)->where($tbl.".ActiveStatus",1)->limit(10);
 	
 		$query = $this->db->get($tbl);
 		$result = $query->result_array();
