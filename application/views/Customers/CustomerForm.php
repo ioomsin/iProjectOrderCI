@@ -32,9 +32,10 @@
 	            <div class="form-group">
 	                <?php 
 	                    echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
-	                    echo form_input( array(	'name'	=> 'CustomerName',
-												'id'	=> 'CustomerName',
-												'class'	=> 'form-control'
+	                    echo form_input( array(	'name'		=> 'CustomerName',
+												'id'		=> 'CustomerName',
+												'class'		=> 'form-control',
+	                    						'required'	=> ''
 										), !empty($CustomerName)?$CustomerName:''
 						); 
 	                ?>

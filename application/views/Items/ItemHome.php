@@ -55,11 +55,11 @@
 $(function(){
 
 	$('.item-delete').on('click', function( event ){
+		var url = $(this).attr('href');
 		event.preventDefault();
 			confirm('ยืนยันการบันทึกข้อมูล ?', function(){
-				var url = $(this).attr('href');	// "<?php echo site_url("Items/DeleteItem"); ?>";
 				$.ajax({
-					type: "POST",
+					type: "GET",
 					url: url,
 					//data: new FormData($("#frm_order")[0]),	// $("#frm_item").serialize(),
 					//enctype: 'multipart/form-data',

@@ -24,9 +24,10 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'วันที่สั่งซื้อ', 'OrderDate' );
-                    echo form_input( array(	'name'	=> 'OrderDate',
-											'id'	=> 'OrderDate',
-											'class'	=> 'form-control date'
+                    echo form_input( array(	'name'		=> 'OrderDate',
+											'id'		=> 'OrderDate',
+											'class'		=> 'form-control date',
+                    						'required'	=> ''
 									), !empty($Head["OrderDate"])?chg_date_en($Head["OrderDate"]):""
 					); 
                 ?>
@@ -40,9 +41,10 @@
             	<div class="ui-widget">
                 <?php 
                     echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
-                    echo form_input( array(	'name'	=> 'CustomerCode',
-											'id' 	=> 'CustomerCode',
-											'class'	=> 'form-control'
+                    echo form_input( array(	'name'		=> 'CustomerCode',
+											'id' 		=> 'CustomerCode',
+											'class'		=> 'form-control',
+                    						'required'	=> ''
 									), !empty($Head["CustomerCode"])?$Head["CustomerCode"]:""
 					);
                 ?>
@@ -53,9 +55,10 @@
             <div class="form-group">
                 <?php 
                     echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
-                    echo form_input( array(	'name'	=> 'CustomerName',
-											'id'	=> 'CustomerName',
-											'class' => 'form-control'
+                    echo form_input( array(	'name'		=> 'CustomerName',
+											'id'		=> 'CustomerName',
+											'class' 	=> 'form-control',
+                    						'required'	=> ''
 									), !empty($Head["CustomerName"])?$Head["CustomerName"]:""
 					); 
                 ?>
@@ -126,6 +129,7 @@
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode'.$i,
         												'class' 	=> 'form-control row-no',
+        												'required'	=> '',
         												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
         						);
@@ -133,9 +137,10 @@
         				</td>
         				<td>
          					<?php 
-        						echo form_input( array(	'name'	=> 'ItemName[]',
-        												'id'	=> 'ItemName'.$i,
-        												'class' => 'form-control row-no'
+        						echo form_input( array(	'name'		=> 'ItemName[]',
+        												'id'		=> 'ItemName'.$i,
+        												'required'	=> '',
+        												'class' 	=> 'form-control row-no'
         										), !empty($rs['ItemName'])?$rs['ItemName']:''
         						);
         					?>       				
@@ -145,6 +150,7 @@
         						echo form_input( array(	'name'		=> 'OrderQty[]',
         												'id'		=> 'OrderQty'.$i,
         												'class' 	=> 'form-control text-right qty row-no number',
+        												'required'	=> '',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):0
         						);
@@ -170,7 +176,8 @@
         						echo form_input( array(	'name'		=> 'TotalPrice[]',
         												'id'		=> 'TotalPrice'.$i,
         												'class' 	=> 'form-control text-right readonly total-price row-no number',
-        												'readonly'	=> 'readonly'
+        												'readonly'	=> 'readonly',
+        												'required'	=> ''
         										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):0
         						);
         					?>        				
@@ -208,6 +215,7 @@
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode1',
         												'class' 	=> 'form-control row-no',
+        												'required'	=> '',
         												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
         						);
@@ -215,9 +223,10 @@
         				</td>
         				<td>
          					<?php 
-        						echo form_input( array(	'name'	=> 'ItemName[]',
-        												'id'	=> 'ItemName1',
-        												'class' => 'form-control row-no'
+        						echo form_input( array(	'name'		=> 'ItemName[]',
+        												'id'		=> 'ItemName1',
+        												'class' 	=> 'form-control row-no',
+        												'required'	=> ''
         										), !empty($rs['ItemName'])?$rs['ItemName']:''
         						);
         					?>       				
@@ -227,6 +236,7 @@
         						echo form_input( array(	'name'		=> 'OrderQty[]',
         												'id'		=> 'OrderQty1',
         												'class' 	=> 'form-control text-right qty row-no number',
+        												'required'	=> '',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderQty'])?number_format($rs['OrderQty'],2):0
         						);
@@ -242,6 +252,7 @@
         						echo form_input( array(	'name'		=> 'OrderPrice[]',
         												'id'		=> 'OrderPrice1',
         												'class' 	=> 'form-control text-right price row-no number',
+        												'required'	=> '',
         												"onKeyup"	=> "fnc_CalcPrice()"
         										), !empty($rs['OrderPrice'])?number_format($rs['OrderPrice'],2):0
         						);
@@ -252,6 +263,7 @@
         						echo form_input( array(	'name'		=> 'TotalPrice[]',
         												'id'		=> 'TotalPrice1',
         												'class' 	=> 'form-control text-right readonly total-price row-no number',
+        												'required'	=> '',
         												'readonly'	=> 'readonly'
         										), !empty($rs['TotalPrice'])?number_format($rs['TotalPrice'],2):0
         						);

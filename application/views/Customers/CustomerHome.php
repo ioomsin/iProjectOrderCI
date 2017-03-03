@@ -1,12 +1,4 @@
-﻿<div class="container">
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-    
-    
-    <!--<div class="card card-outline-primary mb-3">-->
-        <!--<div class="card-header card-primary">
-            <font color="#FFFFFF">รายการสินค้า</font>
-        </div>-->
-        <!--<div class="card-block">-->
+﻿
         	<h4 class="card-title"># รายการลูกค้า</h4>
             <table class="table table-striped">
                 <thead>
@@ -38,8 +30,8 @@
                                 Action
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="<?php echo site_url('Customers/CustomerForm/Edit/'.$rs["CustomerCode"]); ?>">แก้ไข</a>
-                                <a class="dropdown-item" href="<?php echo site_url('Customers/DeleteCustomer/Delete/'.$rs["CustomerCode"]); ?>">ลบ</a>
+                                <a class="dropdown-item item-edit" href="<?php echo site_url('Customers/CustomerForm/Edit/'.$rs["CustomerCode"]); ?>">แก้ไข</a>
+                                <a class="dropdown-item item-delete" href="<?php echo site_url('Customers/DeleteCustomer/Delete/'.$rs["CustomerCode"]); ?>">ลบ</a>
                               </div>
                             </div>
                         </td>
@@ -49,15 +41,38 @@
                 ?>
                 </tbody>
             </table>
-        <!--</div>-->
-    <!--</div>-->
-<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-</div>  <!-- END Container -->
+
  
 <script>
 
 $(function(){
-	//console.log("xxx");
+
+	$('.item-delete').on('click', function( event ){
+		var url = $(this).attr('href');
+		event.preventDefault();
+			confirm('ยืนยันการบันทึกข้อมูล ?', function(){
+				$.ajax({
+					type: "GET",
+					url: url,
+					//data: new FormData($("#frm_order")[0]),	// $("#frm_item").serialize(),
+					//enctype: 'multipart/form-data',
+			        dataType:'html',
+			        cache: false,
+			        processData: false,
+					contentType: false,
+			        success: function(data){
+			        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Customers/index'); ?>" );
+			        },
+		        	error: function(data, errorThrown){
+		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+		        		return false;
+		        	}
+				});	//-- Ajax.
+
+			});	//-- Confirm.
+		
+	});	//-- item-delete
+	
 
 }) //end $(function()
 
