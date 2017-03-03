@@ -73,7 +73,7 @@ $(function(){
 			        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Units/index'); ?>" );
 			        },
 		        	error: function(data, errorThrown){
-		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+		        		alert("บันทึกข้อมูลไม่สำเร็จ","error");
 		        		return false;
 		        	}
 				});	//-- Ajax.

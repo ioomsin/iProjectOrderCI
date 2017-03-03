@@ -54,6 +54,7 @@ class Model_Order extends CI_Model {
 		}
 		
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	public function update_order_status($id)
 	{
@@ -90,6 +91,7 @@ class Model_Order extends CI_Model {
 		}
 		
 	}
+	
 	/////////////////////////////////------------------------------------------------------
 	public function delete_order($id)
 	{
@@ -112,9 +114,68 @@ class Model_Order extends CI_Model {
 			$this->db->delete("Orders");
 				
 			$this->db->where("OrderNumber", $id);
-			$this->db->delete("OrederDetails");
+			$this->db->delete("OrderDetails");
 				
-			//return $result;
+			return true;
+			
+		}else{
+				
+			return false;
+				
+		}
+	
+	}
+	
+	/////////////////////////////////------------------------------------------------------
+	public function delete_order_detail($id)
+	{
+	
+		$query 		= $this->db->get_where("OrderDetails", array("OrderNumber" => $id));
+		$num_rows	= $query->num_rows();
+		
+		if( $num_rows > 0 )
+		{	
+			
+			$this->db->where("OrderNumber", $id);
+			$this->db->delete("OrderDetails");
+			
+			return true;
+			
+		}else{
+	
+			return false;
+	
+		}
+	
+	}
+	
+	/////////////////////////////////------------------------------------------------------
+	public function active_order_confirm($id)
+	{
+	
+		$this->db->select("*")
+			->from("Orders")
+			->join("OrderDetails","Orders.OrderNumber = OrderDetails.OrderNumber", "LEFT")
+			->where("Orders.OrderNumber", $id)
+			->where("Orders.ActiveStatus", 1);
+	
+		$query 		= $this->db->get();
+		$result 	= $query->result_array();
+		$num_rows	= $query->num_rows();
+	
+		if( $num_rows > 0 )
+		{
+			
+			$this->db->where("OrderNumber", $id);
+			$this->db->update("Orders", array("Orders.ActiveStatus" => "2"));
+
+				
+			$this->db->where("OrderNumber", $id);
+			$this->db->update("OrderDetails", array("OrderDetails.ActiveStatus" => "2"));
+
+				
+			return true;
+			
 		}else{
 				
 			return false;

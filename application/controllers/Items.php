@@ -14,7 +14,7 @@ class Items extends CI_Controller {
 	public function index()
 	{
 		$this->db->order_by("ItemCode", "ASC");
-		$data["result"] = $this->Model_Item->select();
+		$data["result"] = $this->Model_Item->select_item_home();
 		
 		$this->theme->loadtheme('Items/ItemHome', $data);
 		//$this->load->view('Items/ItemHome', $data);
@@ -31,7 +31,7 @@ class Items extends CI_Controller {
 			
 		}else{
 			
-			$data = $this->Model_Item->select_item_home($id);
+			$data = $this->Model_Item->select_item_form($id);
 			//print_r($data);
 			$this->theme->loadtheme('Items/ItemForm', $data);
 		}

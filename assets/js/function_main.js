@@ -2,43 +2,7 @@
 /*
  * 	JavaScript Document for CI THEME
  */
-
-	/*window.alert = function(message, alert_type){
-		//console.log( $('.sweet-alert').hasClass('showSweetAlert') +": sweet-alert ");
-		
-		alert_type = (alert_type !=undefined) ? alert_type : 'warning';	
-		swal({
-			  title: 'แจ้งเตือน',
-			  text: message,
-			  type: alert_type,
-			  //timer: 2000,
-			  showCloseButton: true,
-			  closeOnConfirm: true
-		})
-		
-		if($('.sweet-alert').hasClass('showSweetAlert')==true){ //ถ้า SweetAlert เปิดอยู่ ให้ Delay 
-			setTimeout(function(){
-				swal({
-				  title: 'แจ้งเตือน',
-				  text: message,
-				  type: alert_type,
-				  showCancelButton: false,
-				  confirmButtonText: "ตกลง",
-				  closeOnConfirm: true
-				});
-			},150);
-		}else{	
-			swal({
-				  title: 'แจ้งเตือน',
-				  text: message,
-				  type: alert_type,
-				  showCancelButton: false,
-				  confirmButtonText: "ตกลง",
-				  closeOnConfirm: true
-			});
-		}
-	}*/
-
+	//### Window Alert - SweetAlert2 ###//
 	window.alert = function ( message, type, href ) {
 		swal({
 			  title: 'แจ้งเตือน',
@@ -67,10 +31,11 @@
       	})
 	}
 	
+	//### Window Confirm - SweetAlert2 ###//
 	window.confirm = function ( message, callback ) {
 		swal({
 			  title: "ยืนยัน",
-			  text: "ยืนยันการบันทึกข้อมูล ?",
+			  text: message,
 			  type: "warning", 
 			  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
 			  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
@@ -87,26 +52,7 @@
 			}
 		});		 
 	}
-	
-	
-	/*
-	window.confirm = function ( message, callback ) {
-		console.log(callback);
-		swal({
-				  title: "ยืนยัน",
-				  text: message, // "กรุณายืนยันอีกครั้ง",
-				  type: "warning", 
-				  confirmButtonText: 'ยืนยัน',	//'Yes, save it!',
-				  cancelButtonText: 'ยกเลิก',	// 'No, keep it',
-				  showCancelButton: true,
-				  showLoaderOnConfirm: true
-		}).then(
-			callback
-		)
-			
-			 
-	}	//-- window.confirm
-	*/
+
 	//////////////////////------------------------------------------------------------------------------------------------------
 	function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
 		

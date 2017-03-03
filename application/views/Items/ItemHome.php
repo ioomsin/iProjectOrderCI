@@ -3,14 +3,14 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th width="5%">
+				<th width="3%">
 					<a href="<?php echo site_url('Items/ItemForm/Add'); ?>" class="btn btn-outline-primary btn-sm">เพิ่ม</a>
 				</th>
-				<th width="20%">รหัสสินค้า</th>
+				<th width="15%">รหัสสินค้า</th>
 				<th>ชื่อสินค้า</th>
-				<th width="10%">จำนวน</th>
+				<th width="7%">จำนวน</th>
 				<th width="10%">หน่วย</th>
-				<th>รายละเอียด</th>
+				<th width="20%">รายละเอียด</th>
 				<th width="7%"></th>
 			</tr>
 		</thead>
@@ -28,7 +28,7 @@
 				<td><?php echo $rs["ItemCode"];?></td>
 				<td><?php echo $rs["ItemName"];?></td>
 				<td class="text-right"><?php echo $rs["ItemQty"];?></td>
-				<td><?php echo $rs["ItemUnit"];?></td>
+				<td><?php echo $rs["UnitName"];?></td>
 				<td><?php echo $rs["ItemDescription"];?></td>
 				<td>
 					<!-- Example single danger button -->
@@ -80,7 +80,7 @@ $(function(){
 			        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Items/index'); ?>" );
 			        },
 		        	error: function(data, errorThrown){
-		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+		        		alert("บันทึกข้อมูลไม่สำเร็จ","error");
 		        		return false;
 		        	}
 				});	//-- Ajax.

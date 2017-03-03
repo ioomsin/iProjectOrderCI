@@ -20,29 +20,27 @@
 		      		$array_img = array(
 								        'src'   => $img_path,
 								        'alt'   => '',
-								        'width' => '',
-								        'height'=> '',
+								        'width' => '150',
+								        'height'=> '150',
 		      							'align'	=> 'middle'
 		      							//'class'	=> 'card-img-top'
-								);  
-	      			echo "<div class='text-center'>".img($array_img)."</div>";
+								);
 		      	
-		    ?>
-      		
-      		<!-- <div class="col"> -->
-	            <div class="form-group">
-	                <?php 
-	                	//echo img('img/Lithop01.jpg', TRUE);
-	                    echo form_label( 'รูปสินค้า', 'ItemImage' );
-	                    echo form_upload( array( 'name'				=> 'ItemImage',
-	                    						 'id' 				=> 'ItemImage',
-	                    						 'class' 			=> 'form-control-file',
-	                    						 'aria-describedby' => 'fileHelp'
-										), !empty($ItemImage)?$ItemImage:''
-						); 
-	                ?>
-	            </div>        
-        	<!-- </div> -->
+		    ?>      		
+			<div class='text-center'>
+				<?php echo img($array_img); ?>
+			</div>
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'รูปสินค้า', 'ItemImage' );
+                    echo form_upload( array( 'name'				=> 'ItemImage',
+                    						 'id' 				=> 'ItemImage',
+                    						 'class' 			=> 'form-control-file',
+                    						 'aria-describedby' => 'fileHelp'
+									), !empty($ItemImage)?$ItemImage:''
+					); 
+                ?>       
+        	</div>
       	</div>
       </div>
       
@@ -215,7 +213,7 @@ $(function(){
 		        	alert("บันทึกข้อมูลเรียบร้อย","success", "<?php echo site_url('Items/index'); ?>");			       
 		        },
 	        	error: function(data, errorThrown){
-	        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+	        		alert("บันทึกข้อมูลไม่สำเร็จ","error");
 	        		return false;
 	        	}
 			});	//-- Ajax.

@@ -36,7 +36,8 @@
 						  </button>
 						  <div class="dropdown-menu">
 							<a class="dropdown-item item-edit" href="<?php echo site_url('Orders/OrderForm/Edit/'.$rs["OrderNumber"]); ?>">แก้ไข</a>
-							<a class="dropdown-item item-delete" href="<?php echo site_url('Orders/DeleteOrder/Delete/'.$rs["OrderNumber"]); ?>">ลบ</a>
+							<a class="dropdown-item item-active" href="<?php echo site_url('Orders/ActiveOrder/Active/'.$rs["OrderNumber"]); ?>">ส่งสินค้า</a>
+							<a class="dropdown-item item-delete" href="<?php echo site_url('Orders/DeleteOrder/Delete/'.$rs["OrderNumber"]); ?>">ยกเลิก</a>
 						  </div>
 						</div>
 					</td>
@@ -60,10 +61,37 @@
 
 $(function(){
 
+
+	$('.item-active').on('click', function( event ){
+		var url = $(this).attr('href');
+		event.preventDefault();
+			confirm('การบันทึกส่งสินค้า ?', function(){
+				$.ajax({
+					type: "GET",
+					url: url,
+					//data: new FormData($("#frm_order")[0]),	// $("#frm_item").serialize(),
+					//enctype: 'multipart/form-data',
+			        dataType:'html',
+			        cache: false,
+			        processData: false,
+					contentType: false,
+			        success: function(data){
+			        	alert( "บันทึกส่งสินค้าเรียบร้อย", "success", "<?php echo site_url('Orders/index'); ?>" );
+			        },
+		        	error: function(data, errorThrown){
+		        		alert("บันทึกส่งสินค้าข้อมูลไม่สำเร็จ","error");
+		        		return false;
+		        	}
+				});	//-- Ajax.
+
+			});	//-- Confirm.
+		
+	});	//-- item-active
+	
 	$('.item-delete').on('click', function( event ){
 		var url = $(this).attr('href');
 		event.preventDefault();
-			confirm('ยืนยันการบันทึกข้อมูล ?', function(){
+			confirm('การยกเลิกใบสั่งซื้อสินค้า ?', function(){
 				$.ajax({
 					type: "GET",
 					url: url,
@@ -77,7 +105,7 @@ $(function(){
 			        	alert( "บันทึกข้อมูลเรียบร้อย", "success", "<?php echo site_url('Orders/index'); ?>" );
 			        },
 		        	error: function(data, errorThrown){
-		        		alert("บันทึกข้อมูลไม่สำเร็จ","danger");
+		        		alert("บันทึกข้อมูลไม่สำเร็จ","error");
 		        		return false;
 		        	}
 				});	//-- Ajax.
@@ -85,7 +113,9 @@ $(function(){
 			});	//-- Confirm.
 		
 	});	//-- item-delete
+
 	
-}) //end $(function()
+	
+}); //end $(function()
 
 </script>   

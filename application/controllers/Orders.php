@@ -50,8 +50,8 @@ class Orders extends CI_Controller {
 	public function ManageDataOrder()
 	{
 		$proc = $this->input->post('proc');
-		//print_r($this->input->post()); //exit;
-		if($proc == "Add")
+		
+		if ( $proc == "Add" )
 		{
 			/////-----------------------------------------------------------------/////
 			
@@ -94,7 +94,7 @@ class Orders extends CI_Controller {
 			$OrderNumber = $this->input->post('OrderNumber');
 			
 			$data_orders = array(
-				//	'OrderNumber' 		=> $OrderNumber,
+					
 					'OrderDate' 		=> chg_date($this->input->post('OrderDate')),
 					'CustomerCode'  	=> $this->input->post('CustomerCode'),
 					'CustomerName'  	=> $this->input->post('CustomerName'),
@@ -102,15 +102,18 @@ class Orders extends CI_Controller {
 					'Remark'  			=> $this->input->post('Remark'),
 					'TotalOrderPrice'  	=> $this->input->post('TotalOrderPrice')
 			);
-				
+			
+			//## Update Head Data ##//
 			$this->Model_Order->update_data("Orders", "OrderNumber", $OrderNumber, $data_orders);
 				
-			/////-----------------------------------------------------------------/////
+			//## Delete Details Data ##//
+			$this->Model_Order->delete_order_detail($OrderNumber);
+			
+			$CountItem = count($this->input->post('ItemCode'));
+			for($i=0; $i < $CountItem; $i++){
 				
-			for($i=0; $i < count($this->input->post('ItemCode')); $i++){
-				$OrderID = $this->input->post('OrderID['.$i.']');
 				$data_orderdetails = array(
-					//	'OrderNumber' 	=> $OrderNumber,
+						'OrderNumber' 	=> $OrderNumber,
 						'ItemCode' 		=> $this->input->post('ItemCode['.$i.']'),
 						'ItemName' 		=> $this->input->post('ItemName['.$i.']'),
 						'OrderQty' 		=> $this->input->post('OrderQty['.$i.']'),
@@ -118,16 +121,24 @@ class Orders extends CI_Controller {
 						'OrderPrice' 	=> $this->input->post('OrderPrice['.$i.']'),
 						'TotalPrice' 	=> $this->input->post('TotalPrice['.$i.']')
 				);
-		
-				$this->Model_Order->update_data("OrderDetails", "OrderID", $OrderID, $data_orderdetails);
-			
+				
+				//## Insert Details Data ##//
+				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
+				
+				/*
+				$OrderID = $this->input->post('OrderID['.$i.']');
+				if( $OrderID != "" ){
+					$this->Model_Order->update_data("OrderDetails", "OrderID", $OrderID, $data_orderdetails);	
+				}else{
+					$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
+				}
+				*/
+				
 			}
 			
 			/////-----------------------------------------------------------------/////
 			
 		}
-		
-		//return TRUE;
 		
 		//redirect("Orders/index");
 			
@@ -143,7 +154,20 @@ class Orders extends CI_Controller {
 			$this->Model_Order->update_order_status($id);
 		}
 		
-		redirect("Orders/index");
+		//redirect("Orders/index");
+	}
+	
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function ActiveOrder()
+	{
+		$id = $this->uri->segment(4);
+		$data = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
+	
+		if($data['OrderNumber'] != "" ){
+			$this->Model_Order->active_order_confirm($id);
+		}
+	
+		//redirect("Orders/index");
 	}
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------

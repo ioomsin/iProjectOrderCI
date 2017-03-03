@@ -4,8 +4,24 @@ class Model_Item extends CI_Model {
 		parent::__construct();
 		
 	}
+	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select_item_home($id)
+	public function select_item_home()
+	{
+		//$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));
+		$this->db->select("Items.*, Units.UnitName")
+					->from("Items")
+					->join("Units","Items.ItemUnit = Units.UnitCode", "LEFT")
+					->where("Items.ActiveStatus", 1);
+	
+		$query	= $this->db->get();
+		$result = $query->result_array();
+	
+		return $result;
+	}
+	
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function select_item_form($id)
 	{
 		
 		$this->db->select("Items.*, Units.UnitName")
@@ -19,14 +35,7 @@ class Model_Item extends CI_Model {
 		
 		return $row;
 	}
-	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
-	public function select()
-	{
-		$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));	
-		$result = $query->result_array();
-		
-		return $result;
-	}
+	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($id)
 	{
