@@ -38,7 +38,6 @@
       <div class="row">
         <div class="col">
             <div class="form-group">
-            	<div class="ui-widget">
                 <?php 
                     echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
                     echo form_input( array(	'name'		=> 'CustomerCode',
@@ -48,7 +47,6 @@
 									), !empty($Head["CustomerCode"])?$Head["CustomerCode"]:""
 					);
                 ?>
-            	</div>
             </div>        
         </div>
         <div class="col">

@@ -13,15 +13,20 @@
       	<div class="col">
       		<?php 
 		      	if( !empty($ItemImage) ){
-		      		$array_img = array(
-								        'src'   => 'assets/imgs/Items/'.$ItemImage,
-								        'alt'   => '',
-								        'width' => '150',
-								        'height'=> '150',
-		      							'class'	=> 'card-img-top'
-								);  
-	      			echo "<div class='card' style='width:10rem;'>".img($array_img)."</div>";
+		      		$img_path = "assets/imgs/Items/".$ItemImage;
+		      	}else{
+		      		$img_path = "assets/imgs/IMG_150x150.jpg";
 		      	}
+		      		$array_img = array(
+								        'src'   => $img_path,
+								        'alt'   => '',
+								        'width' => '',
+								        'height'=> '',
+		      							'align'	=> 'middle'
+		      							//'class'	=> 'card-img-top'
+								);  
+	      			echo "<div class='text-center'>".img($array_img)."</div>";
+		      	
 		    ?>
       		
       		<!-- <div class="col"> -->
@@ -64,6 +69,7 @@
                     echo form_label( 'วันที่', 'ItemDate' );
                     echo form_input( array(	'name' 		=> 'ItemDate',
 											'id' 		=> 'ItemDate',
+                    						//'type'		=> 'date',
                     						'class' 	=> 'form-control date',
                     						'required'	=> ''
 									), !empty($ItemDate)?chg_date_en($ItemDate):''
@@ -98,7 +104,8 @@
                     echo form_label( 'จำนวน', 'ItemQty' );
                     echo form_input( array(	'name'		=> 'ItemQty',
                     						'id'		=> 'ItemQty',
-                    						'class'		=> 'form-control text-right',
+                    						'type'		=> 'number',
+                    						'class'		=> 'form-control number',
                     						'required'	=> ''
 									), !empty($ItemQty)?number_format($ItemQty,2):''
 					); 
@@ -135,7 +142,8 @@
                     echo form_label( 'ราคาต่อหน่วย', 'ItemPrice' );
                     echo form_input( array( 'name'		=> 'ItemPrice',
 											'id'		=> 'ItemPrice',
-                    						'class' 	=> 'form-control text-right',
+                    						'type'		=> 'number',
+                    						'class' 	=> 'form-control number',
                     						'required'	=> ''
 									), !empty($ItemPrice)?number_format($ItemPrice,2):''
 					); 
