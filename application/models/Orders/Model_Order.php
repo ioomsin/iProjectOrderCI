@@ -15,7 +15,7 @@ class Model_Order extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_where($tbl, $field, $id)
 	{
-		$query 	= $this->db->get_where($tbl, array( $field => $id, "ActiveStatus" => "1" ));
+		$query 	= $this->db->get_where($tbl, array($field => $id, "ActiveStatus" => "1"));
 		$result = $query->result_array();
 	
 		return $result;

@@ -24,7 +24,7 @@ class ThemeCI extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 			
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow );
+			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
 			
 			print_r($source);
 			

@@ -15,7 +15,7 @@ class Model_Unit extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($id)
 	{
-		$query = $this->db->get_where( "Units", array("UnitID" => $id) );
+		$query = $this->db->get_where("Units", array("UnitID" => $id));
 		$row = $query->row_array();
 		
 		return $row;
@@ -48,11 +48,6 @@ class Model_Unit extends CI_Model {
 		
 		if($row['UnitID']!="")
 		{
-			//ลบออกจากตาราง
-			//$this->db->where('UnitID', $id);
-			//$this->db->delete('Units');
-			
-			//Update สถานะ เป็น ไม่ใช้งาน
 			$data['ActiveStatus'] = '0';
 			$this->db->where("UnitID", $row['UnitID']);
 		   	$this->db->update("Units", $data);

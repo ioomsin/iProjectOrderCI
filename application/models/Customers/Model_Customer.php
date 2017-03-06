@@ -15,7 +15,7 @@ class Model_Customer extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function select_id($id)
 	{
-		$query = $this->db->get_where( "Customers", array("CustomerCode" => $id) );
+		$query = $this->db->get_where("Customers", array("CustomerCode" => $id));
 		$row = $query->row_array();
 		
 		return $row;
@@ -48,15 +48,10 @@ class Model_Customer extends CI_Model {
 		
 		if($row['CustomerCode']!="")
 		{
-			//ลบออกจากตาราง
-			//$this->db->where('UnitID', $id);
-			//$this->db->delete('Units');
-			
-			//Update สถานะ เป็น ไม่ใช้งาน
 			$data['ActiveStatus'] = '0';
 			
-			$this->db->where( "CustomerCode", $id );
-		   	$this->db->update( "Customers", $data );
+			$this->db->where("CustomerCode", $id);
+		   	$this->db->update("Customers", $data);
 		}
 		else
 		{

@@ -1,7 +1,8 @@
 ﻿
-/*
- * 	JavaScript Document for CI THEME
- */
+/* ******************************************************************************
+						JavaScript Document for CI3 THEME
+   ****************************************************************************** */
+
 	//### Window Alert - SweetAlert2 ###//
 	window.alert = function ( message, type, href ) {
 		swal({
@@ -53,7 +54,7 @@
 		});		 
 	}
 
-	//////////////////////------------------------------------------------------------------------------------------------------
+	//### Autocomplete Return 2 Values ###//
 	function AutocompleteReturn2Values(url,idKeyUp,idKeyShow,fieldKeyUp,fieldShow,idShowStatus){
 		
 		if(url.indexOf(".php?")==-1){
@@ -67,20 +68,17 @@
 			minLength:0,
 			delay:0,
 			search:function( event, ui ){
-				//console.log("search");
 				$( "#"+idKeyUp ).autocomplete({ 
 					source: url
 				});
 			}
 	      	,select: function( event, ui ) {
-	      		//console.log("select");
 	        	$( "#"+idKeyUp ).val( ui.item.label );
 	        	$( "#"+idKeyShow ).val( ui.item.value );
 				
 	        	return false;
 	      	}
 	      	,change : function( event, ui ){
-	      		//console.log("change");
 				if(!ui.item){
 					$( "#"+idKeyUp ).val("");
         			$( "#"+idKeyShow ).val("");
@@ -90,7 +88,6 @@
 		})
 		.data( "ui-autocomplete" )._renderItem = function( ul, item ) 
 		{
-			//console.log("ui-autocomplete");
 			if(idShowStatus == true){
 				return $( "<li>" )
 				.append( "<div>" + item.label + " : " + item.value + "</div>" )
@@ -105,8 +102,8 @@
 		$( "#"+idKeyUp ).click(function(){ $( "#"+idKeyUp ).autocomplete('search'); });
 
 	}	// END AutocompleteReturn2Values
-
-	//////////////////////------------------------------------------------------------------------------------------------------	
+	
+	//### Autocomplete Multi Values ###//
 	function AutoCompleteAjax(url,objAuto){ 
 		var fieldShow = ""
 		if(objAuto.elementOther.length>0){
@@ -169,8 +166,8 @@
 			$("#"+objAuto.elementKeyUp.elementId).click(function(){ $("#"+objAuto.elementKeyUp.elementId).autocomplete('search'); });
 	
 	}	// END AutoCompleteAjax
-	
-	//////////////////////------------------------------------------------------------------------------------------------------	
+		
+	//### HTML Entity Decode ###//
 	function html_entity_decode(string, quote_style) {
 		 var hash_map = {},symbol = '',tmp_str = '',entity = '';
 		  tmp_str = string.toString();
@@ -186,7 +183,8 @@
 		  tmp_str = tmp_str.split('&#039;').join("'");
 		  return tmp_str;
 	}
-//////////////////////------------------------------------------------------------------------------------------------------
+	
+	//### HTML Translation Table ###//
 	function get_html_translation_table (table, quote_style) {
 		  // http://kevin.vanzonneveld.net
 		  // +   original by: Philip Peterson

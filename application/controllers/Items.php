@@ -112,7 +112,7 @@ class Items extends CI_Controller {
 	public function GenCode($table, $filedCode)
 	{
 		$data = $this->Model_Item->getCode($table, $filedCode);
-		$year = substr((date("Y")+543) , 2 , 2);
+		$year = substr((date("Y")+543), 2, 2);
 		$month = date("m");
 		$prefix = "IT";
 		
@@ -122,7 +122,7 @@ class Items extends CI_Controller {
 			
 		}else{
 			
-			$subCode = ( substr( $data["ItemCode"], 6, 4) + 1 );
+			$subCode = (substr( $data["ItemCode"], 6, 4)+1);
 			$genCode = $prefix.$year.$month.sprintf("%04d" , $subCode);
 			//echo $subCode ." || ". $genCode ;
 			
@@ -141,7 +141,7 @@ class Items extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 	
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow );
+			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow);
 	
 			print_r($source);
 	

@@ -184,8 +184,8 @@ class Orders extends CI_Controller {
 			
 		}else{
 			
-			$subCode = ( substr( $data[$filedCode], 6, 4) + 1 );
-			$genCode = $prefix.$year.$month.sprintf("%04d" , $subCode);
+			$subCode = ( substr( $data[$filedCode],6 , 4)+1);
+			$genCode = $prefix.$year.$month.sprintf("%04d", $subCode);
 			
 		}
 		return $genCode;
@@ -202,7 +202,7 @@ class Orders extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 			
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow );
+			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
 			
 			print_r($source);
 			

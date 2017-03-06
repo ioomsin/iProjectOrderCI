@@ -1,11 +1,20 @@
-
+	<!-- //### Number ############################################################################// -->
+	<h5>&equiv; Number</h5>
+	<div class="row">
+		<div class="col-6">
+			<div class="form-group">
+				<input class="form-control" type="number" value="99">
+			</div>
+		</div>
+	</div>
+	
 	<!-- //### AutoComplete ############################################################################// -->
 	<h5>&equiv; AutoComplete</h5>
 	<div class="row">
 		<div class="col">
 	  		<div class="form-group">
                 <?php 
-                    echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
+                    //echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
                     echo form_input( array(	'name'		=> 'CustomerCode',
 											'id' 		=> 'CustomerCode',
 											'class'		=> 'form-control',
@@ -18,7 +27,7 @@
 	  	<div class="col">
 	  		<div class="form-group">
                 <?php 
-                    echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
+                    //echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
                     echo form_input( array(	'name'		=> 'CustomerName',
 											'id'		=> 'CustomerName',
 											'class' 	=> 'form-control',
@@ -30,15 +39,13 @@
             </div>
 	  	</div>
 	</div>
-	  
-	<br>
-	  
+
 	<h5>&equiv; AutoComplete Multi </h5>
 	<div class="row">
 	  	<div class="col">
 	  		<div class="form-group">
                 <?php 
-                    echo form_label( 'รหัสลูกค้า', 'Code' );
+                    //echo form_label( 'รหัสลูกค้า', 'Code' );
                     echo form_input( array(	'name'		=> 'Code',
 											'id' 		=> 'Code',
 											'class'		=> 'form-control',
@@ -51,7 +58,7 @@
 	  	<div class="col">
 	  		<div class="form-group">
                 <?php 
-                    echo form_label( 'ชื่อลูกค้า', 'Name' );
+                    //echo form_label( 'ชื่อลูกค้า', 'Name' );
                     echo form_input( array(	'name'		=> 'Name',
 											'id'		=> 'Name',
 											'class' 	=> 'form-control',
@@ -67,7 +74,7 @@
 	  	<div class="col">
 	  		<div class="form-group">
                 <?php 
-                    echo form_label( 'ที่อยู่ลูกค้า', 'Address' );
+                    //echo form_label( 'ที่อยู่ลูกค้า', 'Address' );
                     echo form_textarea( array(	'name' 	=> 'Address',
 												'id' 	=> 'Address',
 												'class' => 'form-control',

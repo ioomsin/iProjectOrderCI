@@ -47,7 +47,6 @@ class Model_Item extends CI_Model {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function add_data($table, $data)
 	{
-		//print_r($data);
 		$this->db->insert($table, $data);
 		return $this->db->insert_id();
 	}
@@ -55,8 +54,6 @@ class Model_Item extends CI_Model {
 	
 	public function update_data($table, $id, $data)
 	{
-		//$this->db->select("*")->from("plants")->where("plant_id",$id)->where("active_status",'1');
-		//$row = $this->db->get()->row_array();
 		$query = $this->db->get_where($table, array("ItemCode" => $id));
 		$row = $query->row_array();
 			if($row['ItemCode']!="")
@@ -70,18 +67,11 @@ class Model_Item extends CI_Model {
 	/////////////////////////////////------------------------------------------------------
 	function delete_data($id)
 	{
-		//$this->db->select("*")->from($table)->where($filed, $id)->where("active_status",'1');
-		//$row = $this->db->get()->row_array();
 		$query = $this->db->get_where("Items", array("ItemCode" => $id, "ActiveStatus" => "1"));
 		$row = $query->row_array();
 		
 		if($row['ItemCode']!="")
 		{
-			//ź�͡�ҡ���ҧ
-			//$this->db->where('animal_id', $id);
-			//$this->db->delete('animals');
-			
-			//Update ʶҹ� �� �����ҹ
 			$data['ActiveStatus'] = '0';
 			$this->db->where("ItemCode", $row['ItemCode']);
 		   	$this->db->update("Items", $data);

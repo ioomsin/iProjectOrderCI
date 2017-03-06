@@ -72,7 +72,7 @@ class Customers extends CI_Controller {
 	public function GenCode($tbl, $filedCode)
 	{
 		$data = $this->Model_Customer->getCode($tbl, $filedCode);
-		$year = substr((date("Y")+543) , 2 , 2);
+		$year = substr((date("Y")+543), 2, 2);
 		$month = date("m");
 		$prefix = "CT";
 		
@@ -82,7 +82,7 @@ class Customers extends CI_Controller {
 			
 		}else{
 			
-			$subCode = ( substr( $data[$filedCode], 6, 4) + 1 );
+			$subCode = (substr( $data[$filedCode], 6, 4)+1);
 			$genCode = $prefix.$year.$month.sprintf("%04d" , $subCode);
 			//echo $subCode ." || ". $genCode ;
 			
