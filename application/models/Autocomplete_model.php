@@ -1,5 +1,5 @@
 <?php 
-class Model_Autocomplete extends CI_Model {
+class Autocomplete_model extends CI_Model {
 	function __construct(){
 		parent::__construct();
 	}

@@ -6,15 +6,15 @@ class Items extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model("Items/Model_Item");
-		$this->load->model("Model_Autocomplete");
+		$this->load->model("Items/Item_model");
+		$this->load->model("Autocomplete_model");
 		
 	}
 	
 	public function index()
 	{
 		$this->db->order_by("ItemCode", "ASC");
-		$data["result"] = $this->Model_Item->select_item_home();
+		$data["result"] = $this->Item_model->select_item_home();
 		
 		$this->theme->loadtheme('Items/ItemHome', $data);
 		//$this->load->view('Items/ItemHome', $data);
@@ -31,7 +31,7 @@ class Items extends CI_Controller {
 			
 		}else{
 			
-			$data = $this->Model_Item->select_item_form($id);
+			$data = $this->Item_model->select_item_form($id);
 			//print_r($data);
 			$this->theme->loadtheme('Items/ItemForm', $data);
 		}
@@ -84,12 +84,12 @@ class Items extends CI_Controller {
 		{
 			
 			$data['ItemCode'] 	=  $genItemCode;	// $this->GenCode("Items", "ItemCode");
-			$this->Model_Item->add_data("Items", $data);
+			$this->Item_model->add_data("Items", $data);
 			
 		}else if($proc == "Edit")
 		{
 			
-			$this->Model_Item->update_data("Items", $id, $data);
+			$this->Item_model->update_data("Items", $id, $data);
 			
 		}
 		
@@ -100,10 +100,10 @@ class Items extends CI_Controller {
 	public function DeleteItem()
 	{
 		$id = $this->uri->segment(4);
-		$data = $this->Model_Item->select_id($id);
+		$data = $this->Item_model->select_id($id);
 
 		if($data['ItemCode'] != "" ){
-			$this->Model_Item->delete_data($id);
+			$this->Item_model->delete_data($id);
 		}
 		
 		//redirect("Items/index");
@@ -111,7 +111,7 @@ class Items extends CI_Controller {
 	
 	public function GenCode($table, $filedCode)
 	{
-		$data = $this->Model_Item->getCode($table, $filedCode);
+		$data = $this->Item_model->getCode($table, $filedCode);
 		$year = substr((date("Y")+543), 2, 2);
 		$month = date("m");
 		$prefix = "IT";
@@ -141,7 +141,7 @@ class Items extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 	
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow);
+			$source = $this->Autocomplete_model->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow);
 	
 			print_r($source);
 	

@@ -6,7 +6,7 @@ class ThemeCI extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model("Model_Autocomplete");
+		$this->load->model("Autocomplete_model");
 		
 	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ class ThemeCI extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 			
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
+			$source = $this->Autocomplete_model->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
 			
 			print_r($source);
 			
@@ -44,7 +44,7 @@ class ThemeCI extends CI_Controller {
 	
 		if (isset($term)){
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete_obj("Customers", $q, $fKey, $fShow);
+			$source = $this->Autocomplete_model->get_autocomplete_obj("Customers", $q, $fKey, $fShow);
 				
 			print_r($source);
 				

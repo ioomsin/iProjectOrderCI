@@ -6,14 +6,14 @@ class Units extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model("Units/Model_Unit");
+		$this->load->model("Units/Unit_model");
 		
 	}
 	
 	public function index()
 	{
 		$this->db->order_by("UnitCode", "ASC");
-		$data["result"] = $this->Model_Unit->select();
+		$data["result"] = $this->Unit_model->select();
 		
 		$this->theme->loadtheme('Units/UnitHome', $data);
 	}
@@ -29,7 +29,7 @@ class Units extends CI_Controller {
 			
 		}else{
 			
-			$data = $this->Model_Unit->select_id($id);
+			$data = $this->Unit_model->select_id($id);
 			$this->theme->loadtheme('Units/UnitForm', $data);
 		}
 	}
@@ -45,13 +45,13 @@ class Units extends CI_Controller {
 			$data['UnitCode'] 	=  $this->input->post('UnitCode');
 			$data['UnitName'] 	=  $this->input->post('UnitName');
 			
-			$this->Model_Unit->add_data("Units", $data);
+			$this->Unit_model->add_data("Units", $data);
 			
 		}else if($proc == "Edit"){
 			
 			$data['UnitName'] 	=  $this->input->post('UnitName');
 			
-			$this->Model_Unit->update_data("Units", $id, $data);
+			$this->Unit_model->update_data("Units", $id, $data);
 			
 		}
 		
@@ -62,10 +62,10 @@ class Units extends CI_Controller {
 	public function DeleteUnit()
 	{
 		$id = $this->uri->segment(4);
-		$data = $this->Model_Unit->select_id($id);
+		$data = $this->Unit_model->select_id($id);
 
 		if($data['UnitID'] != "" ){
-			$this->Model_Unit->delete_data($id);
+			$this->Unit_model->delete_data($id);
 		}
 		
 		//redirect("Units/index");
@@ -73,7 +73,7 @@ class Units extends CI_Controller {
 	
 	public function GenCode($table, $filedCode)
 	{
-		$data = $this->Model_Item->getCode($table, $filedCode);
+		$data = $this->Item_model->getCode($table, $filedCode);
 		$year = substr((date("Y")+543), 2, 2);
 		$month = date("m");
 		$prefix = "IT";
@@ -104,7 +104,7 @@ class Units extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 				
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow);
+			$source = $this->Autocomplete_model->get_autocomplete("Units", $q, $fieldKeyUp, $fieldShow);
 				
 			print_r($source);
 				

@@ -6,9 +6,9 @@ class Orders extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		
-		$this->load->model("Orders/Model_Order");
-		$this->load->model("Model_Main");
-		$this->load->model("Model_Autocomplete");
+		$this->load->model("Orders/Order_model");
+		$this->load->model("Main_model");
+		$this->load->model("Autocomplete_model");
 		
 	}
 	
@@ -17,7 +17,7 @@ class Orders extends CI_Controller {
 	{
 		
 		$this->db->order_by("OrderNumber", "ASC");
-		$data["result"] = $this->Model_Order->select("Orders");
+		$data["result"] = $this->Order_model->select("Orders");
 		
 		$this->theme->loadtheme('Orders/OrderHome', $data);
 		
@@ -29,7 +29,7 @@ class Orders extends CI_Controller {
 		$proc = $this->uri->segment(3);
 		$id = $this->uri->segment(4);
 		
-		$data["dropdown"] = $this->Model_Main->dropdown("Units", "UnitCode", "UnitName", "ActiveStatus", 1);
+		$data["dropdown"] = $this->Main_model->dropdown("Units", "UnitCode", "UnitName", "ActiveStatus", 1);
 
 		if( $proc == "Add" ){
 			
@@ -37,8 +37,8 @@ class Orders extends CI_Controller {
 			
 		}else{
 			
-			$data["Head"] 	= $this->Model_Order->select_id("Orders", "OrderNumber", $id);
-			$data["Detail"] = $this->Model_Order->select_where("OrderDetails", "OrderNumber", $id);
+			$data["Head"] 	= $this->Order_model->select_id("Orders", "OrderNumber", $id);
+			$data["Detail"] = $this->Order_model->select_where("OrderDetails", "OrderNumber", $id);
 	
 			$this->theme->loadtheme('Orders/OrderForm', $data);
 			
@@ -67,7 +67,7 @@ class Orders extends CI_Controller {
 					'TotalOrderPrice'  	=> $this->input->post('TotalOrderPrice')
 			);
 			
-			$this->Model_Order->add_data("Orders", $data_orders);
+			$this->Order_model->add_data("Orders", $data_orders);
 			
 			/////-----------------------------------------------------------------/////
 			
@@ -82,7 +82,7 @@ class Orders extends CI_Controller {
 						'TotalPrice' 	=> $this->input->post('TotalPrice['.$i.']')
 				);
 				
-				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
+				$this->Order_model->add_data("OrderDetails", $data_orderdetails);
 				
 			}
 			
@@ -104,10 +104,10 @@ class Orders extends CI_Controller {
 			);
 			
 			//## Update Head Data ##//
-			$this->Model_Order->update_data("Orders", "OrderNumber", $OrderNumber, $data_orders);
+			$this->Order_model->update_data("Orders", "OrderNumber", $OrderNumber, $data_orders);
 				
 			//## Delete Details Data ##//
-			$this->Model_Order->delete_order_detail($OrderNumber);
+			$this->Order_model->delete_order_detail($OrderNumber);
 			
 			$CountItem = count($this->input->post('ItemCode'));
 			for($i=0; $i < $CountItem; $i++){
@@ -123,7 +123,7 @@ class Orders extends CI_Controller {
 				);
 				
 				//## Insert Details Data ##//
-				$this->Model_Order->add_data("OrderDetails", $data_orderdetails);
+				$this->Order_model->add_data("OrderDetails", $data_orderdetails);
 				
 				/*
 				$OrderID = $this->input->post('OrderID['.$i.']');
@@ -148,10 +148,10 @@ class Orders extends CI_Controller {
 	public function DeleteOrder()
 	{
 		$id = $this->uri->segment(4);
-		$data = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
+		$data = $this->Order_model->select_id("Orders", "OrderNumber", $id);
 
 		if($data['OrderNumber'] != "" ){
-			$this->Model_Order->update_order_status($id);
+			$this->Order_model->update_order_status($id);
 		}
 		
 		//redirect("Orders/index");
@@ -161,10 +161,10 @@ class Orders extends CI_Controller {
 	public function ActiveOrder()
 	{
 		$id = $this->uri->segment(4);
-		$data = $this->Model_Order->select_id("Orders", "OrderNumber", $id);
+		$data = $this->Order_model->select_id("Orders", "OrderNumber", $id);
 	
 		if($data['OrderNumber'] != "" ){
-			$this->Model_Order->active_order_confirm($id);
+			$this->Order_model->active_order_confirm($id);
 		}
 	
 		//redirect("Orders/index");
@@ -173,7 +173,7 @@ class Orders extends CI_Controller {
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	public function GenCode($tbl, $filedCode)
 	{
-		$data = $this->Model_Main->getCode($tbl, $filedCode);
+		$data = $this->Main_model->getCode($tbl, $filedCode);
 		$year = substr((date("Y")+543) , 2 , 2);
 		$month = date("m");
 		$prefix = "IT";
@@ -202,7 +202,7 @@ class Orders extends CI_Controller {
 		if (isset($term)){	//if (isset($_GET['term'])){
 			
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
+			$source = $this->Autocomplete_model->get_autocomplete("Customers", $q, $fieldKeyUp, $fieldShow);
 			
 			print_r($source);
 			
@@ -223,7 +223,7 @@ class Orders extends CI_Controller {
 		
 		if (isset($term)){
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete_obj("Customers", $q, $fKey, $fShow);
+			$source = $this->Autocomplete_model->get_autocomplete_obj("Customers", $q, $fKey, $fShow);
 			
 			print_r($source);
 			
