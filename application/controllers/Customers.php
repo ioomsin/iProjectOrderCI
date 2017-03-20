@@ -39,7 +39,13 @@ class Customers extends CI_Controller {
 		$proc = $this->input->post('proc');
 		$id = $this->input->post('CustomerCode');
 		
-		$data['CustomerName'] 	=  $this->input->post('CustomerName');
+		$FN = $this->input->post('FirstName');
+		$LN = $this->input->post('LastName');
+		
+		$data['FirstName'] 			=  $this->input->post('FirstName');
+		$data['LastName'] 			=  $this->input->post('LastName');
+		$data['CustomerName'] 		=  $FN.' '.$LN;
+		$data['Email'] 				=  $this->input->post('Email');
 		$data['CustomerAddress'] 	=  $this->input->post('CustomerAddress');
 		
 		if($proc == "Add")

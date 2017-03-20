@@ -4,7 +4,21 @@ class Main_model extends CI_Model {
 		parent::__construct();
 		
 	}
+	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
+	public function select_item_home()
+	{
+		//$query = $this->db->get_where("Items", array("ActiveStatus" => "1"));
+		$this->db->select("*")
+		->from("Items")
+		->where("Items.ActiveStatus", 1)
+		->order_by("ItemCode", "DESC")
+		->limit(3);
 	
+		$query	= $this->db->get();
+		$result = $query->result_array();
+	
+		return $result;
+	}
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------
 	/*public function select($tbl)
 	{

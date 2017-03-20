@@ -5,13 +5,15 @@ class Home extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		
+		$this->load->model("Main_model");
 	}
 	
 	public function index()
 	{
+		
 		// Load Theme From Libraries
-		$this->theme->loadtheme('Home/Body'); 
+		$data["result"] = $this->Main_model->select_item_home();
+		$this->theme->loadtheme('Home/Body', $data); 
 
 	}
 	

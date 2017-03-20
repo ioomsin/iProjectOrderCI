@@ -9,7 +9,7 @@
 			  title: 'แจ้งเตือน',
 			  text: message,
 			  type: type,
-			  timer: 5000,
+			  timer: 18000,
 			  showCloseButton: false
       	}).then(function () {
 	        //##### กลับหน้าหลัก #####//

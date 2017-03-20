@@ -99,7 +99,6 @@
         		</thead>
         		<tbody>
 	        		<?php 
-	        		//echo print_r($Detail);
 	        			if($proc=="Edit"){
 			        		$i=1;
 			        		foreach ( $Detail as $rs )
@@ -126,7 +125,7 @@
         						);
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode'.$i,
-        												'class' 	=> 'form-control row-no',
+        												'class' 	=> 'form-control row-no item-code',
         												'required'	=> '',
         												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
@@ -212,7 +211,7 @@
         						);
         						echo form_input( array(	'name'		=> 'ItemCode[]',
         												'id'		=> 'ItemCode1',
-        												'class' 	=> 'form-control row-no',
+        												'class' 	=> 'form-control row-no item-code',
         												'required'	=> '',
         												"onFocus" 	=> "fnc_GetItem($(this).attr('data-id'))"
         										), !empty($rs['ItemCode'])?$rs['ItemCode']:''
@@ -485,7 +484,24 @@
 	}
 	
 	//////////-------------------------------------------------------------------------------------------//////////
-	function _AutoCompleteAjax(url,objAuto){ 
+	function fnc_CheckItem(item)
+	{
+		var tableBody = $('#tbl_order').find("tbody");
+		//var ItemCode = [];
+		tableBody.find("tr").each(function()
+		{
+			ItemCode = $(this).find(".item-code").val();
+			if(ItemCode==item){
+				alert("รหัสสินค้าซ้ำ !!", "error");
+				exit;
+			}	
+		});
+		
+	}
+	
+	//////////-------------------------------------------------------------------------------------------//////////
+	function _AutoCompleteAjax(url,objAuto)
+	{ 
 		var fieldShow = ""
 		if(objAuto.elementOther.length>0){
 			$.each(objAuto.elementOther,function(){
@@ -506,11 +522,14 @@
 					});
 				},
 				select: function( event, ui ) {
-									if(objAuto.elementOther.length>0){
-										$.each(objAuto.elementOther,function(i){
-											$("#"+this.elementId).val($.trim(html_entity_decode(ui.item.fShow[i])));
-										});
-									}
+					
+					fnc_CheckItem(ui.item.value);
+					
+					if(objAuto.elementOther.length>0){
+						$.each(objAuto.elementOther,function(i){
+							$("#"+this.elementId).val($.trim(html_entity_decode(ui.item.fShow[i])));
+						});
+					}
 				},
 				change : function(event,ui){
 								if(!ui.item){
@@ -523,7 +542,7 @@
 								}
 				},
 				close: function( event, ui ) {
-					fnc_CalcPrice();
+					fnc_CalcPrice();					
 				}
 			}).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
 					if(objAuto.elementOther.length>0){

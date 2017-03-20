@@ -12,12 +12,14 @@ class Item_model extends CI_Model {
 		$this->db->select("Items.*, Units.UnitName")
 					->from("Items")
 					->join("Units","Items.ItemUnit = Units.UnitCode", "LEFT")
-					->where("Items.ActiveStatus", 1);
+					->where("Items.ActiveStatus", 1)
+					->order_by("ItemCode", "DESC");
 	
 		$query	= $this->db->get();
 		$result = $query->result_array();
 	
 		return $result;
+		
 	}
 	
 	/////////////////////////////////--------------------------------------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-03-03 10:27:47
+Date: 2017-03-20 15:19:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,6 +22,9 @@ DROP TABLE IF EXISTS `customers`;
 CREATE TABLE `customers` (
   `CustomerCode` varchar(10) NOT NULL,
   `CustomerName` varchar(500) DEFAULT NULL,
+  `FirstName` varchar(250) DEFAULT NULL,
+  `LastName` varchar(500) DEFAULT NULL,
+  `Email` varchar(500) DEFAULT NULL,
   `CustomerAddress` text,
   `ActiveStatus` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`CustomerCode`)
@@ -45,6 +48,25 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Table structure for members
+-- ----------------------------
+DROP TABLE IF EXISTS `members`;
+CREATE TABLE `members` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `oauth_id` varchar(255) DEFAULT NULL,
+  `oauth_provider` varchar(255) DEFAULT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `register_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
 -- Table structure for orderdetails
 -- ----------------------------
 DROP TABLE IF EXISTS `orderdetails`;
@@ -59,7 +81,7 @@ CREATE TABLE `orderdetails` (
   `TotalPrice` decimal(18,2) DEFAULT NULL,
   `ActiveStatus` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`OrderID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for orders
@@ -87,4 +109,24 @@ CREATE TABLE `units` (
   `UnitName` varchar(500) DEFAULT NULL,
   `ActiveStatus` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`UnitID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `oauth_provider` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `oauth_uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `gender` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `locale` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `picture_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `profile_url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

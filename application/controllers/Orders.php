@@ -242,7 +242,7 @@ class Orders extends CI_Controller {
 	
 		if (isset($term)){
 			$q = strtolower($term);
-			$source = $this->Model_Autocomplete->get_autocomplete_obj("Items", $q, $fKey, $fShow);
+			$source = $this->Autocomplete_model->get_autocomplete_obj("Items", $q, $fKey, $fShow);
 				
 			print_r($source);
 				

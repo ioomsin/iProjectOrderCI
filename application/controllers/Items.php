@@ -13,7 +13,6 @@ class Items extends CI_Controller {
 	
 	public function index()
 	{
-		$this->db->order_by("ItemCode", "ASC");
 		$data["result"] = $this->Item_model->select_item_home();
 		
 		$this->theme->loadtheme('Items/ItemHome', $data);
@@ -41,16 +40,17 @@ class Items extends CI_Controller {
 	{
 		$proc = $this->input->post('proc');
 		$id = $this->input->post('ItemCode');
+		//print $proc.' '.$id;
 		$genItemCode = $this->GenCode("Items", "ItemCode");
 		
 		//### Upload Picture
-		$config['file_name']		= $proc=="Add" ?"IMG-".$genItemCode :"IMG-".$id;
+		$config['file_name']		= ($proc=="Add")?"IMG-".$genItemCode:"IMG-".$id;
 		$config['upload_path']		= './assets/imgs/items';
 		$config['allowed_types']    = 'gif|jpg|png';
 		$config['encrypt_name'] 	= FALSE;	// TRUE;
 		$config['max_size']         = 100;
-		$config['max_width']        = 1024;
-		$config['max_height']       = 768;
+		$config['max_width']        = '';
+		$config['max_height']       = '';
 		
 		$this->load->library('upload', $config);
 		

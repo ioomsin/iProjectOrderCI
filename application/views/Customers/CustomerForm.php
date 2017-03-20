@@ -13,9 +13,7 @@
       <div class="row">
         <div class="col-lg-6">
             <div class="form-group">
-                <?php 
-                	//echo form_hidden("UnitID", !empty($UnitID)?$UnitID:'');
-                	
+                <?php                 	
                     echo form_label( 'รหัสลูกค้า', 'CustomerCode' );
                     echo form_input( array(	'name' 		=> 'CustomerCode',
 											'id' 		=> 'CustomerCode',
@@ -28,14 +26,61 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'ชื่อ', 'FirstName' );
+                    echo form_input( array(	'name' 		=> 'FirstName',
+											'id' 		=> 'FirstName',
+                    						'class' 	=> 'form-control',
+                    						'required'	=> ''
+									), !empty($FirstName)?$FirstName:''
+					);
+                ?>
+            </div>        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'นามสกุล', 'LastName' );
+                    echo form_input( array(	'name' 		=> 'LastName',
+											'id' 		=> 'LastName',
+                    						'class' 	=> 'form-control',
+                    						'required'	=> ''
+									), !empty($LastName)?$LastName:''
+					);
+                ?>
+            </div>        
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <?php 
+                    echo form_label( 'อีเมล์', 'Email' );
+                    echo form_input( array(	'name' 				=> 'Email',
+											'id' 				=> 'Email',
+                    						'class' 			=> 'form-control',
+                    						'type'				=> 'email',
+                    						'aria-describedby'	=> 'emailHelp',
+                    						'required'	=> ''
+									), !empty($Email)?$Email:''
+					);
+                ?>
+            </div>        
+        </div>
+      </div>
+      <div class="row">
 	      <div class="col-lg-6">
 	            <div class="form-group">
 	                <?php 
-	                    echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
+	                    //echo form_label( 'ชื่อลูกค้า', 'CustomerName' );
 	                    echo form_input( array(	'name'		=> 'CustomerName',
 												'id'		=> 'CustomerName',
 												'class'		=> 'form-control',
-	                    						'required'	=> ''
+	                    						'type'		=> 'hidden'
 										), !empty($CustomerName)?$CustomerName:''
 						); 
 	                ?>

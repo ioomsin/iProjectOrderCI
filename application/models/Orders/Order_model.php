@@ -72,18 +72,14 @@ class Order_model extends CI_Model {
 		//echo $num_rows; exit;
 		if( $num_rows != 0 )
 		{
-			
-			//$data['ActiveStatus'] = '0';
-				
 			$this->db->where("OrderNumber", $id);
 			$this->db->update("Orders", array("Orders.ActiveStatus" => "0"));
-			// $this->db->delete("Orders");
 			
 			$this->db->where("OrderNumber", $id);
 			$this->db->update("OrderDetails", array("OrderDetails.ActiveStatus" => "0"));
-			// $this->db->delete("OrederDetails");
 			
 			//return $result;
+			
 		}else{
 			
 			return false;
@@ -153,9 +149,10 @@ class Order_model extends CI_Model {
 	public function active_order_confirm($id)
 	{
 	
-		$this->db->select("*")
+		$this->db->select("Orders.*, OrderDetails.*, Items.ItemQty")
 			->from("Orders")
 			->join("OrderDetails","Orders.OrderNumber = OrderDetails.OrderNumber", "LEFT")
+			->join("Items", "Items.ItemCode = OrderDetails.ItemCode", "LEFT")
 			->where("Orders.OrderNumber", $id)
 			->where("Orders.ActiveStatus", 1);
 	
@@ -163,8 +160,14 @@ class Order_model extends CI_Model {
 		$result 	= $query->result_array();
 		$num_rows	= $query->num_rows();
 	
-		if( $num_rows > 0 )
+		if($num_rows > 0)
 		{
+			//### ลดจำนวนสินค้า ###//
+			foreach ($result as $rs)
+			{
+				$this->db->where("ItemCode", $rs["ItemCode"]);
+				$this->db->update("Items", array("ItemQty" => $rs['ItemQty']-$rs['OrderQty']));
+			}
 			
 			$this->db->where("OrderNumber", $id);
 			$this->db->update("Orders", array("Orders.ActiveStatus" => "2"));
